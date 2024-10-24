@@ -1,0 +1,26 @@
+.outf{
+    display: flex;
+    flex-direction: column;
+}
+.inner{
+    display: flex;
+    border: 2px sold black;
+}
+#vehicale{
+    display: flex;
+    justify-content: left;
+    padding-left: 20px;
+    margin-left: 20px;
+    border: 2px solid black;
+}
+.table{
+    border: 1px solid black;
+}
+.but{
+    padding: 8px;
+    margin: 5px;
+    border: 2px solid green;
+    border-radius: 10px;
+    background-color: green;
+    color: aliceblue;
+}
