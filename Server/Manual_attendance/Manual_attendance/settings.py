@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-+goqb89-a-tchfdm-p0%s4uag912w&urv-hgg&w%_7=412)c^a'
+SECRET_KEY = 'django-insecure-qkm@_9j@q+0_ln3s9(#(40xkq-tbm9!bi$o^_#u*puojo&9hs&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'import_export',
     'Phase1',
+
 ]
 
 MIDDLEWARE = [
@@ -58,6 +59,7 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',  # Your frontend URL
 ]
+
 
 ROOT_URLCONF = 'Manual_attendance.urls'
 
@@ -85,12 +87,8 @@ WSGI_APPLICATION = 'Manual_attendance.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'manual_attendance',    
-        'USER': 'root',    
-        'PASSWORD': 'Salman@2003',
-        'HOST': 'localhost',              
-        'PORT': '3306',                  
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 

@@ -7,7 +7,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.exceptions import NotFound
 import io
-
+from rest_framework import mixins
 
 # List all students or create a new one
 class Phase1StudentListCreateView(generics.ListCreateAPIView):
@@ -72,28 +72,44 @@ class UploadFileView(APIView):
 
 
 
+class AttendanceListCreateView(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
+    queryset = Anatomy.objects.all()
+    serializer_class = AnatomySerializer
 
-class AnatomyAttendanceView(APIView):
-    def post(self, request, *args, **kwargs):
-        roll_no = request.data.get('roll_no')  # Use 'roll_no' here
-        attendance_data = request.data.get('attendance')
-
-        # Validate roll_no
+    def get_object(self, student_id, date):
+        """
+        Retrieve the attendance record for a specific student and date.
+        """
         try:
-            student = Phase1Student.objects.get(roll_no=roll_no)  # Use 'roll_no' here
-        except Phase1Student.DoesNotExist:
-            return Response({"error": "Student not found."}, status=status.HTTP_404_NOT_FOUND)
+            return Anatomy.objects.get(student_id=student_id, date=date)
+        except Anatomy.DoesNotExist:
+            return None
 
-        # Get or create Anatomy record for the student
-        anatomy_record, created = Anatomy.objects.get_or_create(student=student)
+    def post(self, request, *args, **kwargs):
+        student_id = request.data.get('student')
+        date = request.data.get('date')
 
-        # Update attendance for each lecture
-        for lecture, status in attendance_data.items():
-            if hasattr(anatomy_record, lecture):
-                setattr(anatomy_record, lecture, status)
-            else:
-                return Response({"error": f"{lecture} is not a valid lecture."}, status=status.HTTP_400_BAD_REQUEST)
-        
-        anatomy_record.save()
+        # Check if the attendance already exists
+        attendance_record = self.get_object(student_id, date)
 
-        return Response({"message": "Attendance updated successfully!"}, status=status.HTTP_200_OK)  # Use status.HTTP_200_OK
+        if attendance_record:
+            # Update the existing record
+            serializer = self.get_serializer(attendance_record, data=request.data, partial=True)
+            serializer.is_valid(raise_exception=True)
+            self.perform_update(serializer)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            # Create a new record
+            serializer = self.get_serializer(data=request.data)
+            try:
+                serializer.is_valid(raise_exception=True)
+                self.perform_create(serializer)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            except IntegrityError:
+                return Response(
+                    {"detail": "Attendance record for this student on this date already exists."},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+
+    def perform_update(self, serializer):
+        serializer.save()

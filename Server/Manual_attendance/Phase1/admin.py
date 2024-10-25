@@ -18,5 +18,5 @@ class Phase1StudentAdmin(ImportExportModelAdmin):
 
 @admin.register(Anatomy)
 class AnatomyAdmin(admin.ModelAdmin):
-    list_display = ['student'] + [f'lecture_{i}' for i in range(1, 31)] 
-
+    list_display = ('student', 'date', 'status')
+    list_filter = ('date', 'status')
