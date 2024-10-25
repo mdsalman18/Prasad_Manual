@@ -13,9 +13,13 @@ function Login() {
     // Check for different user credentials and navigate accordingly
     if (email === 'anurag@gmail.com' && password === 'anurag123') {
       navigate('/attendence');
-    } else if (email === 'admin@gmail.com' && password === 'admin123') {
+    } else if (email === 'dean@gmail.com' && password === 'dean123') {
       navigate('/service/monthly');
-    } else {
+    } 
+      else if (email === 'admin@gmail.com' && password === 'admin123') {
+        navigate('/adminportal');
+      }
+    else {
       toast.error('Error while logging in')
     }
   };

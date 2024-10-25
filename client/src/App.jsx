@@ -14,6 +14,11 @@ import AddNewBatch from "./Dean/AddNewBatch";
 import ImportCSV from "./Dean/ImportCSV";
 import Monthly from "./Dean/Report/Monthly";
 import ServiceAdmin from "./Dean/ServiceAdmin";
+import AddNewBatch2 from "./Admin/addnewBatch";
+import AddNewStudent from "./Admin/addnewstudent";
+import AdminPortal from "./Admin/adminportal";
+import NewEmp from "./Admin/newemp";
+import NewSub from "./Admin/newsub";
 
 function App() {
   
@@ -36,6 +41,14 @@ function App() {
             <Route path='addbatch' element={<AddNewBatch/>}/> 
             <Route path='importcsv' element={<ImportCSV/>}/>
           </Route> 
+
+          {/* <Route path='admin' element={<ServiceAdmin/>}> */}
+          <Route path='adminportal' element={<AdminPortal/>}/>
+            <Route path='addnew' element={<AddNewBatch2/>}/>
+            <Route path='newstu' element={<AddNewStudent/>}/>
+            <Route path='newemp' element={<NewEmp/>}/>
+            <Route path='newsub' element={<NewSub/>}/>
+          {/* </Route>  */}
 
 
           </Route>

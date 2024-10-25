@@ -13,10 +13,10 @@ const AddNewBatch = () => {
 
   return (
     
-    <div className="flex">
+    <div className="flex min-h-screen">
       
       <div className="">
-      <h1 className="mb-3 text-5xl font-bold leading-none tracking-tight text-center text-gray-900 md:text-6xl lg:text-7xl dark:text-white underline">
+      <h1 className="mb-3 text-5xl font-bold leading-none tracking-tight text-center text-gray-400 md:text-6xl lg:text-7xl dark:text-white underline">
    Add New Batch
 </h1>
 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 w-1/2 mx-auto gap-6 text-center">
