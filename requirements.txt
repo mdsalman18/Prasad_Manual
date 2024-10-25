@@ -13,7 +13,7 @@ cors==1.0.1
 cycler==0.12.1
 debugpy==1.8.5
 decorator==5.1.1
-django==3.2.9                  # Updated version
+django==3.2.9              # Updated version
 django-cors-headers==3.10.0    # Updated version
 djangorestframework==3.12.4     # Updated version
 djangorestframework-simplejwt==5.3.1
