@@ -11,58 +11,225 @@ const Attendence = () => {
   const [subject, setSubject] = useState('');
 
   const allStudents = [
-    { rollNo: 1, name: 'John Doe', fathersName: 'Mr. Doe', present: true, email: 'john@example.com', phase: 1 },
-    { rollNo: 2, name: 'Jane Smith', fathersName: 'Mr. Smith', present: false, email: 'jane@example.com', phase: 2 },
-    { rollNo: 3, name: 'Michael Brown', fathersName: 'Mr. Brown', present: true, email: 'michael@example.com', phase: 3 },
-    { rollNo: 4, name: 'Emily Davis', fathersName: 'Mr. Davis', present: true, email: 'emily@example.com', phase: 4 },
-    { rollNo: 5, name: 'William Wilson', fathersName: 'Mr. Wilson', present: false, email: 'william@example.com', phase: 1 },
-    { rollNo: 6, name: 'Olivia Johnson', fathersName: 'Mr. Johnson', present: true, email: 'olivia@example.com', phase: 2 },
-    { rollNo: 7, name: 'James Martinez', fathersName: 'Mr. Martinez', present: true, email: 'james@example.com', phase: 3 },
-    { rollNo: 8, name: 'Isabella Garcia', fathersName: 'Mr. Garcia', present: false, email: 'isabella@example.com', phase: 4 },
-    { rollNo: 9, name: 'Alexander Rodriguez', fathersName: 'Mr. Rodriguez', present: true, email: 'alexander@example.com', phase: 1 },
-    { rollNo: 10, name: 'Sophia Hernandez', fathersName: 'Mr. Hernandez', present: true, email: 'sophia@example.com', phase: 2 },
-    { rollNo: 11, name: 'Daniel Moore', fathersName: 'Mr. Moore', present: false, email: 'daniel@example.com', phase: 3 },
-    { rollNo: 12, name: 'Charlotte Taylor', fathersName: 'Mr. Taylor', present: true, email: 'charlotte@example.com', phase: 4 },
-    { rollNo: 13, name: 'Ethan Anderson', fathersName: 'Mr. Anderson', present: true, email: 'ethan@example.com', phase: 1 },
-    { rollNo: 14, name: 'Amelia Thomas', fathersName: 'Mr. Thomas', present: false, email: 'amelia@example.com', phase: 2 },
-    { rollNo: 15, name: 'Logan Jackson', fathersName: 'Mr. Jackson', present: true, email: 'logan@example.com', phase: 3 },
-    { rollNo: 16, name: 'Mia White', fathersName: 'Mr. White', present: true, email: 'mia@example.com', phase: 4 },
-    { rollNo: 17, name: 'Lucas Harris', fathersName: 'Mr. Harris', present: false, email: 'lucas@example.com', phase: 1 },
-    { rollNo: 18, name: 'Ava Martin', fathersName: 'Mr. Martin', present: true, email: 'ava@example.com', phase: 2 },
-    { rollNo: 19, name: 'Mason Thompson', fathersName: 'Mr. Thompson', present: true, email: 'mason@example.com', phase: 3 },
-    { rollNo: 20, name: 'Harper Martinez', fathersName: 'Mr. Martinez', present: false, email: 'harper@example.com', phase: 4 },
-    { rollNo: 21, name: 'Liam Robinson', fathersName: 'Mr. Robinson', present: true, email: 'liam@example.com', phase: 1 },
-    { rollNo: 22, name: 'Ella Clark', fathersName: 'Mr. Clark', present: true, email: 'ella@example.com', phase: 2 },
-    { rollNo: 23, name: 'Noah Lewis', fathersName: 'Mr. Lewis', present: false, email: 'noah@example.com', phase: 3 },
-    { rollNo: 24, name: 'Aiden Walker', fathersName: 'Mr. Walker', present: true, email: 'aiden@example.com', phase: 4 },
-    { rollNo: 25, name: 'Grace Hall', fathersName: 'Mr. Hall', present: true, email: 'grace@example.com', phase: 1 },
-    { rollNo: 26, name: 'Carter Allen', fathersName: 'Mr. Allen', present: false, email: 'carter@example.com', phase: 2 },
-    { rollNo: 27, name: 'Ryan Scott', fathersName: 'Mr. Scott', present: true, email: 'ryan@example.com', phase: 1 },
-    { rollNo: 28, name: 'Zoe Wright', fathersName: 'Mr. Wright', present: false, email: 'zoe@example.com', phase: 2 },
-    { rollNo: 29, name: 'Nathan Green', fathersName: 'Mr. Green', present: true, email: 'nathan@example.com', phase: 3 },
-    { rollNo: 30, name: 'Lily Adams', fathersName: 'Mr. Adams', present: true, email: 'lily@example.com', phase: 4 },
-    { rollNo: 31, name: 'Jack Cooper', fathersName: 'Mr. Cooper', present: false, email: 'jack@example.com', phase: 1 },
-    { rollNo: 32, name: 'Sophie Turner', fathersName: 'Mr. Turner', present: true, email: 'sophie@example.com', phase: 2 },
-    { rollNo: 33, name: 'Henry Carter', fathersName: 'Mr. Carter', present: true, email: 'henry@example.com', phase: 3 },
-    { rollNo: 34, name: 'Luna Ward', fathersName: 'Mr. Ward', present: false, email: 'luna@example.com', phase: 4 },
-    { rollNo: 35, name: 'Leo Wood', fathersName: 'Mr. Wood', present: true, email: 'leo@example.com', phase: 1 },
-    { rollNo: 36, name: 'Ella Hughes', fathersName: 'Mr. Hughes', present: true, email: 'ella.h@example.com', phase: 2 },
-    { rollNo: 37, name: 'Owen Fisher', fathersName: 'Mr. Fisher', present: false, email: 'owen@example.com', phase: 3 },
-    { rollNo: 38, name: 'Grace Bell', fathersName: 'Mr. Bell', present: true, email: 'grace.b@example.com', phase: 4 },
-    { rollNo: 39, name: 'Samuel Long', fathersName: 'Mr. Long', present: true, email: 'samuel@example.com', phase: 1 },
-    { rollNo: 40, name: 'Isla Perry', fathersName: 'Mr. Perry', present: false, email: 'isla@example.com', phase: 2 },
-    { rollNo: 41, name: 'Eli Brooks', fathersName: 'Mr. Brooks', present: true, email: 'eli@example.com', phase: 3 },
-    { rollNo: 42, name: 'Aria Powell', fathersName: 'Mr. Powell', present: true, email: 'aria@example.com', phase: 4 },
-    { rollNo: 43, name: 'Sebastian King', fathersName: 'Mr. King', present: false, email: 'sebastian@example.com', phase: 1 },
-    { rollNo: 44, name: 'Chloe Price', fathersName: 'Mr. Price', present: true, email: 'chloe@example.com', phase: 2 },
-    { rollNo: 45, name: 'Lucas Foster', fathersName: 'Mr. Foster', present: true, email: 'lucas@example.com', phase: 3 },
-    { rollNo: 46, name: 'Mila Sanders', fathersName: 'Mr. Sanders', present: false, email: 'mila@example.com', phase: 4 },
-    { rollNo: 47, name: 'Dylan Rogers', fathersName: 'Mr. Rogers', present: true, email: 'dylan@example.com', phase: 1 },
-    { rollNo: 48, name: 'Sienna Griffin', fathersName: 'Mr. Griffin', present: true, email: 'sienna@example.com', phase: 2 },
-    { rollNo: 49, name: 'Caleb Richardson', fathersName: 'Mr. Richardson', present: false, email: 'caleb@example.com', phase: 3 },
-    { rollNo: 50, name: 'Hannah Cox', fathersName: 'Mr. Cox', present: true, email: 'hannah@example.com', phase: 4 },
-    { rollNo: 51, name: 'Benjamin Lee', fathersName: 'Mr. Lee', present: true, email: 'benjamin@example.com', phase: 1}
-];
+    {
+      "id": 124,
+      "name": "Aisha Khan",
+      "fatherName": "Farooq",
+      "cnic": "987654321",
+      "contact": "9876543210",
+      "email": "aishakhan124@gmail.com",
+      "phase": 1
+    },
+    {
+      "id": 125,
+      "name": "Ahmed Raza",
+      "fatherName": "Imran",
+      "cnic": "912345678",
+      "contact": "9123456789",
+      "email": "ahmedraza125@gmail.com",
+      "phase": 1
+    },
+    {
+      "id": 126,
+      "name": "Sana Fatima",
+      "fatherName": "Zafar",
+      "cnic": "923456789",
+      "contact": "9234567890",
+      "email": "sanafatima126@gmail.com",
+      "phase": 1
+    },
+    {
+      "id": 127,
+      "name": "Ali Khan",
+      "fatherName": "Jamal",
+      "cnic": "934567890",
+      "contact": "9345678901",
+      "email": "alikhan127@gmail.com",
+      "phase": 1
+    },
+    {
+      "id": 128,
+      "name": "Zainab Ali",
+      "fatherName": "Sameer",
+      "cnic": "945678901",
+      "contact": "9456789012",
+      "email": "zainabali128@gmail.com",
+      "phase": 1
+    },
+    {
+      "id": 129,
+      "name": "Hamza Sheikh",
+      "fatherName": "Tariq",
+      "cnic": "956789012",
+      "contact": "9567890123",
+      "email": "hamzasheikh129@gmail.com",
+      "phase": 1
+    },
+    {
+      "id": 130,
+      "name": "Fatima Noor",
+      "fatherName": "Khalid",
+      "cnic": "967890123",
+      "contact": "9678901234",
+      "email": "fatimanoor130@gmail.com",
+      "phase": 1
+    },
+    {
+      "id": 131,
+      "name": "Imran Shaikh",
+      "fatherName": "Akram",
+      "cnic": "978901234",
+      "contact": "9789012345",
+      "email": "imranshaikh131@gmail.com",
+      "phase": 1
+    },
+    {
+      "id": 132,
+      "name": "Alina Ansari",
+      "fatherName": "Bilal",
+      "cnic": "989012345",
+      "contact": "9890123456",
+      "email": "alinaansari132@gmail.com",
+      "phase": 1
+    },
+    {
+      "id": 133,
+      "name": "Salman Khan",
+      "fatherName": "Sajid",
+      "cnic": "990123456",
+      "contact": "9901234567",
+      "email": "salmankhan133@gmail.com",
+      "phase": 1
+    },
+    {
+      "id": 134,
+      "name": "Maryam Rafiq",
+      "fatherName": "Rafiq",
+      "cnic": "912334455",
+      "contact": "9123344556",
+      "email": "maryamrafiq134@gmail.com",
+      "phase": 1
+    },
+    {
+      "id": 135,
+      "name": "Azhar Siddiqui",
+      "fatherName": "Khalil",
+      "cnic": "923445566",
+      "contact": "9234455667",
+      "email": "azharsiddiqui135@gmail.com",
+      "phase": 1
+    },
+    {
+      "id": 136,
+      "name": "Rida Khan",
+      "fatherName": "Farhan",
+      "cnic": "934556677",
+      "contact": "9345566778",
+      "email": "ridakhan136@gmail.com",
+      "phase": 1
+    },
+    {
+      "id": 137,
+      "name": "Junaid Malik",
+      "fatherName": "Aslam",
+      "cnic": "945667788",
+      "contact": "9456677889",
+      "email": "junaidmalik137@gmail.com",
+      "phase": 1
+    },
+    {
+      "id": 138,
+      "name": "Hiba Khan",
+      "fatherName": "Afzal",
+      "cnic": "956778899",
+      "contact": "9567788990",
+      "email": "hibakhan138@gmail.com",
+      "phase": 1
+    },
+    {
+      "id": 139,
+      "name": "Tariq Qureshi",
+      "fatherName": "Qasim",
+      "cnic": "967889900",
+      "contact": "9678899001",
+      "email": "tariqqureshi139@gmail.com",
+      "phase": 2
+    },
+    {
+      "id": 140,
+      "name": "Farah Ahmed",
+      "fatherName": "Zahid",
+      "cnic": "978990011",
+      "contact": "9789900112",
+      "email": "farahahmed140@gmail.com",
+      "phase": 2
+    },
+    {
+      "id": 141,
+      "name": "Adnan Rehman",
+      "fatherName": "Ameer",
+      "cnic": "989101122",
+      "contact": "9891011223",
+      "email": "adnanrehman141@gmail.com",
+      "phase": 2
+    },
+    {
+      "id": 142,
+      "name": "Fariha Khan",
+      "fatherName": "Waqar",
+      "cnic": "990112233",
+      "contact": "9901122334",
+      "email": "farihakhan142@gmail.com",
+      "phase": 2
+    },
+    {
+      "id": 143,
+      "name": "Asad Shaikh",
+      "fatherName": "Irfan",
+      "cnic": "912223344",
+      "contact": "9122233445",
+      "email": "asadshaikh143@gmail.com",
+      "phase": 3
+    },
+    {
+      "id": 144,
+      "name": "Zoya Fatima",
+      "fatherName": "Bashir",
+      "cnic": "923334455",
+      "contact": "9233344556",
+      "email": "zoyafatima144@gmail.com",
+      "phase": 3
+    },
+    {
+      "id": 145,
+      "name": "Bilal Hussain",
+      "fatherName": "Rashid",
+      "cnic": "934445566",
+      "contact": "9344455667",
+      "email": "bilalhussain145@gmail.com",
+      "phase": 3
+    },
+    {
+      "id": 146,
+      "name": "Mahira Khan",
+      "fatherName": "Sajjad",
+      "cnic": "945556677",
+      "contact": "9455566778",
+      "email": "mahirakhan146@gmail.com",
+      "phase": 3
+    },
+    {
+      "id": 147,
+      "name": "Yasin Ahmed",
+      "fatherName": "Wajid",
+      "cnic": "956667788",
+      "contact": "9566677889",
+      "email": "yasinahmed147@gmail.com",
+      "phase": 3
+    }
+  ]
+  
+  
 
 const phase1Subjects = ["Anatomy" ,"Physiology","Biochemistry","Community Medicine", "Foundation Course", "ECA"]
 const phase2Subjects = ["Community Medicine" ,"Pathology","Microbiology","Pharmacology", "Forensic Med & TC","Medicine","Surgery", "Obs & Gyn","ECA"]
@@ -73,7 +240,6 @@ const [filteredStudents, setFilteredStudents] = useState([]);
 const [availableSubjects, setAvailableSubjects] = useState([]);
 const [checkedStudents, setCheckedStudents] = useState([]);
 const [markAbsent, setMarkAbsent] = useState([]);
-const [markLeave, setMarkLeave] = useState([]);
 
 
 useEffect(() => {
@@ -124,24 +290,20 @@ useEffect(() => {
   
   setCheckedStudents(new Array(newFilteredStudents.length).fill(false));
   setMarkAbsent(new Array(newFilteredStudents.length).fill(false));
-  setMarkLeave(new Array(newFilteredStudents.length).fill(false));
 }, [classSection]);
 
 
 const handleCheckAll = () => {
   setCheckedStudents(new Array(filteredStudents.length).fill(true));
   setMarkAbsent(new Array(filteredStudents.length).fill(false));
-  setMarkLeave(new Array(filteredStudents.length).fill(false));
 };
 
 const handleAbsentAll = () => {
   setMarkAbsent(new Array(filteredStudents.length).fill(true));
   setCheckedStudents(new Array(filteredStudents.length).fill(false));
-  setMarkLeave(new Array(filteredStudents.length).fill(false));
 };
 
 const handleLeaveAll = () => {
-  setMarkLeave(new Array(filteredStudents.length).fill(true));
   setCheckedStudents(new Array(filteredStudents.length).fill(false));
   setMarkAbsent(new Array(filteredStudents.length).fill(false));
 };
@@ -149,7 +311,6 @@ const handleLeaveAll = () => {
 const handleClearAll = () => {
   setMarkAbsent(new Array(filteredStudents.length).fill(false));
   setCheckedStudents(new Array(filteredStudents.length).fill(false));
-  setMarkLeave(new Array(filteredStudents.length).fill(false));
 };
 
 const handleCheckboxChange = (index) => {
@@ -159,11 +320,8 @@ const handleCheckboxChange = (index) => {
 
   if (updatedCheckedStudents[index]) {
     const updatedMarkAbsent = [...markAbsent];
-    const updatedMarkLeave = [...markLeave];
     updatedMarkAbsent[index] = false;
-    updatedMarkLeave[index] = false;
     setMarkAbsent(updatedMarkAbsent);
-    setMarkLeave(updatedMarkLeave);
   }
 };
 
@@ -174,28 +332,11 @@ const handleAbsentChange = (index) => {
 
   if (updatedMarkedStudents[index]) {
     const updatedCheckedStudents = [...checkedStudents];
-    const updatedMarkLeave = [...markLeave];
     updatedCheckedStudents[index] = false;
-    updatedMarkLeave[index] = false;
     setCheckedStudents(updatedCheckedStudents);
-    setMarkLeave(updatedMarkLeave);
   }
 };
 
-const handleLeaveChange = (index) => {
-  const updatedMarkLeave = [...markLeave];
-  updatedMarkLeave[index] = !updatedMarkLeave[index];
-  setMarkLeave(updatedMarkLeave);
-
-  if (updatedMarkLeave[index]) {
-    const updatedCheckedStudents = [...checkedStudents];
-    const updatedMarkAbsent = [...markAbsent];
-    updatedCheckedStudents[index] = false;
-    updatedMarkAbsent[index] = false;
-    setCheckedStudents(updatedCheckedStudents);
-    setMarkAbsent(updatedMarkAbsent);
-  }
-};
 
 const handleSubmit = () => {
   toast.success("Attendence Updated In Record!", {
@@ -220,7 +361,8 @@ const handleSubmit = () => {
         <h1 className="font-bold text-center mt-4 my-4 text-xl">Student Attendance</h1>
 
         
-        <div className="flex flex-wrap lg:flex-nowrap justify-evenly">
+        <div className="flex flex-wrap lg:flex-nowrap justify-evenly gap-10">
+
         <div className="flex flex-col items-center justify-center h-full">
             <label
               htmlFor="class-section"
@@ -339,18 +481,18 @@ const handleSubmit = () => {
             onChange={(e) => setSubject(e.target.value)}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
-            <option value="" disabled>Select Lecture Count</option>
-            <option value="lecture 1">lecture 1</option>
-            <option value="lecture 2">lecture 2</option>
-            <option value="lecture 3">lecture 3</option>
-            <option value="lecture 4">lecture 4</option>
-            <option value="lecture 5">lecture 5</option>
-            <option value="lecture 6">lecture 6</option>
-            <option value="lecture 7">lecture 7</option>
-            <option value="lecture 8">lecture 8</option>
-            <option value="lecture 9">lecture 9</option>
-            <option value="lecture 10">lecture 10</option>
-
+            <option value="" disabled>Select Lecture Type</option>
+            <option value="Lecture">Lecture</option>
+            <option value="Practical">Practical</option>
+            <option value="Morning Posting">Morning Posting</option>
+            <option value="Family Adoption Programme">Family Adoption Programme</option>
+            <option value="Self Directed Learning">Self Directed Learning</option>
+            <option value="Small Gp Discussion">Small Gp Discussion</option>
+            <option value="AETCOM">AETCOM</option>
+            <option value="Pandemic Module">Pandemic Module</option>
+            <option value="Sports/Yoga & Extra Curricular Acititvies">Sports/ Yoga & Extra Curricular Acititvies</option>
+            <option value="Electives">Electives</option>
+ 
           </select>
         </div>
       </div>
@@ -392,10 +534,10 @@ const handleSubmit = () => {
             </thead>
             <tbody>
               {filteredStudents.map((student, index) => (
-                <tr key={student.rollNo} >
-                  <td className="py-2 px-4 border-b text-black">{student.rollNo}</td>
+                <tr key={student.id} >
+                  <td className="py-2 px-4 border-b text-black">{student.id}</td>
                   <td className="py-2 px-4 border-b text-black">{student.name}</td>
-                  <td className="py-2 px-4 border-b text-black">{student.fathersName}</td>
+                  <td className="py-2 px-4 border-b text-black">{student.fatherName}</td>
                   <td className="py-2 px-4 border-b pl-6 text-black">
                     <input
                       type="checkbox"

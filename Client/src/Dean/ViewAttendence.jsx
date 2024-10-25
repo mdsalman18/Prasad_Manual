@@ -52,8 +52,9 @@ const ViewAttendance = () => {
     <div className="bg-black mb-6">
       <div className='my-5'>
         <h1 className="font-bold text-center mt-4 my-4 text-xl text-white">Student Attendance</h1>
-        <div className="flex flex-wrap lg:flex-nowrap justify-evenly">
-          <div className="flex items-center justify-center h-full">
+        <div className="flex flex-wrap lg:flex-nowrap gap-10 justify-evenly">
+
+          <div className="flex flex-col items-center justify-center h-full">
             <label htmlFor="class-section" className="block mb-2 text-sm font-medium text-gray-500 dark:text-white ml-4">
               Select Class Section <span className="text-red-500">*</span>
             </label>
@@ -85,7 +86,7 @@ const ViewAttendance = () => {
             </select>
           </div>
 
-          <div className="flex items-center justify-center h-full">
+          <div className="flex items-center flex-col justify-center h-full">
             <label htmlFor="attendance-date" className="block mb-2 text-sm font-medium text-gray-500 dark:text-white ml-5">
               Attendance Date <span className="text-red-500">*</span>
             </label>
@@ -98,7 +99,7 @@ const ViewAttendance = () => {
             />
           </div>
 
-          <div className="flex items-center justify-center h-full">
+          <div className="flex items-center flex-col justify-center h-full">
             <label htmlFor="time-slot" className="block mb-2 text-sm font-medium text-gray-500 dark:text-white ml-4">
               Select Time Slot <span className="text-red-500">*</span>
             </label>
@@ -124,7 +125,7 @@ const ViewAttendance = () => {
             </select>
           </div>
 
-          <div className="flex items-center justify-center h-full">
+          <div className="flex items-center flex-col justify-center h-full">
             <label htmlFor="subject" className="block mb-2 text-sm font-medium text-gray-500 dark:text-white ml-4">
               Select Subject <span className="text-red-500">*</span>
             </label>
@@ -157,7 +158,7 @@ const ViewAttendance = () => {
             </select>
           </div>
 
-          <div className="flex items-center justify-center h-full">
+          <div className="flex items-center mt-4 justify-center h-full">
             <button
               onClick={handleViewAttendance}
               className="ml-4 text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -165,6 +166,8 @@ const ViewAttendance = () => {
               View Attendance
             </button>
           </div>
+
+
         </div>
       </div>
 

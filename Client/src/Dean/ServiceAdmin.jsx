@@ -15,10 +15,9 @@ const ServiceAdmin = () => {
   return (
     
     <div className="flex">
-      <aside className="flex h-screen w-64 flex-col overflow-y-auto border-r bg-black px-5 py-8">
-        {/* <img src="" alt="photo" className="w10" /> */}
-        <div className="mt-6 flex flex-1 flex-col justify-between">
-          <nav className="mx-3 space-y-6 ">
+      <aside className="flex h-screen w-64 absolute left-0 top-16 flex-col overflow-y-auto border-r bg-black  py-8">
+        <div className="mt-6 flex flex-1 flex-col w-full justify-between">
+          <nav className="mx-3 space-y-6  ">
             <div className="mx-3 space-y-6">
             <label className="px-3 text-xl font-semibold uppercase text-white">
                 Dean Portal
@@ -88,7 +87,9 @@ const ServiceAdmin = () => {
           </nav>
         </div>
       </aside>
+      <div className=" ml-64">
       <Outlet />
+      </div>
     </div>
   );
 };

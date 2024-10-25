@@ -304,9 +304,9 @@ const Monthly = () => {
                     )}
                 </div>
 
-                <div className=" w-[90%]  flex justify-evenly overflow-x-auto">
-                    <div className="w-[80%] ">
-                <table className="min-w-full border-collapse border border-gray-400 mt-5 mx-auto overflow-scroll">
+                <div className=" w-[90%] ml-[10%]  flex justify-evenly overflow-x-auto">
+                    <div className="w-full ">
+                    <table className="min-w-full border-collapse border border-gray-400 mt-5 mx-auto overflow-scroll">
                         <thead>
                             <tr className="bg-gray-700">
                                 <th className="border border-gray-300 text-left p-4 text-white">Roll No</th>
