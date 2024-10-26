@@ -90,9 +90,15 @@ WSGI_APPLICATION = 'Manual_attendance.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'NAME': BASE_DIR / "db.sqlite3",
+    },
+    'phase1': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / "phase1.sqlite3",  # New database file for Phase1
+    },
 }
+
+DATABASE_ROUTERS = ['Phase1.routers.Phase1DatabaseRouter']
 
 
 # Password validation
