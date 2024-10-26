@@ -48,9 +48,9 @@ class UploadFileView(APIView):
                 for _, row in df.iterrows():
                     # Prepare student data based on CSV columns
                     student_data = {
-                        'roll_number': int(row.get('roll_no')),  # Adjusted to match your model
+                        'roll_no': row.get('roll_no'),  # Adjusted to match your model
                         'name': row.get('name'),
-                        'father_name': row.get('fathers_name'),  # Ensure this matches your model
+                        'fathers_name': row.get('fathers_name'),  # Ensure this matches your model
                         'student_mobile': row.get('student_mobile'),
                         'father_mobile': row.get('father_mobile'),
                         'email': row.get('email')

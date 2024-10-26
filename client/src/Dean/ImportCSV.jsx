@@ -43,7 +43,8 @@ const ImportCSV = () => {
     reader.onload = (e) => {
       const text = e.target.result;
       const firstLine = text.split('\n')[0];
-
+      const headers = firstLine.split(',').map(header => header.trim());
+      
       if (!validateHeaders(headers)) {
         setError("CSV must contain headers: NAME, PHONE NUMBER, BATCH NUMBER");
         setFile(null);
