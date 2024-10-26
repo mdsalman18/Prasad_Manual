@@ -72,44 +72,54 @@ class UploadFileView(APIView):
 
 
 
+
+
+
 class AttendanceListCreateView(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
-    queryset = Anatomy.objects.all()
     serializer_class = AnatomySerializer
 
     def get_object(self, student_id, date):
-        """
-        Retrieve the attendance record for a specific student and date.
-        """
         try:
             return Anatomy.objects.get(student_id=student_id, date=date)
         except Anatomy.DoesNotExist:
             return None
 
     def post(self, request, *args, **kwargs):
-        student_id = request.data.get('student')
-        date = request.data.get('date')
+        attendance_data = request.data.get('attendance_list', [])
+        response_data = []
 
-        # Check if the attendance already exists
-        attendance_record = self.get_object(student_id, date)
+        for data in attendance_data:
+            student_id = data.get('student')
+            date = data.get('date')
+            status = data.get('status')
 
-        if attendance_record:
-            # Update the existing record
-            serializer = self.get_serializer(attendance_record, data=request.data, partial=True)
-            serializer.is_valid(raise_exception=True)
-            self.perform_update(serializer)
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        else:
-            # Create a new record
-            serializer = self.get_serializer(data=request.data)
-            try:
-                serializer.is_valid(raise_exception=True)
-                self.perform_create(serializer)
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
-            except IntegrityError:
-                return Response(
-                    {"detail": "Attendance record for this student on this date already exists."},
-                    status=status.HTTP_400_BAD_REQUEST
-                )
+            # Check if the attendance already exists
+            attendance_record = self.get_object(student_id, date)
+
+            if attendance_record:
+                # Update the existing record
+                serializer = self.get_serializer(attendance_record, data=data, partial=True)
+                if serializer.is_valid():
+                    self.perform_update(serializer)
+                    response_data.append(serializer.data)
+                else:
+                    response_data.append({"student": student_id, "error": serializer.errors})
+            else:
+                # Create a new record
+                serializer = self.get_serializer(data=data)
+                if serializer.is_valid():
+                    try:
+                        self.perform_create(serializer)
+                        response_data.append(serializer.data)
+                    except IntegrityError:
+                        response_data.append({"student": student_id, "error": "Attendance record already exists."})
+                else:
+                    response_data.append({"student": student_id, "error": serializer.errors})
+
+        return Response(response_data, status=status.HTTP_200_OK)
 
     def perform_update(self, serializer):
+        serializer.save()
+
+    def perform_create(self, serializer):
         serializer.save()
