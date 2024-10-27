@@ -144,10 +144,10 @@ const formatAttendanceData = () => {
       status = "P";
     } else if (markAbsent[index]) {
       status = "A";
-    }
+    } 
 
     return {
-      student: index+1, // Using roll_no as student identifier
+      roll_number : student.roll_no, // Using roll_no as student identifier
       date: attendanceDate || new Date().toISOString().split('T')[0], // Use selected date or today's date
       status: status
     };
