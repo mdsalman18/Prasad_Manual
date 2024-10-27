@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Attendence.css";
 import Service from "../components/Service";
 import { toast } from 'react-toastify';
+import axiosInstance from "../axiosInstance";
 
 const Attendence = () => {
   const [classSection, setClassSection] = useState('');
@@ -10,224 +11,6 @@ const Attendence = () => {
   const [timeSlot, setTimeSlot] = useState('');
   const [subject, setSubject] = useState('');
 
-  const allStudents = [
-    {
-      "id": 124,
-      "name": "Aisha Khan",
-      "fatherName": "Farooq",
-      "cnic": "987654321",
-      "contact": "9876543210",
-      "email": "aishakhan124@gmail.com",
-      "phase": 1
-    },
-    {
-      "id": 125,
-      "name": "Ahmed Raza",
-      "fatherName": "Imran",
-      "cnic": "912345678",
-      "contact": "9123456789",
-      "email": "ahmedraza125@gmail.com",
-      "phase": 1
-    },
-    {
-      "id": 126,
-      "name": "Sana Fatima",
-      "fatherName": "Zafar",
-      "cnic": "923456789",
-      "contact": "9234567890",
-      "email": "sanafatima126@gmail.com",
-      "phase": 1
-    },
-    {
-      "id": 127,
-      "name": "Ali Khan",
-      "fatherName": "Jamal",
-      "cnic": "934567890",
-      "contact": "9345678901",
-      "email": "alikhan127@gmail.com",
-      "phase": 1
-    },
-    {
-      "id": 128,
-      "name": "Zainab Ali",
-      "fatherName": "Sameer",
-      "cnic": "945678901",
-      "contact": "9456789012",
-      "email": "zainabali128@gmail.com",
-      "phase": 1
-    },
-    {
-      "id": 129,
-      "name": "Hamza Sheikh",
-      "fatherName": "Tariq",
-      "cnic": "956789012",
-      "contact": "9567890123",
-      "email": "hamzasheikh129@gmail.com",
-      "phase": 1
-    },
-    {
-      "id": 130,
-      "name": "Fatima Noor",
-      "fatherName": "Khalid",
-      "cnic": "967890123",
-      "contact": "9678901234",
-      "email": "fatimanoor130@gmail.com",
-      "phase": 1
-    },
-    {
-      "id": 131,
-      "name": "Imran Shaikh",
-      "fatherName": "Akram",
-      "cnic": "978901234",
-      "contact": "9789012345",
-      "email": "imranshaikh131@gmail.com",
-      "phase": 1
-    },
-    {
-      "id": 132,
-      "name": "Alina Ansari",
-      "fatherName": "Bilal",
-      "cnic": "989012345",
-      "contact": "9890123456",
-      "email": "alinaansari132@gmail.com",
-      "phase": 1
-    },
-    {
-      "id": 133,
-      "name": "Salman Khan",
-      "fatherName": "Sajid",
-      "cnic": "990123456",
-      "contact": "9901234567",
-      "email": "salmankhan133@gmail.com",
-      "phase": 1
-    },
-    {
-      "id": 134,
-      "name": "Maryam Rafiq",
-      "fatherName": "Rafiq",
-      "cnic": "912334455",
-      "contact": "9123344556",
-      "email": "maryamrafiq134@gmail.com",
-      "phase": 1
-    },
-    {
-      "id": 135,
-      "name": "Azhar Siddiqui",
-      "fatherName": "Khalil",
-      "cnic": "923445566",
-      "contact": "9234455667",
-      "email": "azharsiddiqui135@gmail.com",
-      "phase": 1
-    },
-    {
-      "id": 136,
-      "name": "Rida Khan",
-      "fatherName": "Farhan",
-      "cnic": "934556677",
-      "contact": "9345566778",
-      "email": "ridakhan136@gmail.com",
-      "phase": 1
-    },
-    {
-      "id": 137,
-      "name": "Junaid Malik",
-      "fatherName": "Aslam",
-      "cnic": "945667788",
-      "contact": "9456677889",
-      "email": "junaidmalik137@gmail.com",
-      "phase": 1
-    },
-    {
-      "id": 138,
-      "name": "Hiba Khan",
-      "fatherName": "Afzal",
-      "cnic": "956778899",
-      "contact": "9567788990",
-      "email": "hibakhan138@gmail.com",
-      "phase": 1
-    },
-    {
-      "id": 139,
-      "name": "Tariq Qureshi",
-      "fatherName": "Qasim",
-      "cnic": "967889900",
-      "contact": "9678899001",
-      "email": "tariqqureshi139@gmail.com",
-      "phase": 2
-    },
-    {
-      "id": 140,
-      "name": "Farah Ahmed",
-      "fatherName": "Zahid",
-      "cnic": "978990011",
-      "contact": "9789900112",
-      "email": "farahahmed140@gmail.com",
-      "phase": 2
-    },
-    {
-      "id": 141,
-      "name": "Adnan Rehman",
-      "fatherName": "Ameer",
-      "cnic": "989101122",
-      "contact": "9891011223",
-      "email": "adnanrehman141@gmail.com",
-      "phase": 2
-    },
-    {
-      "id": 142,
-      "name": "Fariha Khan",
-      "fatherName": "Waqar",
-      "cnic": "990112233",
-      "contact": "9901122334",
-      "email": "farihakhan142@gmail.com",
-      "phase": 2
-    },
-    {
-      "id": 143,
-      "name": "Asad Shaikh",
-      "fatherName": "Irfan",
-      "cnic": "912223344",
-      "contact": "9122233445",
-      "email": "asadshaikh143@gmail.com",
-      "phase": 3
-    },
-    {
-      "id": 144,
-      "name": "Zoya Fatima",
-      "fatherName": "Bashir",
-      "cnic": "923334455",
-      "contact": "9233344556",
-      "email": "zoyafatima144@gmail.com",
-      "phase": 3
-    },
-    {
-      "id": 145,
-      "name": "Bilal Hussain",
-      "fatherName": "Rashid",
-      "cnic": "934445566",
-      "contact": "9344455667",
-      "email": "bilalhussain145@gmail.com",
-      "phase": 3
-    },
-    {
-      "id": 146,
-      "name": "Mahira Khan",
-      "fatherName": "Sajjad",
-      "cnic": "945556677",
-      "contact": "9455566778",
-      "email": "mahirakhan146@gmail.com",
-      "phase": 3
-    },
-    {
-      "id": 147,
-      "name": "Yasin Ahmed",
-      "fatherName": "Wajid",
-      "cnic": "956667788",
-      "contact": "9566677889",
-      "email": "yasinahmed147@gmail.com",
-      "phase": 3
-    }
-  ]
   
   
 
@@ -237,10 +20,24 @@ const phase3Subjects = ["Community Medicine" ,"Medicine","Surgery","Paediatrics"
 const phase4Subjects = ["Psychiatry" ,"Medicine","Surgery","Dermatology", "Radiology","Orthopaedics","Paediatrics","ENT", "Anaesthsiology","Ophthalmology","Obs & Gyn"]
 
 const [filteredStudents, setFilteredStudents] = useState([]);
+const [allStudents, setAllStudents] = useState([]);
 const [availableSubjects, setAvailableSubjects] = useState([]);
 const [checkedStudents, setCheckedStudents] = useState([]);
 const [markAbsent, setMarkAbsent] = useState([]);
 
+const getStudents = async () => {
+  axiosInstance.get('/students/')
+  .then(res => {
+    console.log(res);
+    setAllStudents(res.data)
+  })
+  .catch(e => {
+    console.log(e);
+  })
+}
+useEffect(() => {
+  getStudents();
+}, [])
 
 useEffect(() => {
   // Reset subject selection when phase changes
@@ -285,8 +82,11 @@ useEffect(() => {
       phase = 0;
   }
 
-  const newFilteredStudents = phase === 0 ? [] : allStudents.filter(student => student.phase === phase);
-  setFilteredStudents(newFilteredStudents);
+  const newFilteredStudents = phase === 0 ? allStudents : allStudents.filter(student => student.phase === phase);
+  //
+//  when a phase field is given then set setFilteredStudents to newFilteredStudents
+  //
+  setFilteredStudents(allStudents);
   
   setCheckedStudents(new Array(newFilteredStudents.length).fill(false));
   setMarkAbsent(new Array(newFilteredStudents.length).fill(false));
@@ -303,10 +103,6 @@ const handleAbsentAll = () => {
   setCheckedStudents(new Array(filteredStudents.length).fill(false));
 };
 
-const handleLeaveAll = () => {
-  setCheckedStudents(new Array(filteredStudents.length).fill(false));
-  setMarkAbsent(new Array(filteredStudents.length).fill(false));
-};
 
 const handleClearAll = () => {
   setMarkAbsent(new Array(filteredStudents.length).fill(false));
@@ -338,17 +134,96 @@ const handleAbsentChange = (index) => {
 };
 
 
-const handleSubmit = () => {
-  toast.success("Attendence Updated In Record!", {
-    position: "top-right",
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-  });
+
+
+const formatAttendanceData = () => {
+  const attendance_list = filteredStudents.map((student, index) => {
+    // Determine status based on checked or absent state
+    let status = "A"; // Default to absent
+    if (checkedStudents[index]) {
+      status = "P";
+    } else if (markAbsent[index]) {
+      status = "A";
+    }
+
+    return {
+      student: index+1, // Using roll_no as student identifier
+      date: attendanceDate || new Date().toISOString().split('T')[0], // Use selected date or today's date
+      status: status
+    };
+  }).filter(attendance => attendance.status === "P" || attendance.status === "A"); // Only include marked students
+
+  return { attendance_list };
 };
+
+const handleSubmit = async () => {
+  // Validate if date is selected
+  if (!attendanceDate) {
+    toast.error("Please select attendance date!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    return;
+  }
+
+  // Validate if any student is marked
+  const anyStudentMarked = checkedStudents.some(checked => checked) || markAbsent.some(absent => absent);
+  if (!anyStudentMarked) {
+    toast.error("Please mark at least one student's attendance!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    return;
+  }
+
+  try {
+    const attendanceData = formatAttendanceData();
+    
+    // Send data to backend
+    const response = await axiosInstance.post('/anatomy/', attendanceData).then(res => {
+
+    
+    console.log(res);
+    
+    
+      toast.success("Attendance Updated In Record!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    
+    })
+      
+      handleClearAll();
+    }
+ catch (error) {    
+    console.error("Error submitting attendance:", error);
+    toast.error("Failed to update attendance. Please try again!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  }
+};
+
 
   
 
@@ -514,18 +389,19 @@ const handleSubmit = () => {
                 <th className="py-2 px-4 border-b text-black text-left">Roll No</th>
                 <th className="py-2 px-4 border-b text-black text-left">Name</th>
                 <th className="py-2 px-4 border-b text-black text-left">Father's Name</th>
-                <th className="py-2 px-4 border-b text-black text-left">
-                  <button
-                    onClick={handleAbsentAll}
-                    className="px-4 py-2 text-black bg-red-600 rounded border-2">
-                    Absent <i className="fa-regular fa-circle"></i>
-                  </button>
-                </th>
+                
                 <th className="py-2 px-4 border-b text-black text-left">
                   <button
                     onClick={handleCheckAll}
                     className="px-4 py-2 bg-green-600 text-black rounded border-2">
                     Present <i className="fa-regular fa-circle"></i>
+                  </button>
+                </th>
+                <th className="py-2 px-4 border-b text-black text-left">
+                  <button
+                    onClick={handleAbsentAll}
+                    className="px-4 py-2 text-black bg-red-600 rounded border-2">
+                    Absent <i className="fa-regular fa-circle"></i>
                   </button>
                 </th>
                 
@@ -535,23 +411,24 @@ const handleSubmit = () => {
             <tbody>
               {filteredStudents.map((student, index) => (
                 <tr key={student.id} >
-                  <td className="py-2 px-4 border-b text-black">{student.id}</td>
+                  <td className="py-2 px-4 border-b text-black">{student.roll_no}</td>
                   <td className="py-2 px-4 border-b text-black">{student.name}</td>
-                  <td className="py-2 px-4 border-b text-black">{student.fatherName}</td>
-                  <td className="py-2 px-4 border-b pl-6 text-black">
-                    <input
-                      type="checkbox"
-                      className="w-6 h-6 mx-8"
-                      checked={markAbsent[index]}
-                      onChange={() => handleAbsentChange(index)}
-                    />
-                  </td>
+                  <td className="py-2 px-4 border-b text-black">{student.fathers_name}</td>
+                  
                   <td className="py-2 px-4 border-b pl-6">
                     <input
                       className="w-6 h-6 mx-8"
                       type="checkbox"
                       checked={checkedStudents[index]}
                       onChange={() => handleCheckboxChange(index)}
+                    />
+                  </td>
+                  <td className="py-2 px-4 border-b pl-6 text-black">
+                    <input
+                      type="checkbox"
+                      className="w-6 h-6 mx-8"
+                      checked={markAbsent[index]}
+                      onChange={() => handleAbsentChange(index)}
                     />
                   </td>
                   
