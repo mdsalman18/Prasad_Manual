@@ -9,4 +9,4 @@ class Phase1StudentSerializer(serializers.ModelSerializer):
 class AnatomySerializer(serializers.ModelSerializer):
     class Meta:
         model = Anatomy
-        fields = ['id', 'student', 'date', 'status']
+        fields = ['roll_number', 'student_name', 'date', 'status']

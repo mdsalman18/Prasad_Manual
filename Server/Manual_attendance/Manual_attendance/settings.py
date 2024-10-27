@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     'corsheaders',
     'import_export',
     'Phase1',
+    'Phase2',
+    'Phase3_P1',
+    'Phase3_P2',
 
 ]
 
@@ -96,9 +99,29 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / "phase1.sqlite3",  # New database file for Phase1
     },
+
+    'phase2': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / "phase2.sqlite3",  # New database file for Phase2
+    },
+    
+    'phase3_p1': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / "phase3_p1.sqlite3",  # New database file for Phase3_P1
+    },
+    'phase3_p2': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / "phase3_p2.sqlite3",  # New database file for Phase3_P2
+    },
+    
+   
 }
 
-DATABASE_ROUTERS = ['Phase1.routers.Phase1DatabaseRouter']
+DATABASE_ROUTERS = ['Phase1.routers.Phase1DatabaseRouter',
+                    'Phase2.routers.Phase2DatabaseRouter',
+                    'Phase3_P1.routers.Phase3P1DatabaseRouter',
+                    'Phase3_P2.routers.Phase3P1DatabaseRouter',
+                    ]
 
 
 # Password validation

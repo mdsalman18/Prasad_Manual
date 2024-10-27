@@ -41,21 +41,30 @@ class UploadFileView(APIView):
         if file.name.endswith('.csv'):
             try:
                 # Read the CSV file with the correct encoding
-                decoded_file = file.read().decode('utf-8')  # Adjust if needed (e.g., 'latin1')
+                decoded_file = file.read().decode('utf-8')
                 io_string = io.StringIO(decoded_file)
                 df = pd.read_csv(io_string)
 
                 for _, row in df.iterrows():
                     # Prepare student data based on CSV columns
                     student_data = {
-                        'roll_no': row.get('roll_no'),  # Adjusted to match your model
+                        'roll_no': row.get('roll_no'),  # Ensure this matches your model
                         'name': row.get('name'),
                         'fathers_name': row.get('fathers_name'),  # Ensure this matches your model
                         'student_mobile': row.get('student_mobile'),
                         'father_mobile': row.get('father_mobile'),
                         'email': row.get('email')
                     }
-                    serializer = Phase1StudentSerializer(data=student_data)
+                    
+                    # Check if the student already exists
+                    existing_student = Phase1Student.objects.filter(roll_no=student_data['roll_no']).first()
+                    if existing_student:
+                        # Update existing student
+                        serializer = Phase1StudentSerializer(existing_student, data=student_data, partial=True)
+                    else:
+                        # Create a new student
+                        serializer = Phase1StudentSerializer(data=student_data)
+
                     if serializer.is_valid():
                         serializer.save()
                     else:
@@ -73,50 +82,53 @@ class UploadFileView(APIView):
 
 
 
-
-
 class AttendanceListCreateView(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
+    queryset = Anatomy.objects.all()
     serializer_class = AnatomySerializer
 
-    def get_object(self, student_id, date):
+    def get_object(self, roll_number, date):
         try:
-            return Anatomy.objects.get(student_id=student_id, date=date)
+            return Anatomy.objects.get(roll_number__roll_no=roll_number, date=date)  # Adjusted for ForeignKey lookup
         except Anatomy.DoesNotExist:
             return None
 
     def post(self, request, *args, **kwargs):
         attendance_data = request.data.get('attendance_list', [])
         response_data = []
+        success = False
 
         for data in attendance_data:
-            student_id = data.get('student')
+            roll_number = data.get('roll_number')  # Using roll_number from your schema
             date = data.get('date')
-            status = data.get('status')
+            status_value = data.get('status')
 
             # Check if the attendance already exists
-            attendance_record = self.get_object(student_id, date)
+            attendance_record = self.get_object(roll_number, date)
 
             if attendance_record:
                 # Update the existing record
                 serializer = self.get_serializer(attendance_record, data=data, partial=True)
                 if serializer.is_valid():
-                    self.perform_update(serializer)
-                    response_data.append(serializer.data)
-                else:
-                    response_data.append({"student": student_id, "error": serializer.errors})
+                    try:
+                        self.perform_update(serializer)
+                        response_data.append({"roll_number": roll_number, "status": "updated", "data": serializer.data})
+                        success = True
+                    except IntegrityError:
+                        response_data.append({"roll_number": roll_number, "error": "Failed to update attendance."})
             else:
                 # Create a new record
                 serializer = self.get_serializer(data=data)
                 if serializer.is_valid():
                     try:
                         self.perform_create(serializer)
-                        response_data.append(serializer.data)
+                        response_data.append({"roll_number": roll_number, "status": "created", "data": serializer.data})
+                        success = True
                     except IntegrityError:
-                        response_data.append({"student": student_id, "error": "Attendance record already exists."})
+                        response_data.append({"roll_number": roll_number, "error": "Attendance record already exists."})
                 else:
-                    response_data.append({"student": student_id, "error": serializer.errors})
+                    response_data.append({"roll_number": roll_number, "error": serializer.errors})
 
-        return Response(response_data, status=status.HTTP_200_OK)
+        return Response(response_data, status=status.HTTP_201_CREATED if success else status.HTTP_400_BAD_REQUEST)
 
     def perform_update(self, serializer):
         serializer.save()

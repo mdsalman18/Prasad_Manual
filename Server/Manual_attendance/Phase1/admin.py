@@ -18,5 +18,5 @@ class Phase1StudentAdmin(ImportExportModelAdmin):
 
 @admin.register(Anatomy)
 class AnatomyAdmin(admin.ModelAdmin):
-    list_display = ('student', 'date', 'status')
-    list_filter = ('date', 'status')
+    list_display = ('roll_number', 'student_name', 'date', 'status')
+    list_filter = ('roll_number','student_name', 'date', 'status')
