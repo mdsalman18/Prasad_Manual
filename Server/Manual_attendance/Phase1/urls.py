@@ -1,5 +1,4 @@
 from django.urls import path
-
 from Phase1.views import *
 
 urlpatterns = [

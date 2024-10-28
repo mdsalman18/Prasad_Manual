@@ -90,6 +90,6 @@ class ObsAndGynAdmin(admin.ModelAdmin):
 # ECA Admin Code
 
 @admin.register(ECA)
-class ECSAdmin(admin.ModelAdmin):
+class ECAAdmin(admin.ModelAdmin):
     list_display = ('roll_number', 'student_name', 'date', 'status')
     list_filter = ('roll_number','student_name', 'date', 'status')  
