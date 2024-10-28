@@ -81,3 +81,599 @@ class UploadFileView(APIView):
 
 
 
+
+
+# Community Medicine  Attendance logic
+
+class CommunityMedicineListCreateView(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
+    queryset = CommunityMedicine.objects.all()
+    serializer_class = CommunityMedicineSerializer
+
+    def get_object(self, roll_number, date):
+        try:
+            return CommunityMedicine.objects.get(roll_number__roll_no=roll_number, date=date)  # Adjusted for ForeignKey lookup
+        except CommunityMedicine.DoesNotExist:
+            return None
+
+    def post(self, request, *args, **kwargs):
+        attendance_data = request.data.get('attendance_list', [])
+        response_data = []
+        success = False
+
+        for data in attendance_data:
+            roll_number = data.get('roll_number')  # Using roll_number from your schema
+            date = data.get('date')
+            status_value = data.get('status')
+
+            # Check if the attendance already exists
+            attendance_record = self.get_object(roll_number, date)
+
+            if attendance_record:
+                # Update the existing record
+                serializer = self.get_serializer(attendance_record, data=data, partial=True)
+                if serializer.is_valid():
+                    try:
+                        self.perform_update(serializer)
+                        response_data.append({"roll_number": roll_number, "status": "updated", "data": serializer.data})
+                        success = True
+                    except IntegrityError:
+                        response_data.append({"roll_number": roll_number, "error": "Failed to update attendance."})
+            else:
+                # Create a new record
+                serializer = self.get_serializer(data=data)
+                if serializer.is_valid():
+                    try:
+                        self.perform_create(serializer)
+                        response_data.append({"roll_number": roll_number, "status": "created", "data": serializer.data})
+                        success = True
+                    except IntegrityError:
+                        response_data.append({"roll_number": roll_number, "error": "Attendance record already exists."})
+                else:
+                    response_data.append({"roll_number": roll_number, "error": serializer.errors})
+
+        return Response(response_data, status=status.HTTP_201_CREATED if success else status.HTTP_400_BAD_REQUEST)
+
+    def perform_update(self, serializer):
+        serializer.save()
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+
+
+
+# Forensic Med And TC Attendance logic
+
+class ForensicMedAndTCListCreateView(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
+    queryset = ForensicMedAndTC.objects.all()
+    serializer_class = ForensicMedAndTCSerializer
+
+    def get_object(self, roll_number, date):
+        try:
+            return ForensicMedAndTC.objects.get(roll_number__roll_no=roll_number, date=date)  
+        except ForensicMedAndTC.DoesNotExist:
+            return None
+
+    def post(self, request, *args, **kwargs):
+        attendance_data = request.data.get('attendance_list', [])
+        response_data = []
+        success = False
+
+        for data in attendance_data:
+            roll_number = data.get('roll_number')  
+            date = data.get('date')
+            status_value = data.get('status')
+
+            
+            attendance_record = self.get_object(roll_number, date)
+
+            if attendance_record:
+               
+                serializer = self.get_serializer(attendance_record, data=data, partial=True)
+                if serializer.is_valid():
+                    try:
+                        self.perform_update(serializer)
+                        response_data.append({"roll_number": roll_number, "status": "updated", "data": serializer.data})
+                        success = True
+                    except IntegrityError:
+                        response_data.append({"roll_number": roll_number, "error": "Failed to update attendance."})
+            else:
+                
+                serializer = self.get_serializer(data=data)
+                if serializer.is_valid():
+                    try:
+                        self.perform_create(serializer)
+                        response_data.append({"roll_number": roll_number, "status": "created", "data": serializer.data})
+                        success = True
+                    except IntegrityError:
+                        response_data.append({"roll_number": roll_number, "error": "Attendance record already exists."})
+                else:
+                    response_data.append({"roll_number": roll_number, "error": serializer.errors})
+
+        return Response(response_data, status=status.HTTP_201_CREATED if success else status.HTTP_400_BAD_REQUEST)
+
+    def perform_update(self, serializer):
+        serializer.save()
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+
+
+
+
+# Medicine Attendance logic
+
+class MedicineListCreateView(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
+    queryset = Medicine.objects.all()
+    serializer_class = MedicineSerializer
+
+    def get_object(self, roll_number, date):
+        try:
+            return Medicine.objects.get(roll_number__roll_no=roll_number, date=date)  
+        except Medicine.DoesNotExist:
+            return None
+
+    def post(self, request, *args, **kwargs):
+        attendance_data = request.data.get('attendance_list', [])
+        response_data = []
+        success = False
+
+        for data in attendance_data:
+            roll_number = data.get('roll_number')  
+            date = data.get('date')
+            status_value = data.get('status')
+
+            
+            attendance_record = self.get_object(roll_number, date)
+
+            if attendance_record:
+               
+                serializer = self.get_serializer(attendance_record, data=data, partial=True)
+                if serializer.is_valid():
+                    try:
+                        self.perform_update(serializer)
+                        response_data.append({"roll_number": roll_number, "status": "updated", "data": serializer.data})
+                        success = True
+                    except IntegrityError:
+                        response_data.append({"roll_number": roll_number, "error": "Failed to update attendance."})
+            else:
+                
+                serializer = self.get_serializer(data=data)
+                if serializer.is_valid():
+                    try:
+                        self.perform_create(serializer)
+                        response_data.append({"roll_number": roll_number, "status": "created", "data": serializer.data})
+                        success = True
+                    except IntegrityError:
+                        response_data.append({"roll_number": roll_number, "error": "Attendance record already exists."})
+                else:
+                    response_data.append({"roll_number": roll_number, "error": serializer.errors})
+
+        return Response(response_data, status=status.HTTP_201_CREATED if success else status.HTTP_400_BAD_REQUEST)
+
+    def perform_update(self, serializer):
+        serializer.save()
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+
+
+
+
+
+
+# Surgery Attendance logic
+
+class SurgeryListCreateView(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
+    queryset = Surgery.objects.all()
+    serializer_class = SurgerySerializer
+
+    def get_object(self, roll_number, date):
+        try:
+            return Surgery.objects.get(roll_number__roll_no=roll_number, date=date)  
+        except Surgery.DoesNotExist:
+            return None
+
+    def post(self, request, *args, **kwargs):
+        attendance_data = request.data.get('attendance_list', [])
+        response_data = []
+        success = False
+
+        for data in attendance_data:
+            roll_number = data.get('roll_number')  
+            date = data.get('date')
+            status_value = data.get('status')
+
+            
+            attendance_record = self.get_object(roll_number, date)
+
+            if attendance_record:
+               
+                serializer = self.get_serializer(attendance_record, data=data, partial=True)
+                if serializer.is_valid():
+                    try:
+                        self.perform_update(serializer)
+                        response_data.append({"roll_number": roll_number, "status": "updated", "data": serializer.data})
+                        success = True
+                    except IntegrityError:
+                        response_data.append({"roll_number": roll_number, "error": "Failed to update attendance."})
+            else:
+                
+                serializer = self.get_serializer(data=data)
+                if serializer.is_valid():
+                    try:
+                        self.perform_create(serializer)
+                        response_data.append({"roll_number": roll_number, "status": "created", "data": serializer.data})
+                        success = True
+                    except IntegrityError:
+                        response_data.append({"roll_number": roll_number, "error": "Attendance record already exists."})
+                else:
+                    response_data.append({"roll_number": roll_number, "error": serializer.errors})
+
+        return Response(response_data, status=status.HTTP_201_CREATED if success else status.HTTP_400_BAD_REQUEST)
+
+    def perform_update(self, serializer):
+        serializer.save()
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+
+
+
+
+# Paediatrics  Attendance logic
+
+class PaediatricsListCreateView(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
+    queryset = Paediatrics.objects.all()
+    serializer_class = PaediatricsSerializer
+
+    def get_object(self, roll_number, date):
+        try:
+            return Paediatrics.objects.get(roll_number__roll_no=roll_number, date=date)  
+        except Paediatrics.DoesNotExist:
+            return None
+
+    def post(self, request, *args, **kwargs):
+        attendance_data = request.data.get('attendance_list', [])
+        response_data = []
+        success = False
+
+        for data in attendance_data:
+            roll_number = data.get('roll_number')  
+            date = data.get('date')
+            status_value = data.get('status')
+
+            
+            attendance_record = self.get_object(roll_number, date)
+
+            if attendance_record:
+               
+                serializer = self.get_serializer(attendance_record, data=data, partial=True)
+                if serializer.is_valid():
+                    try:
+                        self.perform_update(serializer)
+                        response_data.append({"roll_number": roll_number, "status": "updated", "data": serializer.data})
+                        success = True
+                    except IntegrityError:
+                        response_data.append({"roll_number": roll_number, "error": "Failed to update attendance."})
+            else:
+                
+                serializer = self.get_serializer(data=data)
+                if serializer.is_valid():
+                    try:
+                        self.perform_create(serializer)
+                        response_data.append({"roll_number": roll_number, "status": "created", "data": serializer.data})
+                        success = True
+                    except IntegrityError:
+                        response_data.append({"roll_number": roll_number, "error": "Attendance record already exists."})
+                else:
+                    response_data.append({"roll_number": roll_number, "error": serializer.errors})
+
+        return Response(response_data, status=status.HTTP_201_CREATED if success else status.HTTP_400_BAD_REQUEST)
+
+    def perform_update(self, serializer):
+        serializer.save()
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+
+
+
+# Orthopaedics  Attendance logic
+
+class OrthopaedicsListCreateView(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
+    queryset = Orthopaedics.objects.all()
+    serializer_class = OrthopaedicsSerializer
+
+    def get_object(self, roll_number, date):
+        try:
+            return Orthopaedics.objects.get(roll_number__roll_no=roll_number, date=date)  
+        except Orthopaedics.DoesNotExist:
+            return None
+
+    def post(self, request, *args, **kwargs):
+        attendance_data = request.data.get('attendance_list', [])
+        response_data = []
+        success = False
+
+        for data in attendance_data:
+            roll_number = data.get('roll_number')  
+            date = data.get('date')
+            status_value = data.get('status')
+
+            
+            attendance_record = self.get_object(roll_number, date)
+
+            if attendance_record:
+               
+                serializer = self.get_serializer(attendance_record, data=data, partial=True)
+                if serializer.is_valid():
+                    try:
+                        self.perform_update(serializer)
+                        response_data.append({"roll_number": roll_number, "status": "updated", "data": serializer.data})
+                        success = True
+                    except IntegrityError:
+                        response_data.append({"roll_number": roll_number, "error": "Failed to update attendance."})
+            else:
+                
+                serializer = self.get_serializer(data=data)
+                if serializer.is_valid():
+                    try:
+                        self.perform_create(serializer)
+                        response_data.append({"roll_number": roll_number, "status": "created", "data": serializer.data})
+                        success = True
+                    except IntegrityError:
+                        response_data.append({"roll_number": roll_number, "error": "Attendance record already exists."})
+                else:
+                    response_data.append({"roll_number": roll_number, "error": serializer.errors})
+
+        return Response(response_data, status=status.HTTP_201_CREATED if success else status.HTTP_400_BAD_REQUEST)
+
+    def perform_update(self, serializer):
+        serializer.save()
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+
+
+
+# Ophthalmology  Attendance logic
+
+class OphthalmologyListCreateView(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
+    queryset = Ophthalmology.objects.all()
+    serializer_class = OphthalmologySerializer
+
+    def get_object(self, roll_number, date):
+        try:
+            return Ophthalmology.objects.get(roll_number__roll_no=roll_number, date=date)  
+        except Ophthalmology.DoesNotExist:
+            return None
+
+    def post(self, request, *args, **kwargs):
+        attendance_data = request.data.get('attendance_list', [])
+        response_data = []
+        success = False
+
+        for data in attendance_data:
+            roll_number = data.get('roll_number')  
+            date = data.get('date')
+            status_value = data.get('status')
+
+            
+            attendance_record = self.get_object(roll_number, date)
+
+            if attendance_record:
+               
+                serializer = self.get_serializer(attendance_record, data=data, partial=True)
+                if serializer.is_valid():
+                    try:
+                        self.perform_update(serializer)
+                        response_data.append({"roll_number": roll_number, "status": "updated", "data": serializer.data})
+                        success = True
+                    except IntegrityError:
+                        response_data.append({"roll_number": roll_number, "error": "Failed to update attendance."})
+            else:
+                
+                serializer = self.get_serializer(data=data)
+                if serializer.is_valid():
+                    try:
+                        self.perform_create(serializer)
+                        response_data.append({"roll_number": roll_number, "status": "created", "data": serializer.data})
+                        success = True
+                    except IntegrityError:
+                        response_data.append({"roll_number": roll_number, "error": "Attendance record already exists."})
+                else:
+                    response_data.append({"roll_number": roll_number, "error": serializer.errors})
+
+        return Response(response_data, status=status.HTTP_201_CREATED if success else status.HTTP_400_BAD_REQUEST)
+
+    def perform_update(self, serializer):
+        serializer.save()
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+
+
+# ENT Attendance logic
+
+class ENTListCreateView(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
+    queryset = ENT.objects.all()
+    serializer_class = ENTSerializer
+
+    def get_object(self, roll_number, date):
+        try:
+            return ENT.objects.get(roll_number__roll_no=roll_number, date=date)  
+        except ENT.DoesNotExist:
+            return None
+
+    def post(self, request, *args, **kwargs):
+        attendance_data = request.data.get('attendance_list', [])
+        response_data = []
+        success = False
+
+        for data in attendance_data:
+            roll_number = data.get('roll_number')  
+            date = data.get('date')
+            status_value = data.get('status')
+
+            
+            attendance_record = self.get_object(roll_number, date)
+
+            if attendance_record:
+               
+                serializer = self.get_serializer(attendance_record, data=data, partial=True)
+                if serializer.is_valid():
+                    try:
+                        self.perform_update(serializer)
+                        response_data.append({"roll_number": roll_number, "status": "updated", "data": serializer.data})
+                        success = True
+                    except IntegrityError:
+                        response_data.append({"roll_number": roll_number, "error": "Failed to update attendance."})
+            else:
+                
+                serializer = self.get_serializer(data=data)
+                if serializer.is_valid():
+                    try:
+                        self.perform_create(serializer)
+                        response_data.append({"roll_number": roll_number, "status": "created", "data": serializer.data})
+                        success = True
+                    except IntegrityError:
+                        response_data.append({"roll_number": roll_number, "error": "Attendance record already exists."})
+                else:
+                    response_data.append({"roll_number": roll_number, "error": serializer.errors})
+
+        return Response(response_data, status=status.HTTP_201_CREATED if success else status.HTTP_400_BAD_REQUEST)
+
+    def perform_update(self, serializer):
+        serializer.save()
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+
+
+
+# Obs And Gyn Attendance logic
+
+class ObsAndGynListCreateView(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
+    queryset = ObsAndGyn.objects.all()
+    serializer_class = ObsAndGynSerializer
+
+    def get_object(self, roll_number, date):
+        try:
+            return ObsAndGyn.objects.get(roll_number__roll_no=roll_number, date=date)  
+        except ObsAndGyn.DoesNotExist:
+            return None
+
+    def post(self, request, *args, **kwargs):
+        attendance_data = request.data.get('attendance_list', [])
+        response_data = []
+        success = False
+
+        for data in attendance_data:
+            roll_number = data.get('roll_number')  
+            date = data.get('date')
+            status_value = data.get('status')
+
+            
+            attendance_record = self.get_object(roll_number, date)
+
+            if attendance_record:
+               
+                serializer = self.get_serializer(attendance_record, data=data, partial=True)
+                if serializer.is_valid():
+                    try:
+                        self.perform_update(serializer)
+                        response_data.append({"roll_number": roll_number, "status": "updated", "data": serializer.data})
+                        success = True
+                    except IntegrityError:
+                        response_data.append({"roll_number": roll_number, "error": "Failed to update attendance."})
+            else:
+                
+                serializer = self.get_serializer(data=data)
+                if serializer.is_valid():
+                    try:
+                        self.perform_create(serializer)
+                        response_data.append({"roll_number": roll_number, "status": "created", "data": serializer.data})
+                        success = True
+                    except IntegrityError:
+                        response_data.append({"roll_number": roll_number, "error": "Attendance record already exists."})
+                else:
+                    response_data.append({"roll_number": roll_number, "error": serializer.errors})
+
+        return Response(response_data, status=status.HTTP_201_CREATED if success else status.HTTP_400_BAD_REQUEST)
+
+    def perform_update(self, serializer):
+        serializer.save()
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+
+
+
+
+# ECA Attendance logic
+
+class ECAListCreateView(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
+    queryset = ECA.objects.all()
+    serializer_class = ECASerializer
+
+    def get_object(self, roll_number, date):
+        try:
+            return ECA.objects.get(roll_number__roll_no=roll_number, date=date)  
+        except ECA.DoesNotExist:
+            return None
+
+    def post(self, request, *args, **kwargs):
+        attendance_data = request.data.get('attendance_list', [])
+        response_data = []
+        success = False
+
+        for data in attendance_data:
+            roll_number = data.get('roll_number')  
+            date = data.get('date')
+            status_value = data.get('status')
+
+            
+            attendance_record = self.get_object(roll_number, date)
+
+            if attendance_record:
+               
+                serializer = self.get_serializer(attendance_record, data=data, partial=True)
+                if serializer.is_valid():
+                    try:
+                        self.perform_update(serializer)
+                        response_data.append({"roll_number": roll_number, "status": "updated", "data": serializer.data})
+                        success = True
+                    except IntegrityError:
+                        response_data.append({"roll_number": roll_number, "error": "Failed to update attendance."})
+            else:
+                
+                serializer = self.get_serializer(data=data)
+                if serializer.is_valid():
+                    try:
+                        self.perform_create(serializer)
+                        response_data.append({"roll_number": roll_number, "status": "created", "data": serializer.data})
+                        success = True
+                    except IntegrityError:
+                        response_data.append({"roll_number": roll_number, "error": "Attendance record already exists."})
+                else:
+                    response_data.append({"roll_number": roll_number, "error": serializer.errors})
+
+        return Response(response_data, status=status.HTTP_201_CREATED if success else status.HTTP_400_BAD_REQUEST)
+
+    def perform_update(self, serializer):
+        serializer.save()
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+
+
