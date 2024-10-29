@@ -49,7 +49,7 @@ const ViewAttendance = () => {
   };
 
   return (
-    <div className="bg-black mb-6">
+    <div className="bg-black mb-6 min-h-screen">
       <div className='my-5'>
         <h1 className="font-bold text-center mt-4 my-4 text-xl text-white">Student Attendance</h1>
         <div className="flex flex-wrap lg:flex-nowrap gap-10 justify-evenly">

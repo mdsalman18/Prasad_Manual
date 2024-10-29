@@ -19,6 +19,8 @@ import AddNewStudent from "./Admin/addnewstudent";
 import AdminPortal from "./Admin/adminportal";
 import NewEmp from "./Admin/newemp";
 import NewSub from "./Admin/newsub";
+import NewCSV from "./Admin/newCSV";
+import SidebarAdmin from "./Admin/SidebarAdmin";
 
 function App() {
   
@@ -28,7 +30,7 @@ function App() {
       
      <BrowserRouter>
       <Routes>
-          <Route path='/' element={<Navbar/>}>
+        <Route path='/' element={<Navbar/>}>
           <Route index element={<Home/>}/>
           <Route path="login" element={<Login/>} />
           <Route path="signup" element={<Signup/>} />
@@ -42,16 +44,16 @@ function App() {
             <Route path='importcsv' element={<ImportCSV/>}/>
           </Route> 
 
-          {/* <Route path='admin' element={<ServiceAdmin/>}> */}
-          <Route path='adminportal' element={<AdminPortal/>}/>
+          <Route path='adminportal' element={<SidebarAdmin/>}>
+            <Route index element={<AdminPortal/>}/>
             <Route path='addnew' element={<AddNewBatch2/>}/>
             <Route path='newstu' element={<AddNewStudent/>}/>
             <Route path='newemp' element={<NewEmp/>}/>
             <Route path='newsub' element={<NewSub/>}/>
-          {/* </Route>  */}
-
-
+            <Route path='newcsv' element={<NewCSV/>}/>
           </Route>
+
+        </Route>
           
       </Routes>
         <ToastContainer />

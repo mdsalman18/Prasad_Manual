@@ -11,10 +11,7 @@ const Attendence = () => {
   const [timeSlot, setTimeSlot] = useState('');
   const [subject, setSubject] = useState('');
 
-  
-  
-
-const phase1Subjects = ["Anatomy" ,"Physiology","Biochemistry","Community Medicine", "Foundation Course", "ECA"]
+const phase1Subjects = ["Anatomy" ,"Physiology","Biochemistry","community-medicine", "Foundation-Course", "ECA"]
 const phase2Subjects = ["Community Medicine" ,"Pathology","Microbiology","Pharmacology", "Forensic Med & TC","Medicine","Surgery", "Obs & Gyn","ECA"]
 const phase3Subjects = ["Community Medicine" ,"Medicine","Surgery","Paediatrics", "Forensic Med & TC","Orthopaedics","Ophthalmology","ENT", "Obs & Gyn","ECA"]
 const phase4Subjects = ["Psychiatry" ,"Medicine","Surgery","Dermatology", "Radiology","Orthopaedics","Paediatrics","ENT", "Anaesthsiology","Ophthalmology","Obs & Gyn"]
@@ -25,72 +22,47 @@ const [availableSubjects, setAvailableSubjects] = useState([]);
 const [checkedStudents, setCheckedStudents] = useState([]);
 const [markAbsent, setMarkAbsent] = useState([]);
 
-const getStudents = async () => {
-  axiosInstance.get('/students/')
-  .then(res => {
-    console.log(res);
-    setAllStudents(res.data)
+const getStudents = async (phase = "students1") => {
+    const res = await axiosInstance.get(`/${phase}/`)
+    .then(res => {
+      setFilteredStudents(res.data);
+      setCheckedStudents(new Array(res.data.length).fill(false));
+      setMarkAbsent(new Array(res.data.length).fill(false));
+      console.log(res.data);
   })
-  .catch(e => {
+   .catch (e => { 
     console.log(e);
   })
-}
-useEffect(() => {
-  getStudents();
-}, [])
+};
+
 
 useEffect(() => {
-  // Reset subject selection when phase changes
-  setSubject('');
-  
-  // Update available subjects based on selected phase
-  switch(classSection) {
-    case 'Phase I':
-      setAvailableSubjects(phase1Subjects);
-      break;
-    case 'Phase II':
-      setAvailableSubjects(phase2Subjects);
-      break;
-    case 'Phase III Part I':
-      setAvailableSubjects(phase3Subjects);
-      break;
-    case 'Phase III Part II':
-      setAvailableSubjects(phase4Subjects);
-      break;
-    default:
-      setAvailableSubjects([]);
-  }
+  const fetchAndSetStudents = async () => {
+    switch (classSection) {
+      case 'Phase I':
+        await getStudents('students1');
+        setAvailableSubjects(phase1Subjects);
+        break;
+      case 'Phase II':
+        await getStudents('students2');
+        setAvailableSubjects(phase2Subjects);
+        break;
+      case 'Phase III Part I':
+        await getStudents('students3');
+        setAvailableSubjects(phase3Subjects);
+        break;
+      case 'Phase III Part II':
+        await getStudents('students4');
+        setAvailableSubjects(phase4Subjects);
+        break;
+      default:
+        setAvailableSubjects([]);
+    }
+  };
+
+  fetchAndSetStudents();
 }, [classSection]);
 
-
-useEffect(() => {
-  let phase = 0;
-  switch(classSection) {
-    case 'Phase I':
-      phase = 1;
-      break;
-    case 'Phase II':
-      phase = 2;
-      break;
-    case 'Phase III Part I':
-      phase = 3;
-      break;
-    case 'Phase III Part II':
-      phase = 4;
-      break;
-    default:
-      phase = 0;
-  }
-
-  const newFilteredStudents = phase === 0 ? allStudents : allStudents.filter(student => student.phase === phase);
-  //
-//  when a phase field is given then set setFilteredStudents to newFilteredStudents
-  //
-  setFilteredStudents(allStudents);
-  
-  setCheckedStudents(new Array(newFilteredStudents.length).fill(false));
-  setMarkAbsent(new Array(newFilteredStudents.length).fill(false));
-}, [classSection]);
 
 
 const handleCheckAll = () => {
@@ -147,7 +119,7 @@ const formatAttendanceData = () => {
     } 
 
     return {
-      roll_number : student.roll_no, // Using roll_no as student identifier
+      roll_number : student.roll_no , // Using roll_no as student identifier
       date: attendanceDate || new Date().toISOString().split('T')[0], // Use selected date or today's date
       status: status
     };
@@ -158,6 +130,8 @@ const formatAttendanceData = () => {
 
 const handleSubmit = async () => {
   // Validate if date is selected
+  console.log(subject);
+  
   if (!attendanceDate) {
     toast.error("Please select attendance date!", {
       position: "top-right",
@@ -190,7 +164,7 @@ const handleSubmit = async () => {
     const attendanceData = formatAttendanceData();
     
     // Send data to backend
-    const response = await axiosInstance.post('/anatomy/', attendanceData).then(res => {
+    const response = await axiosInstance.post(`/${subject}/`, attendanceData).then(res => {
 
     
     console.log(res);
@@ -272,7 +246,7 @@ const handleSubmit = async () => {
               onChange={(e) => setClassSection(e.target.value)}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-44 ml-8"
             >
-              <option value="" disabled>Select class</option>
+              <option value="" disabled>Select Phase</option>
               <option value="Phase I">MBBS Phase I</option>
               <option value="Phase II">MBBS Phase II</option>
               <option value="Phase III Part I">MBBS Phase III Part I</option>
@@ -316,8 +290,7 @@ const handleSubmit = async () => {
             <option value="11:00-12:00">11:00 AM - 12:00 PM</option>
             <option value="12:00-13:00">12:00 PM - 01:00 PM</option>
             <option value="13:00-14:00">01:00 PM - 02:00 PM</option>
-            <option value="14:00-15:00">02:00 PM - 03:00 PM</option>
-            <option value="15:00-16:00">03:00 PM - 04:00 PM</option>
+            <option value="14:00-15:00">02:00 PM - 04:00 PM</option>
             <option value="16:00-17:00">04:00 PM - 05:00 PM</option>
           </select>
         </div>
@@ -332,7 +305,7 @@ const handleSubmit = async () => {
             <select
               id="subject"
               value={subject}
-              onChange={(e) => setSubject(e.target.value)}
+              onChange={(e) => setSubject(e.target.value.toLowerCase())}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             >
               <option value="" disabled>Select subject</option>
@@ -348,7 +321,7 @@ const handleSubmit = async () => {
             htmlFor="subject"
             className="block mb-2 text-sm font-medium text-gray-500 dark:text-white ml-4"
           >
-            Lecture number <span className="text-red-500">*</span>
+            Select Lecture Type <span className="text-red-500">*</span>
           </label>
           <select
             id="subject"
