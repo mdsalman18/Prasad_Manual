@@ -46,7 +46,7 @@ const ImportCSV = () => {
       const headers = firstLine.split(',').map(header => header.trim());
       
       if (!validateHeaders(headers)) {
-        setError("CSV must contain headers: NAME, PHONE NUMBER, BATCH NUMBER");
+        setError("CSV must contain headers: roll_no, name, fathers_name, student_mobile, father_mobile, email");
         setFile(null);
         return;
       }
@@ -71,7 +71,7 @@ const ImportCSV = () => {
 
     try {
       
-      const res = await axiosInstance.post('/Phase1_re/', formData, {
+      const res = await axiosInstance.post('/Phase1/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -96,7 +96,7 @@ const ImportCSV = () => {
 
   return (
     <div className="w-full flex min-h-screen justify-end">
-      <div className="max-w-4xl mx-auto px-4">
+      <div className="w-full flex flex-col items-center mx-auto px-4">
         <h1 className="mb-3 text-5xl font-bold leading-none text-gray-400 tracking-tight text-center md:text-6xl lg:text-7xl dark:text-white underline">
           Importing CSV file
         </h1>
@@ -105,12 +105,12 @@ const ImportCSV = () => {
           Instructions
         </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 mx-auto gap-6 text-center mt-8">
+        <div className="grid grid-cols-1 w-2/3 gap-10 mx-auto text-center mt-8">
           <div className="text-lg md:text-xl text-gray-800 font-bold tracking-widest outline rounded outline-1 outline-yellow-800 flex justify-center items-center bg-yellow-100 hover:shadow-xl hover:bg-yellow-900/80 backdrop-blur-sm hover:text-white hover:scale-95 transition py-8 px-3">
             Upload the CSV file only
           </div>
           <div className="text-lg md:text-xl text-gray-800 font-bold tracking-widest outline rounded outline-1 outline-yellow-800 flex justify-center items-center bg-yellow-100 hover:shadow-xl hover:bg-yellow-900/80 backdrop-blur-sm hover:text-white hover:scale-95 transition py-8 px-3">
-            The file must and only contain headers - NAME, PHONE NUMBER, BATCH NUMBER
+            The file must and only contain headers - roll_no, name, fathers_name, student_mobile, father_mobile, email
           </div>
         </div>
 
