@@ -8,6 +8,7 @@ from rest_framework.views import APIView
 from rest_framework.exceptions import NotFound
 import io
 from rest_framework import mixins
+from django.db.models import Count, Case, When
 
 # List all students or create a new one
 class Phase2StudentListCreateView(generics.ListCreateAPIView):
@@ -139,6 +140,49 @@ class CommunityMedicineListCreateView(generics.GenericAPIView, mixins.ListModelM
     def perform_create(self, serializer):
         serializer.save()
 
+    def get(self, request, *args, **kwargs):
+        
+        attendance_summary = CommunityMedicine.objects.values(
+            'roll_number__roll_no',
+            'roll_number__name',            
+            'roll_number__fathers_name'      
+        ).annotate(
+            present_count=Count(Case(When(status="P", then=1))),
+            absent_count=Count(Case(When(status="A", then=1)))
+        )
+
+        response_data = []
+        for record in attendance_summary:
+            roll_number = record['roll_number__roll_no']
+            student_name = record['roll_number__name']
+            fathers_name = record['roll_number__fathers_name']
+                
+            present_count = record['present_count']
+            absent_count = record['absent_count']
+            total_classes = present_count + absent_count
+            
+            attendance_percentage = (present_count / total_classes * 100) if total_classes > 0 else 0
+           
+            attendance_records = CommunityMedicine.objects.filter(
+                roll_number__roll_no=roll_number
+            ).order_by('date').values_list('date', 'status')
+     
+            dates = [entry[0] for entry in attendance_records]
+            statuses = [entry[1] for entry in attendance_records]
+ 
+            response_data.append({
+                "roll_number": roll_number,
+                "student_name": student_name,
+                "fathers_name": fathers_name,
+                "present_count": present_count,
+                "absent_count": absent_count,
+                "total_classes": total_classes,
+                "attendance_percentage": round(attendance_percentage, 2),
+                "dates": dates,          
+                "statuses": statuses      
+            })
+
+        return Response(response_data, status=status.HTTP_200_OK)
 
 
 
@@ -199,6 +243,51 @@ class PathologyListCreateView(generics.GenericAPIView, mixins.ListModelMixin, mi
     def perform_create(self, serializer):
         serializer.save()
 
+    def get(self, request, *args, **kwargs):
+        
+        attendance_summary = Pathology.objects.values(
+            'roll_number__roll_no',
+            'roll_number__name',            
+            'roll_number__fathers_name'      
+        ).annotate(
+            present_count=Count(Case(When(status="P", then=1))),
+            absent_count=Count(Case(When(status="A", then=1)))
+        )
+
+        response_data = []
+        for record in attendance_summary:
+            roll_number = record['roll_number__roll_no']
+            student_name = record['roll_number__name']
+            fathers_name = record['roll_number__fathers_name']
+                
+            present_count = record['present_count']
+            absent_count = record['absent_count']
+            total_classes = present_count + absent_count
+            
+            attendance_percentage = (present_count / total_classes * 100) if total_classes > 0 else 0
+           
+            attendance_records = Pathology.objects.filter(
+                roll_number__roll_no=roll_number
+            ).order_by('date').values_list('date', 'status')
+     
+            dates = [entry[0] for entry in attendance_records]
+            statuses = [entry[1] for entry in attendance_records]
+ 
+            response_data.append({
+                "roll_number": roll_number,
+                "student_name": student_name,
+                "fathers_name": fathers_name,
+                "present_count": present_count,
+                "absent_count": absent_count,
+                "total_classes": total_classes,
+                "attendance_percentage": round(attendance_percentage, 2),
+                "dates": dates,          
+                "statuses": statuses      
+            })
+
+        return Response(response_data, status=status.HTTP_200_OK)
+
+
 
 
 
@@ -257,6 +346,50 @@ class MicrobiologyListCreateView(generics.GenericAPIView, mixins.ListModelMixin,
 
     def perform_create(self, serializer):
         serializer.save()
+
+    def get(self, request, *args, **kwargs):
+        
+        attendance_summary = Microbiology.objects.values(
+            'roll_number__roll_no',
+            'roll_number__name',            
+            'roll_number__fathers_name'      
+        ).annotate(
+            present_count=Count(Case(When(status="P", then=1))),
+            absent_count=Count(Case(When(status="A", then=1)))
+        )
+
+        response_data = []
+        for record in attendance_summary:
+            roll_number = record['roll_number__roll_no']
+            student_name = record['roll_number__name']
+            fathers_name = record['roll_number__fathers_name']
+                
+            present_count = record['present_count']
+            absent_count = record['absent_count']
+            total_classes = present_count + absent_count
+            
+            attendance_percentage = (present_count / total_classes * 100) if total_classes > 0 else 0
+           
+            attendance_records = Microbiology.objects.filter(
+                roll_number__roll_no=roll_number
+            ).order_by('date').values_list('date', 'status')
+     
+            dates = [entry[0] for entry in attendance_records]
+            statuses = [entry[1] for entry in attendance_records]
+ 
+            response_data.append({
+                "roll_number": roll_number,
+                "student_name": student_name,
+                "fathers_name": fathers_name,
+                "present_count": present_count,
+                "absent_count": absent_count,
+                "total_classes": total_classes,
+                "attendance_percentage": round(attendance_percentage, 2),
+                "dates": dates,          
+                "statuses": statuses      
+            })
+
+        return Response(response_data, status=status.HTTP_200_OK)
 
 
 
@@ -317,6 +450,51 @@ class PharmacologyListCreateView(generics.GenericAPIView, mixins.ListModelMixin,
     def perform_create(self, serializer):
         serializer.save()
 
+    def get(self, request, *args, **kwargs):
+        
+        attendance_summary = Pharmacology.objects.values(
+            'roll_number__roll_no',
+            'roll_number__name',            
+            'roll_number__fathers_name'      
+        ).annotate(
+            present_count=Count(Case(When(status="P", then=1))),
+            absent_count=Count(Case(When(status="A", then=1)))
+        )
+
+        response_data = []
+        for record in attendance_summary:
+            roll_number = record['roll_number__roll_no']
+            student_name = record['roll_number__name']
+            fathers_name = record['roll_number__fathers_name']
+                
+            present_count = record['present_count']
+            absent_count = record['absent_count']
+            total_classes = present_count + absent_count
+            
+            attendance_percentage = (present_count / total_classes * 100) if total_classes > 0 else 0
+           
+            attendance_records = Pharmacology.objects.filter(
+                roll_number__roll_no=roll_number
+            ).order_by('date').values_list('date', 'status')
+     
+            dates = [entry[0] for entry in attendance_records]
+            statuses = [entry[1] for entry in attendance_records]
+ 
+            response_data.append({
+                "roll_number": roll_number,
+                "student_name": student_name,
+                "fathers_name": fathers_name,
+                "present_count": present_count,
+                "absent_count": absent_count,
+                "total_classes": total_classes,
+                "attendance_percentage": round(attendance_percentage, 2),
+                "dates": dates,          
+                "statuses": statuses      
+            })
+
+        return Response(response_data, status=status.HTTP_200_OK)
+
+
 
 
 # Forensic Med And TC Attendance logic
@@ -374,6 +552,50 @@ class ForensicMedAndTCListCreateView(generics.GenericAPIView, mixins.ListModelMi
 
     def perform_create(self, serializer):
         serializer.save()
+
+    def get(self, request, *args, **kwargs):
+        
+        attendance_summary = ForensicMedAndTC.objects.values(
+            'roll_number__roll_no',
+            'roll_number__name',            
+            'roll_number__fathers_name'      
+        ).annotate(
+            present_count=Count(Case(When(status="P", then=1))),
+            absent_count=Count(Case(When(status="A", then=1)))
+        )
+
+        response_data = []
+        for record in attendance_summary:
+            roll_number = record['roll_number__roll_no']
+            student_name = record['roll_number__name']
+            fathers_name = record['roll_number__fathers_name']
+                
+            present_count = record['present_count']
+            absent_count = record['absent_count']
+            total_classes = present_count + absent_count
+            
+            attendance_percentage = (present_count / total_classes * 100) if total_classes > 0 else 0
+           
+            attendance_records = ForensicMedAndTC.objects.filter(
+                roll_number__roll_no=roll_number
+            ).order_by('date').values_list('date', 'status')
+     
+            dates = [entry[0] for entry in attendance_records]
+            statuses = [entry[1] for entry in attendance_records]
+ 
+            response_data.append({
+                "roll_number": roll_number,
+                "student_name": student_name,
+                "fathers_name": fathers_name,
+                "present_count": present_count,
+                "absent_count": absent_count,
+                "total_classes": total_classes,
+                "attendance_percentage": round(attendance_percentage, 2),
+                "dates": dates,          
+                "statuses": statuses      
+            })
+
+        return Response(response_data, status=status.HTTP_200_OK)
 
 
 
@@ -435,6 +657,49 @@ class MedicineListCreateView(generics.GenericAPIView, mixins.ListModelMixin, mix
     def perform_create(self, serializer):
         serializer.save()
 
+    def get(self, request, *args, **kwargs):
+        
+        attendance_summary = Medicine.objects.values(
+            'roll_number__roll_no',
+            'roll_number__name',            
+            'roll_number__fathers_name'      
+        ).annotate(
+            present_count=Count(Case(When(status="P", then=1))),
+            absent_count=Count(Case(When(status="A", then=1)))
+        )
+
+        response_data = []
+        for record in attendance_summary:
+            roll_number = record['roll_number__roll_no']
+            student_name = record['roll_number__name']
+            fathers_name = record['roll_number__fathers_name']
+                
+            present_count = record['present_count']
+            absent_count = record['absent_count']
+            total_classes = present_count + absent_count
+            
+            attendance_percentage = (present_count / total_classes * 100) if total_classes > 0 else 0
+           
+            attendance_records = Medicine.objects.filter(
+                roll_number__roll_no=roll_number
+            ).order_by('date').values_list('date', 'status')
+     
+            dates = [entry[0] for entry in attendance_records]
+            statuses = [entry[1] for entry in attendance_records]
+ 
+            response_data.append({
+                "roll_number": roll_number,
+                "student_name": student_name,
+                "fathers_name": fathers_name,
+                "present_count": present_count,
+                "absent_count": absent_count,
+                "total_classes": total_classes,
+                "attendance_percentage": round(attendance_percentage, 2),
+                "dates": dates,          
+                "statuses": statuses      
+            })
+
+        return Response(response_data, status=status.HTTP_200_OK)
 
 
 
@@ -497,6 +762,49 @@ class SurgeryListCreateView(generics.GenericAPIView, mixins.ListModelMixin, mixi
     def perform_create(self, serializer):
         serializer.save()
 
+    def get(self, request, *args, **kwargs):
+        
+        attendance_summary = Surgery.objects.values(
+            'roll_number__roll_no',
+            'roll_number__name',            
+            'roll_number__fathers_name'      
+        ).annotate(
+            present_count=Count(Case(When(status="P", then=1))),
+            absent_count=Count(Case(When(status="A", then=1)))
+        )
+
+        response_data = []
+        for record in attendance_summary:
+            roll_number = record['roll_number__roll_no']
+            student_name = record['roll_number__name']
+            fathers_name = record['roll_number__fathers_name']
+                
+            present_count = record['present_count']
+            absent_count = record['absent_count']
+            total_classes = present_count + absent_count
+            
+            attendance_percentage = (present_count / total_classes * 100) if total_classes > 0 else 0
+           
+            attendance_records = Surgery.objects.filter(
+                roll_number__roll_no=roll_number
+            ).order_by('date').values_list('date', 'status')
+     
+            dates = [entry[0] for entry in attendance_records]
+            statuses = [entry[1] for entry in attendance_records]
+ 
+            response_data.append({
+                "roll_number": roll_number,
+                "student_name": student_name,
+                "fathers_name": fathers_name,
+                "present_count": present_count,
+                "absent_count": absent_count,
+                "total_classes": total_classes,
+                "attendance_percentage": round(attendance_percentage, 2),
+                "dates": dates,          
+                "statuses": statuses      
+            })
+
+        return Response(response_data, status=status.HTTP_200_OK)
 
 
 
@@ -559,7 +867,49 @@ class ObsAndGynListCreateView(generics.GenericAPIView, mixins.ListModelMixin, mi
     def perform_create(self, serializer):
         serializer.save()
 
+    def get(self, request, *args, **kwargs):
+        
+        attendance_summary = ObsAndGyn.objects.values(
+            'roll_number__roll_no',
+            'roll_number__name',            
+            'roll_number__fathers_name'      
+        ).annotate(
+            present_count=Count(Case(When(status="P", then=1))),
+            absent_count=Count(Case(When(status="A", then=1)))
+        )
 
+        response_data = []
+        for record in attendance_summary:
+            roll_number = record['roll_number__roll_no']
+            student_name = record['roll_number__name']
+            fathers_name = record['roll_number__fathers_name']
+                
+            present_count = record['present_count']
+            absent_count = record['absent_count']
+            total_classes = present_count + absent_count
+            
+            attendance_percentage = (present_count / total_classes * 100) if total_classes > 0 else 0
+           
+            attendance_records = ObsAndGyn.objects.filter(
+                roll_number__roll_no=roll_number
+            ).order_by('date').values_list('date', 'status')
+     
+            dates = [entry[0] for entry in attendance_records]
+            statuses = [entry[1] for entry in attendance_records]
+ 
+            response_data.append({
+                "roll_number": roll_number,
+                "student_name": student_name,
+                "fathers_name": fathers_name,
+                "present_count": present_count,
+                "absent_count": absent_count,
+                "total_classes": total_classes,
+                "attendance_percentage": round(attendance_percentage, 2),
+                "dates": dates,          
+                "statuses": statuses      
+            })
+
+        return Response(response_data, status=status.HTTP_200_OK)
 
 
 
@@ -621,8 +971,49 @@ class ECAListCreateView(generics.GenericAPIView, mixins.ListModelMixin, mixins.C
     def perform_create(self, serializer):
         serializer.save()
 
+    def get(self, request, *args, **kwargs):
+        
+        attendance_summary = ECA.objects.values(
+            'roll_number__roll_no',
+            'roll_number__name',            
+            'roll_number__fathers_name'      
+        ).annotate(
+            present_count=Count(Case(When(status="P", then=1))),
+            absent_count=Count(Case(When(status="A", then=1)))
+        )
 
+        response_data = []
+        for record in attendance_summary:
+            roll_number = record['roll_number__roll_no']
+            student_name = record['roll_number__name']
+            fathers_name = record['roll_number__fathers_name']
+                
+            present_count = record['present_count']
+            absent_count = record['absent_count']
+            total_classes = present_count + absent_count
+            
+            attendance_percentage = (present_count / total_classes * 100) if total_classes > 0 else 0
+           
+            attendance_records = ECA.objects.filter(
+                roll_number__roll_no=roll_number
+            ).order_by('date').values_list('date', 'status')
+     
+            dates = [entry[0] for entry in attendance_records]
+            statuses = [entry[1] for entry in attendance_records]
+ 
+            response_data.append({
+                "roll_number": roll_number,
+                "student_name": student_name,
+                "fathers_name": fathers_name,
+                "present_count": present_count,
+                "absent_count": absent_count,
+                "total_classes": total_classes,
+                "attendance_percentage": round(attendance_percentage, 2),
+                "dates": dates,          
+                "statuses": statuses      
+            })
 
+        return Response(response_data, status=status.HTTP_200_OK)
 
 
 

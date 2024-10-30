@@ -13,7 +13,7 @@ urlpatterns = [
     path('forensicmedandtc1/', ForensicMedAndTCListCreateView.as_view(), name='ForensicMedAndTC-list-create'),
     path('medicine1/', MedicineListCreateView.as_view(), name='Medicine-list-create'),
     path('surgery1/', SurgeryListCreateView.as_view(), name='Surgery-list-create'),
-    path('obsandgyn/', ObsAndGynListCreateView.as_view(), name='ObsAndGyn-list-create'),
+    path('obsandgyn1/', ObsAndGynListCreateView.as_view(), name='ObsAndGyn-list-create'),
     path('eca2/', ECAListCreateView.as_view(), name='ECA-list-create'),
 
 ]
