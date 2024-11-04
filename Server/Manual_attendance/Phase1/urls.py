@@ -9,7 +9,7 @@ urlpatterns = [
     path('anatomy/', AnatomyListCreateView.as_view(), name='anatomy-list-create'),
     path('physiology/', PhysicologyListCreateView.as_view(), name='physicology-list-create'),
     path('biochemistry/', BiochemistryListCreateView.as_view(), name='biochemistry-list-create'),
-    path('community-medicine/', CommunityMedicineListCreateView.as_view(), name='CommunityMedicine-list-create'),
-    path('foundation-course/', FoundationCourseListCreateView.as_view(), name='FoundationCourse-list-create'),
-    path('eca/', ECAListCreateView.as_view(), name='ECA-list-create'),
+    path('communitymedicine/', CommunityMedicineListCreateView.as_view(), name='CommunityMedicine-list-create'),
+    path('foundationcourse/', FoundationCourseListCreateView.as_view(), name='FoundationCourse-list-create'),
+    path('ecaI/', ECAListCreateView.as_view(), name='ECA-list-create'),
 ]
