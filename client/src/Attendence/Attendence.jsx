@@ -16,9 +16,9 @@ const Attendence = () => {
     ["Anatomy", "anatomy"],
     ["Physiology", "physiology"],
     ["Biochemistry", "biochemistry"],
-    ["Community-Medicine", "community-medicine"],
-    ["Foundation-Course", "foundation-course"],
-    ["ECA", "eca"],
+    ["Community-Medicine", "communitymedicine"],
+    ["Foundation-Course", "foundationcourse"],
+    ["ECA", "ecaI"],
   ];
   const phase2Subjects = [
     ["Community Medicine", "communitymedicine2"],
@@ -42,7 +42,7 @@ const Attendence = () => {
     ["Ophthalmology", "ophthalmology"],
     ["ENT", "ent"],
     ["Obs & Gyn", "obsandgyn2"],
-    ["ECA", "eca3"]
+    ["ECA", "ecaIII"]
   ];
   
   const phase4Subjects = [
