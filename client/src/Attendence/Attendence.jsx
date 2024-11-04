@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./Attendence.css";
-import Service from "../components/Service";
 import { toast } from 'react-toastify';
 import axiosInstance from "../axiosInstance";
 
@@ -10,14 +9,57 @@ const Attendence = () => {
   const [attendanceDate, setAttendanceDate] = useState('');
   const [timeSlot, setTimeSlot] = useState('');
   const [subject, setSubject] = useState('');
+  const [lectureType, setLectureType] = useState('');
 
-const phase1Subjects = ["Anatomy" ,"Physiology","Biochemistry","community-medicine", "Foundation-Course", "ECA"]
-const phase2Subjects = ["Community Medicine" ,"Pathology","Microbiology","Pharmacology", "Forensic Med & TC","Medicine","Surgery", "Obs & Gyn","ECA"]
-const phase3Subjects = ["Community Medicine" ,"Medicine","Surgery","Paediatrics", "Forensic Med & TC","Orthopaedics","Ophthalmology","ENT", "Obs & Gyn","ECA"]
-const phase4Subjects = ["Psychiatry" ,"Medicine","Surgery","Dermatology", "Radiology","Orthopaedics","Paediatrics","ENT", "Anaesthsiology","Ophthalmology","Obs & Gyn"]
 
+  const phase1Subjects = [
+    ["Anatomy", "anatomy"],
+    ["Physiology", "physiology"],
+    ["Biochemistry", "biochemistry"],
+    ["Community-Medicine", "community-medicine"],
+    ["Foundation-Course", "foundation-course"],
+    ["ECA", "eca"],
+  ];
+  const phase2Subjects = [
+    ["Community Medicine", "communitymedicine2"],
+    ["Pathology", "pathology"],
+    ["Microbiology", "microbiology"],
+    ["Pharmacology", "pharmacology"],
+    ["Forensic Med & TC", "forensicmedandtc1"],
+    ["Medicine", "medicine1"],
+    ["Surgery", "surgery1"],
+    ["Obs & Gyn", "obsandgyn1"],
+    ["ECA", "eca2"]
+  ];
+  
+  const phase3Subjects = [
+    ["Community Medicine", "communitymedicine3"],
+    ["Medicine", "medicine2"],
+    ["Surgery", "surgery2"],
+    ["Paediatrics", "paediatrics"],
+    ["Forensic Med & TC", "forensicmedandtc2"],
+    ["Orthopaedics", "orthopaedics"],
+    ["Ophthalmology", "ophthalmology"],
+    ["ENT", "ent"],
+    ["Obs & Gyn", "obsandgyn2"],
+    ["ECA", "eca3"]
+  ];
+  
+  const phase4Subjects = [
+    ["Psychiatry", "psychiatry"],
+    ["Medicine", "medicine3"],
+    ["Surgery", "surgery3"],
+    ["Dermatology", "dermatology"],
+    ["Radiology", "radiology"],
+    ["Orthopaedics", "orthopaedics2"],
+    ["Paediatrics", "paediatrics2"],
+    ["ENT", "ent2"],
+    ["Anaesthesiology", "anaesthsiology"],
+    ["Ophthalmology", "ophthalmology2"],
+    ["Obs & Gyn", "obsandgyn3"]
+  ];
+  
 const [filteredStudents, setFilteredStudents] = useState([]);
-const [allStudents, setAllStudents] = useState([]);
 const [availableSubjects, setAvailableSubjects] = useState([]);
 const [checkedStudents, setCheckedStudents] = useState([]);
 const [markAbsent, setMarkAbsent] = useState([]);
@@ -121,9 +163,10 @@ const formatAttendanceData = () => {
     return {
       roll_number : student.roll_no , // Using roll_no as student identifier
       date: attendanceDate || new Date().toISOString().split('T')[0], // Use selected date or today's date
-      status: status
+      status: status,
+      lectureType: lectureType 
     };
-  }).filter(attendance => attendance.status === "P" || attendance.status === "A"); // Only include marked students
+  }).filter(attendance => attendance.status === "P" || attendance.status === "A"); 
 
   return { attendance_list };
 };
@@ -214,7 +257,7 @@ const handleSubmit = async () => {
 
         <div className="flex flex-col items-center justify-center h-full">
             <label
-              htmlFor="class-section"
+              htmlFor="year-section"
               className="block mb-2 text-sm font-medium text-gray-500 dark:text-white ml-4"
             >
               Select Batch <span className="text-red-500">*</span>
@@ -284,7 +327,7 @@ const handleSubmit = async () => {
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
             <option value="" disabled>Select time slot</option>
-            <option value="09:00-10:00">08:00 AM - 09:00 AM</option>
+            <option value="08:00-09:00">08:00 AM - 09:00 AM</option>
             <option value="09:00-10:00">09:00 AM - 10:00 AM</option>
             <option value="10:00-11:00">10:00 AM - 11:00 AM</option>
             <option value="11:00-12:00">11:00 AM - 12:00 PM</option>
@@ -305,13 +348,13 @@ const handleSubmit = async () => {
             <select
               id="subject"
               value={subject}
-              onChange={(e) => setSubject(e.target.value.toLowerCase())}
+              onChange={(e) => setSubject(e.target.value)}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             >
               <option value="" disabled>Select subject</option>
               {availableSubjects.map((subj, index) => (
-                <option key={index} value={subj}>
-                  {subj}
+                <option key = {index} value = {subj[1]}>
+                  {subj[0]}
                 </option>
               ))}
             </select>
@@ -324,21 +367,21 @@ const handleSubmit = async () => {
             Select Lecture Type <span className="text-red-500">*</span>
           </label>
           <select
-            id="subject"
-            value={subject}
-            onChange={(e) => setSubject(e.target.value)}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            id="lecture-type"
+            value={lectureType}
+            onChange={(e) => setLectureType(e.target.value)}
+            className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-48 p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
             <option value="" disabled>Select Lecture Type</option>
             <option value="Lecture">Lecture</option>
             <option value="Practical">Practical</option>
-            <option value="Morning Posting">Morning Posting</option>
-            <option value="Family Adoption Programme">Family Adoption Programme</option>
-            <option value="Self Directed Learning">Self Directed Learning</option>
-            <option value="Small Gp Discussion">Small Gp Discussion</option>
+            <option value="Morning-Posting">Morning Posting</option>
+            <option value="Family-Adoption-Programme">Family Adoption Programme</option>
+            <option value="Self-Directed-Learning">Self Directed Learning</option>
+            <option value="Small-Gp-Discussion">Small Gp Discussion</option>
             <option value="AETCOM">AETCOM</option>
-            <option value="Pandemic Module">Pandemic Module</option>
-            <option value="Sports/Yoga & Extra Curricular Acititvies">Sports/ Yoga & Extra Curricular Acititvies</option>
+            <option value="Pandemic-Module">Pandemic Module</option>
+            <option value="Sports/Yoga&Extra-Curricular-Acititvies">Sports/ Yoga & Extra Curricular Acititvies</option>
             <option value="Electives">Electives</option>
  
           </select>
