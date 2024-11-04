@@ -86,7 +86,7 @@ class UploadFileView(APIView):
 
 # Community Medicine  Attendance logic
 
-class CommunityMedicineListCreateView(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
+class CommunityMedicineListCreateView2(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
     queryset = CommunityMedicine.objects.all()
     serializer_class = CommunityMedicineSerializer
 
@@ -499,7 +499,7 @@ class PharmacologyListCreateView(generics.GenericAPIView, mixins.ListModelMixin,
 
 # Forensic Med And TC Attendance logic
 
-class ForensicMedAndTCListCreateView(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
+class ForensicMedAndTCListCreateView1(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
     queryset = ForensicMedAndTC.objects.all()
     serializer_class = ForensicMedAndTCSerializer
 
@@ -603,7 +603,7 @@ class ForensicMedAndTCListCreateView(generics.GenericAPIView, mixins.ListModelMi
 
 # Medicine Attendance logic
 
-class MedicineListCreateView(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
+class MedicineListCreateView1(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
     queryset = Medicine.objects.all()
     serializer_class = MedicineSerializer
 
@@ -708,7 +708,7 @@ class MedicineListCreateView(generics.GenericAPIView, mixins.ListModelMixin, mix
 
 # Surgery Attendance logic
 
-class SurgeryListCreateView(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
+class SurgeryListCreateView1(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
     queryset = Surgery.objects.all()
     serializer_class = SurgerySerializer
 
@@ -813,7 +813,7 @@ class SurgeryListCreateView(generics.GenericAPIView, mixins.ListModelMixin, mixi
 
 # Obs And Gyn Attendance logic
 
-class ObsAndGynListCreateView(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
+class ObsAndGynListCreateView1(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
     queryset = ObsAndGyn.objects.all()
     serializer_class = ObsAndGynSerializer
 
@@ -917,7 +917,7 @@ class ObsAndGynListCreateView(generics.GenericAPIView, mixins.ListModelMixin, mi
 
 # ECA Attendance logic
 
-class ECAListCreateView(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
+class ECAListCreateView2(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
     queryset = ECA.objects.all()
     serializer_class = ECASerializer
 
