@@ -257,7 +257,7 @@ const handleSubmit = async () => {
 
         <div className="flex flex-col items-center justify-center h-full">
             <label
-              htmlFor="class-section"
+              htmlFor="year-section"
               className="block mb-2 text-sm font-medium text-gray-500 dark:text-white ml-4"
             >
               Select Batch <span className="text-red-500">*</span>
@@ -370,7 +370,7 @@ const handleSubmit = async () => {
             id="lecture-type"
             value={lectureType}
             onChange={(e) => setLectureType(e.target.value)}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-48 p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
             <option value="" disabled>Select Lecture Type</option>
             <option value="Lecture">Lecture</option>
