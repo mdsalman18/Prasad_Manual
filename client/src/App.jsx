@@ -20,7 +20,11 @@ import AdminPortal from "./Admin/adminportal";
 import NewEmp from "./Admin/newemp";
 import NewSub from "./Admin/newsub";
 import NewCSV from "./Admin/newCSV";
-import SidebarAdmin from "./Admin/SidebarAdmin";
+import Choi from './Attendence/choice';
+import Fatten from "./facialui/Attendance";
+import Facereg from "./facialui/facereg";
+import Presh from "./facialui/PresenceSheet";
+// import SidebarAdmin from "./Admin/SidebarAdmin";
 
 function App() {
   
@@ -36,6 +40,8 @@ function App() {
           <Route path="signup" element={<Signup/>} />
           <Route path='attendence' element={<Attendence/>}/>
           <Route path='admission' element={<Admission/>}/>
+          <Route path='attchoi' element={<Choi/>}/>
+
           
           <Route path='service' element={<ServiceAdmin/>}>
             <Route path='monthly' element={<Monthly/>}/>
@@ -44,14 +50,18 @@ function App() {
             <Route path='importcsv' element={<ImportCSV/>}/>
           </Route> 
 
-          <Route path='adminportal' element={<SidebarAdmin/>}>
-            <Route index element={<AdminPortal/>}/>
+          {/* <Route path='adminportal' element={<SidebarAdmin/>}> */}
+            <Route path='adminportal' element={<AdminPortal/>}/>
             <Route path='addnew' element={<AddNewBatch2/>}/>
             <Route path='newstu' element={<AddNewStudent/>}/>
             <Route path='newemp' element={<NewEmp/>}/>
             <Route path='newsub' element={<NewSub/>}/>
             <Route path='newcsv' element={<NewCSV/>}/>
-          </Route>
+          {/* </Route> */}
+
+          <Route path='fatten' element={<Fatten/>}/>
+          <Route path='face' element={<Facereg/>}/>
+          <Route path='sheet' element={<Presh/>}/>
 
         </Route>
           
