@@ -23,4 +23,5 @@ urlpatterns = [
     path('', include('Phase2.urls')),
     path('', include('Phase3_P1.urls')),
     path('', include('Phase3_P2.urls')),
+    path('', include('integration.urls')),
 ]

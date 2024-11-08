@@ -9,6 +9,7 @@ from rest_framework.exceptions import NotFound
 import io
 from rest_framework import mixins
 from django.db.models import Count, Case, When
+from rest_framework.permissions import AllowAny
 
 # List all students or create a new one
 class Phase1StudentListCreateView(generics.ListCreateAPIView):
@@ -689,3 +690,24 @@ class ECAListCreateView(generics.GenericAPIView, mixins.ListModelMixin, mixins.C
             })
 
         return Response(response_data, status=status.HTTP_200_OK)
+    
+
+
+
+# Code for Staff Signup and login 
+
+class SignupView(generics.CreateAPIView):
+    serializer_class = SignupSerializer
+    permission_classes = (AllowAny,)
+
+class LoginView(APIView):
+    permission_classes = (AllowAny,)
+
+    def post(self, request):
+        serializer = LoginSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.validated_data
+            # You can generate tokens or use Django's built-in token authentication here
+            return Response({"success": "Logged in successfully!","username": user.username }, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
