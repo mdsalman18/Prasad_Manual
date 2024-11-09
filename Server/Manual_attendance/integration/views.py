@@ -52,7 +52,7 @@ def mark_attendance(request):
             "Phase3_P2": (Phase3_P2Student, {
                 "Psychiatry": Psychiatry, "Medicine": Phase3P2Medicine, "Surgery": Phase3P2Surgery,
                 "Dermatology": Dermatology, "Radiology": Radiology, "Orthopaedics": Phase3P2Orthopaedics,
-                "Paediatrics": Phase3P2Paediatrics, "ENT": Phase3P2ENT, "Anaesthesiology": Anaesthsiology,
+                "Paediatrics": Phase3P2Paediatrics, "ENT": Phase3P2ENT, "Anaesthsiology": Anaesthsiology,
                 "Ophthalmology": Phase3P2Ophthalmology, "Obs & Gyn": Phase3P2ObsAndGyn
             })
         }
