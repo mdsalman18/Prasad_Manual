@@ -12,4 +12,6 @@ urlpatterns = [
     path('communitymedicine/', CommunityMedicineListCreateView.as_view(), name='CommunityMedicine-list-create'),
     path('foundationcourse/', FoundationCourseListCreateView.as_view(), name='FoundationCourse-list-create'),
     path('ecaI/', ECAListCreateView.as_view(), name='ECA-list-create'),
+    path('signup/', SignupView.as_view(), name='signup'),
+    path('login/', LoginView.as_view(), name='login'),
 ]

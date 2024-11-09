@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'Phase2',
     'Phase3_P1',
     'Phase3_P2',
+    'integration',
 
 ]
 
