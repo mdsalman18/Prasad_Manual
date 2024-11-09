@@ -66,12 +66,12 @@ function Login() {
             Login
           </button>
         </form>
-        <p className="text-sm font-light text-center text-gray-500 dark:text-gray-400">
+        {/* <p className="text-sm font-light text-center text-gray-500 dark:text-gray-400">
           Don’t have an account?{' '}
           <a href="/signup" className="font-medium text-blue-600 hover:underline dark:text-blue-500">
             Sign up
           </a>
-        </p>
+        </p> */}
       </div>
     </div>
   );

@@ -1,14 +1,14 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from './components/Login'
-import Service from './components/Service'
+// import Service from './components/Service'
 import Navbar from './components/Navbar'
 import Attendence from './Attendence/Attendence';
 import Signup from './components/Signup';
-import Home from './Attendence/Home';
+// import Home from './Attendence/Home';
 import Admission from './components/Admission';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
-import ViewDetail from "./Pages/Dean/ViewDetail";
+// import ViewDetail from "./Pages/Dean/ViewDetail";
 import ViewAttendance from "./Dean/ViewAttendence";
 import AddNewBatch from "./Dean/AddNewBatch";
 import ImportCSV from "./Dean/ImportCSV";
@@ -35,8 +35,8 @@ function App() {
      <BrowserRouter>
       <Routes>
         <Route path='/' element={<Navbar/>}>
-          <Route index element={<Home/>}/>
-          <Route path="login" element={<Login/>} />
+          {/* <Route index element={<Home/>}/> */}
+          <Route index element={<Login/>} />
           <Route path="signup" element={<Signup/>} />
           <Route path='attendence' element={<Attendence/>}/>
           <Route path='admission' element={<Admission/>}/>

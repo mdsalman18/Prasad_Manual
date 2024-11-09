@@ -29,7 +29,7 @@ const AdminPortal = () => {
           </Tooltip>
 
           <Tooltip title="Mark attendance using facial recognition" arrow>
-            <a href="/fatten">
+            <a href="http://127.0.0.1:8001/">
               <button className="w-full px-6 py-3 text-lg font-semibold text-gray-200 bg-gray-700 hover:bg-gray-600 rounded-lg shadow-md transition">
                 Facial Attendance
               </button>
