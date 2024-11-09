@@ -1,93 +1,121 @@
 import React from "react";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { BarChart, Newspaper, Book, Computer } from "lucide-react";
-import { Tooltip } from "@mui/material"; // Added Tooltip from MUI for interactivity
-
+import { Tooltip } from "@mui/material";
 
 const AdminPortal = () => {
   return (
     <div className="flex">
-      
-      <div className="flex-1 p-10 bg-gradient-to-br from-black to-gray-900 shadow-inner rounded-lg text-white">
-        
-  <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-  <div className="flex flex-col items-center justify-center p-6 bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900 rounded-lg shadow-lg hover:shadow-2xl transform hover:scale-105 transition-transform duration-300">
-    <div className="flex items-center justify-center text-yellow-500 mb-4">
-      <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="3" width="7" height="7" />
-        <rect x="14" y="3" width="7" height="7" />
-        <rect x="14" y="14" width="7" height="7" />
-        <rect x="3" y="14" width="7" height="7" />
-      </svg>
-    </div>
-    <h3 className="text-3xl font-bold text-white">Total Batches</h3>
-    <p className="text-5xl font-extrabold text-yellow-500">10</p>
-    <div className="w-full bg-gray-600 rounded-full h-2.5 mt-4">
-      <div className="bg-yellow-500 h-2.5 rounded-full" style={{ width: "10%" }}></div>
-    </div>
-  </div>
+      {/* Sidebar */}
+      <aside className="h-screen w-72 bg-gradient-to-br from-black to-gray-900 p-6 shadow-lg">
+        <div className="flex flex-col items-center">
+          <a href="/adminportal">
+          <h1 className="text-2xl font-bold uppercase text-transparent bg-clip-text bg-gradient-to-r from-gray-200 via-gray-400 to-gray-500 mt-2 animate-text">
+            Admin Portal
+          </h1>
+          </a>
+          <img
+            src=""
+            alt="photo"
+            className="w-20 h-20 rounded-full border-2 border-gray-500 shadow-lg mt-4"
+          />
+          <h1 className="mt-4 text-lg font-semibold text-white uppercase">
+            Admin Name
+          </h1>
+        </div>
 
-  {/* Total Students */}
-  <div className="flex flex-col items-center justify-center p-6 bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900 rounded-lg shadow-lg hover:shadow-2xl transform hover:scale-105 transition-transform duration-300">
-    <div className="flex items-center justify-center text-yellow-500 mb-4">
-      <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="7" r="4" />
-        <path d="M5.5 21v-2a6.5 6.5 0 0 1 13 0v2" />
-      </svg>
-    </div>
-    <h3 className="text-3xl font-bold text-white">Total Students</h3>
-    <p className="text-5xl font-extrabold text-yellow-500">250</p>
-    <div className="w-full bg-gray-600 rounded-full h-2.5 mt-4">
-      <div className="bg-yellow-500 h-2.5 rounded-full" style={{ width: "25%" }}></div>
-    </div>
-  </div>
+        <nav className="mt-8 space-y-4">
+          <Tooltip title="Add new batches for the upcoming semester" arrow>
+            <a
+              href="/addnew"
+              className="flex items-center px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-500 hover:text-white transform hover:scale-105 transition-all"
+            >
+              <BarChart className="h-5 w-5" />
+              <span className="ml-3 text-sm">Add New Batches</span>
+            </a>
+          </Tooltip>
 
-  {/* Total Teachers */}
-  <div className="flex flex-col items-center justify-center p-6 bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900 rounded-lg shadow-lg hover:shadow-2xl transform hover:scale-105 transition-transform duration-300">
-    <div className="flex items-center justify-center text-yellow-500 mb-4">
-      <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 20v-2a4 4 0 0 0-4-4H4a4 4 0 0 0-4 4v2" />
-        <circle cx="8" cy="7" r="4" />
-      </svg>
-    </div>
-    <h3 className="text-3xl font-bold text-white">Total Teachers</h3>
-    <p className="text-5xl font-extrabold text-yellow-500">15</p>
-    <div className="w-full bg-gray-600 rounded-full h-2.5 mt-4">
-      <div className="bg-yellow-500 h-2.5 rounded-full" style={{ width: "15%" }}></div>
-    </div>
-  </div>
+          <Tooltip title="Register a new student to the system" arrow>
+            <a
+              href="/newstu"
+              className="flex items-center px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-500 hover:text-white transform hover:scale-105 transition-all"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <circle cx="12" cy="7" r="4" />
+                <path d="M5.5 21v-2a6.5 6.5 0 0 1 13 0v2" />
+              </svg>
+              <span className="ml-3 text-sm">Add New Student</span>
+            </a>
+          </Tooltip>
 
-  {/* Total Subjects */}
-  <div className="flex flex-col items-center justify-center p-6 bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900 rounded-lg shadow-lg hover:shadow-2xl transform hover:scale-105 transition-transform duration-300">
-    <div className="flex items-center justify-center text-yellow-500 mb-4">
-      <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M21 16v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2" />
-        <circle cx="12" cy="6" r="4" />
-      </svg>
-    </div>
-    <h3 className="text-3xl font-bold text-white">Total Subjects</h3>
-    <p className="text-5xl font-extrabold text-yellow-500">5</p>
-    <div className="w-full bg-gray-600 rounded-full h-2.5 mt-4">
-      <div className="bg-yellow-500 h-2.5 rounded-full" style={{ width: "25%" }}></div>
-    </div>
-  </div>
+          <Tooltip title="Add new employees or professors" arrow>
+            <a
+              href="/newemp"
+              className="flex items-center px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-500 hover:text-white transform hover:scale-105 transition-all"
+            >
+              <Newspaper className="h-5 w-5" />
+              <span className="ml-3 text-sm">Add New Staff</span>
+            </a>
+          </Tooltip>
 
-  {/* Total Sessions */}
-  <div className="flex flex-col items-center justify-center p-6 bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900 rounded-lg shadow-lg hover:shadow-2xl transform hover:scale-105 transition-transform duration-300">
-    <div className="flex items-center justify-center text-yellow-500 mb-4">
-      <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-        <path d="M3 12h18M12 3v18" />
-      </svg>
-    </div>
-    <h3 className="text-3xl font-bold text-white">Total Sessions</h3>
-    <p className="text-5xl font-extrabold text-yellow-500">20</p>
-    <div className="w-full bg-gray-600 rounded-full h-2.5 mt-4">
-      <div className="bg-yellow-500 h-2.5 rounded-full" style={{ width: "40%" }}></div>
-    </div>
-  </div>
-</div>
+          {/* <Tooltip title="Add new subjects to the curriculum" arrow>
+            <a
+              href="/newsub"
+              className="flex items-center px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-500 hover:text-white transform hover:scale-105 transition-all"
+            >
+              <Book className="h-5 w-5" />
+              <span className="ml-3 text-sm">Add New Subjects</span>
+            </a>
+          </Tooltip>
 
+          <Tooltip title="Create and manage classes or sections" arrow>
+            <a
+              href="/adminportal"
+              className="flex items-center px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-500 hover:text-white transform hover:scale-105 transition-all"
+            >
+              <Computer className="h-5 w-5" />
+              <span className="ml-3 text-sm">Create Class/Sections</span>
+            </a>
+          </Tooltip> */}
+        </nav>
+      </aside>
+
+      {/* Main Content */}
+      <div className="flex-1 p-8 bg-gradient-to-br from-black to-gray-900 text-white">
+        <Outlet />
+
+        {/* KPI Section */}
+        <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* KPI Card Component */}
+          {[
+            { title: "Total Batches", value: 10, icon: <BarChart />, width: "10%" },
+            { title: "Total Students", value: 250, icon: <Computer />, width: "25%" },
+            { title: "Total Teachers", value: 15, icon: <Newspaper />, width: "15%" },
+            { title: "Total Subjects", value: 5, icon: <Book />, width: "25%" },
+            { title: "Total Sessions", value: 20, icon: <Computer />, width: "40%" },
+          ].map((kpi, index) => (
+            <div
+              key={index}
+              className="flex flex-col items-center p-6 bg-gradient-to-br from-gray-700 to-gray-800 rounded-lg shadow-lg transform hover:scale-105 transition-all"
+            >
+              <div className="text-gray-400 mb-4">{kpi.icon}</div>
+              <h3 className="text-2xl font-semibold">{kpi.title}</h3>
+              <p className="text-5xl font-bold text-gray-400 mt-2">{kpi.value}</p>
+              <div className="w-full bg-gray-600 rounded-full h-2 mt-4">
+                <div className="bg-white h-2 rounded-full" style={{ width: kpi.width }}></div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

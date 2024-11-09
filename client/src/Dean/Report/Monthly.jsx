@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axiosInstance from "../../axiosInstance";
+import { saveAs } from 'file-saver';
 
 const Monthly = () => {
   const [startMonth, setStartMonth] = useState("Jan-24");
@@ -238,6 +239,47 @@ const Monthly = () => {
     };
   };
 
+  const downloadCSV = () => {
+    // Headers for CSV
+    const headers = ['Roll No', 'Name', "Father's Name", ...visibleMonths(), 'Total Classes', 'Total Presence', 'Population %'];
+    
+    // Rows for CSV
+    const rows = students.map((student) => {
+        
+      // Calculate total presence and total classes for the selected period
+      const { totalPresent, totalClasses, attendancePercentage } = calculateAttendanceForPeriod(student);
+  
+      // Gather attendance data for each visible month
+      const attendanceData = visibleMonths().map(month => {
+        const monthKey = monthMapping[month];
+        return student.monthlyAttendance[monthKey] ? student.monthlyAttendance[monthKey].present : 0;
+      });
+  
+      // Add a row with rollNo and fathersName fields
+      return [
+        student.roll_number,    
+        student.student_name,
+        student.fathers_name,   
+        ...attendanceData,
+        totalClasses,
+        totalPresent,
+        `${attendancePercentage}%`
+      ];
+    });
+  
+    // Create CSV content
+    const csvContent = [
+      headers.join(','), 
+      ...rows.map(row => row.join(','))
+    ].join('\n');
+  
+    // Create a blob and trigger the download
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    saveAs(blob, 'attendance_report.csv');
+  };
+  
+  
+
   return (
     <div className="bg-black mb-6 min-h-screen">
       <div className="my-5">
@@ -432,7 +474,7 @@ const Monthly = () => {
                     Total Presence
                   </th>
                   <th className="border border-gray-300 text-left p-4 text-white">
-                    Proportion %
+                    Population %
                   </th>
                 </tr>
               </thead>
@@ -463,6 +505,14 @@ const Monthly = () => {
               </tbody>
             </table>
           </div>
+        </div>
+        <div className="flex justify-center my-5">
+          <button
+            onClick={downloadCSV}
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          >
+          Download Report
+          </button>
         </div>
       </div>
     </div>

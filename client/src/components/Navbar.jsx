@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Outlet, Link, NavLink } from "react-router-dom";
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -7,17 +8,32 @@ const Navbar = () => {
     setIsOpen(!isOpen);
   };
 
+  const handleScrollToAbout = () => {
+    const aboutSection = document.getElementById("about");
+    if (aboutSection) {
+      aboutSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+  const handleScrollToFooter = () => {
+    const Footer = document.getElementById("footer");
+    if (Footer) {
+      Footer.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+
   return (
-    <nav className=" sticky top-0 border-b bg-black border-gray-200 text-white dark:bg-gray-800 dark:border-gray-700">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="#" className="flex items-center">
-          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-            PIMS College
+    <div className=" border-b bg-black border-gray-200 text-white dark:bg-gray-800 dark:border-gray-700">
+      <nav className=" w-full bg-black opacity-100 flex flex-wrap items-center justify-between mx-auto p-4">
+        <a href="/" className="flex items-center">
+        <img src="/pimslogo.jpeg" alt="College Logo" className="h-8 mx-8" />
+          <span className="self-center text-3xl font-bold whitespace-nowrap dark:text-white">
+            PIMS
           </span>
         </a>
         <button
           onClick={toggleMenu}
-          className="inline-flex items-center p-4 px-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+          className="inline-flex items-center p-4  px-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
         >
           <i class="fa-solid fa-bars fa-2xl"></i>
         </button>
@@ -32,30 +48,21 @@ const Navbar = () => {
               </a>
             </li>
             <li>
-              <a
-                href="#"
+              <button
+                onClick={handleScrollToAbout}
                 className="hover:text-blue-600 text-white dark:hover:text-blue-500"
               >
                 About
-              </a>
+              </button>
             </li>
             
             <li>
-              <a
-                href="#"
+              <button
+                onClick={handleScrollToFooter}
                 className="hover:text-blue-600 text-white dark:hover:text-blue-500"
               >
                 Contact
-              </a>
-            </li>
-            
-            <li>
-              <a
-                href="#"
-                className="hover:text-blue-600 text-white dark:hover:text-blue-500"
-              >
-                Details
-              </a>
+              </button>
             </li>
             
           </ul>
@@ -68,25 +75,18 @@ const Navbar = () => {
         >
           <a
             href="login"
-            className="text-white  bg-blue-600 -translate-x-4 md:translate-x-0 translate-y-1 md:translate-y-0 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800"
+            className="text-white w-24  mx-8  bg-blue-600 -translate-x-4 md:translate-x-0 translate-y-1 md:translate-y-0 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800"
           >
            <Link to="login">
               Login
-              </Link>
+            </Link>
         
           </a>
 
-          <a
-            href="signup"
-            className="text-white ml-4 -translate-x-4 md:translate-x-0 translate-y-2 md:translate-y-0 bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800"
-          ><Link to="signup">
-          Sign Up
-          </Link>
-          </a>
         </div>
-      </div>
+      </nav>
       <Outlet />
-    </nav>
+    </div>
     
   );
 };

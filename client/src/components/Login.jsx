@@ -11,8 +11,8 @@ function Login() {
     e.preventDefault();
 
     // Check for different user credentials and navigate accordingly
-    if (email === 'anurag@gmail.com' && password === 'anurag123') {
-      navigate('/attendence');
+    if (email === 'staff@gmail.com' && password === 'staff123') {
+      navigate('/attchoi');
     } else if (email === 'dean@gmail.com' && password === 'dean123') {
       navigate('/service/monthly');
     } 
