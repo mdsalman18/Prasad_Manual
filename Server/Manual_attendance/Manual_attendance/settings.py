@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'Manual_attendance.Phase2',
     'Manual_attendance.Phase3_P1',
     'Manual_attendance.Phase3_P2',
-    'integration',
+    'Manual_attendance.integration',
 ]
 
 
