@@ -40,13 +40,13 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'import_export',
-    'Manual_attendance.Phase1',
-    'Manual_attendance.Phase2',
-    'Manual_attendance.Phase3_P1',
-    'Manual_attendance.Phase3_P2',
+    'Phase1',
+    'Phase2',
+    'Phase3_P1',
+    'Phase3_P2',
     'integration',
-
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
