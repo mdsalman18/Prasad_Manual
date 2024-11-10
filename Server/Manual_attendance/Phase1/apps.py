@@ -3,4 +3,4 @@ from django.apps import AppConfig
 
 class Phase1Config(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'Phase1'
+    name = 'Manual_attendance.Phase1'
