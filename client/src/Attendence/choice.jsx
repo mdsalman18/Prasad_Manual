@@ -27,7 +27,7 @@ const AdminPortal = () => {
               <button className="w-full px-6 py-3 text-lg font-semibold text-gray-200 bg-gray-700 hover:bg-gray-600 rounded-lg shadow-md transition">
                 Manual Attendance
               </button>
-            </a>
+            </Link>
           </Tooltip>
 
           <Tooltip title="Mark attendance using facial recognition" arrow>
