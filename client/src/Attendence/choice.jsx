@@ -43,6 +43,3 @@ const AdminPortal = () => {
 
 export default AdminPortal;
 
-};
-
-export default AdminPortal;
