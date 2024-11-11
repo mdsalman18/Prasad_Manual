@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet, NavLink } from "react-router-dom";
+import { Outlet, NavLink , Link } from "react-router-dom";
 import { BarChart, Newspaper, Book, Computer } from "lucide-react";
 import { Tooltip } from "@mui/material";
 
@@ -13,13 +13,13 @@ const SidebarAdmin = () => {
             Admin Portal
           </h1>
         </div>
-    <NavLink to="/adminportal">
+    <Link to="/adminportal">
         <img
           src=""
           alt="photo"
           className="w-16 h-16 rounded-full border-2 border-yellow-500 shadow-lg mx-auto"
         />
-    </NavLink>
+    </Link>
         <h1 className="mt-4 text-xl font-semibold text-white uppercase">
           Admin Name
         </h1>
@@ -28,16 +28,16 @@ const SidebarAdmin = () => {
           <nav className="space-y-7">
             <div className="space-y-3">
               <Tooltip title="Add new batches for the upcoming semester" arrow>
-                <NavLink
+                <Link
                   className="flex items-center rounded-lg px-3 py-2 text-gray-200 transition duration-300 hover:bg-yellow-500 hover:text-white transform hover:scale-105"
                   to="addnew"
                 >
                   <BarChart className="h-5 w-5" aria-hidden="true" />
                   <span className="mx-2 text-sm font-medium">Add New Batches</span>
-                </NavLink>
+                </Link>
               </Tooltip>
               <Tooltip title="Register a new student to the system" arrow>
-                <NavLink
+                <Link
                   className="flex items-center rounded-lg px-3 py-2 text-gray-200 transition duration-300 hover:bg-yellow-500 hover:text-white transform hover:scale-105"
                   to="/newstu"
                 >
@@ -57,34 +57,34 @@ const SidebarAdmin = () => {
                     <circle cx="12" cy="7" r="4" />
                   </svg>
                   <span className="mx-2 text-sm font-medium">Add New Student</span>
-                </NavLink>
+                </Link>
               </Tooltip>
               <Tooltip title="Add new employees or professors" arrow>
-                <NavLink
+                <Link
                   className="flex items-center rounded-lg px-3 py-2 text-gray-200 transition duration-300 hover:bg-yellow-500 hover:text-white transform hover:scale-105"
                   to="/newemp"
                 >
                   <Newspaper className="h-5 w-5" aria-hidden="true" />
                   <span className="mx-2 text-sm font-medium">Add New Employees/Staff</span>
-                </NavLink>
+                </Link>
               </Tooltip>
               <Tooltip title="Add new subjects to the curriculum" arrow>
-                <NavLink
+                <Link
                   className="flex items-center rounded-lg px-3 py-2 text-gray-200 transition duration-300 hover:bg-yellow-500 hover:text-white transform hover:scale-105"
                   to="/newsub"
                 >
                   <Book className="h-5 w-5" aria-hidden="true" />
                   <span className="mx-2 text-sm font-medium">Add New Subjects</span>
-                </NavLink>
+                </Link>
               </Tooltip>
               <Tooltip title="Create and manage classes or sections" arrow>
-                <NavLink
+                <Link
                   className="flex items-center rounded-lg px-3 py-2 text-gray-200 transition duration-300 hover:bg-yellow-500 hover:text-white transform hover:scale-105"
                   to="/newcsv"
                 >
                   <Computer className="h-5 w-5" aria-hidden="true" />
                   <span className="mx-2 text-sm font-medium">Upload CSV</span>
-                </NavLink>
+                </Link>
               </Tooltip>
             </div>
           </nav>
