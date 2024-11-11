@@ -1,6 +1,5 @@
 from django.urls import path
 
-from Phase1.views import *
 from Manual_attendance.Phase1.views import *
 
 
