@@ -3,10 +3,11 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
 from datetime import datetime
-from Phase1.models import Anatomy, Physicology, Biochemistry, CommunityMedicine, FoundationCourse, ECA, Phase1Student
-from Phase2.models import CommunityMedicine as Phase2CommunityMedicine, Pathology, Microbiology, Pharmacology, ForensicMedAndTC, Medicine as Phase2Medicine, Surgery as Phase2Surgery, ObsAndGyn, ECA as Phase2ECA, Phase2Student
-from Phase3_P1.models import CommunityMedicine as Phase3P1CommunityMedicine, Medicine as Phase3P1Medicine, Surgery as Phase3P1Surgery, Paediatrics, ForensicMedAndTC as Phase3P1ForensicMedAndTC, Orthopaedics, Ophthalmology, ENT, ObsAndGyn as Phase3P1ObsAndGyn, ECA as Phase3P1ECA, Phase3_P1Student
-from Phase3_P2.models import Psychiatry, Medicine as Phase3P2Medicine, Surgery as Phase3P2Surgery, Dermatology, Radiology, Orthopaedics as Phase3P2Orthopaedics, Paediatrics as Phase3P2Paediatrics, ENT as Phase3P2ENT, Anaesthsiology, Ophthalmology as Phase3P2Ophthalmology, ObsAndGyn as Phase3P2ObsAndGyn, Phase3_P2Student
+from Manual_attendance.Phase1.models import Anatomy, Physicology, Biochemistry, CommunityMedicine, FoundationCourse, ECA, Phase1Student
+from Manual_attendance.Phase2.models import CommunityMedicine as Phase2CommunityMedicine, Pathology, Microbiology, Pharmacology, ForensicMedAndTC, Medicine as Phase2Medicine, Surgery as Phase2Surgery, ObsAndGyn, ECA as Phase2ECA, Phase2Student
+from Manual_attendance.Phase3_P1.models import CommunityMedicine as Phase3P1CommunityMedicine, Medicine as Phase3P1Medicine, Surgery as Phase3P1Surgery, Paediatrics, ForensicMedAndTC as Phase3P1ForensicMedAndTC, Orthopaedics, Ophthalmology, ENT, ObsAndGyn as Phase3P1ObsAndGyn, ECA as Phase3P1ECA, Phase3_P1Student
+from Manual_attendance.Phase3_P2.models import Psychiatry, Medicine as Phase3P2Medicine, Surgery as Phase3P2Surgery, Dermatology, Radiology, Orthopaedics as Phase3P2Orthopaedics, Paediatrics as Phase3P2Paediatrics, ENT as Phase3P2ENT, Anaesthsiology, Ophthalmology as Phase3P2Ophthalmology, ObsAndGyn as Phase3P2ObsAndGyn, Phase3_P2Student
+
 
 @api_view(['POST'])
 def mark_attendance(request):
