@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-qkm@_9j@q+0_ln3s9(#(40xkq-tbm9!bi$o^_#u*puojo&9hs&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['prasad-manual-4.onrender.com']
+ALLOWED_HOSTS = ['prasad-manual-4.onrender.com','localhost']
 
 # Application definition
 
@@ -117,11 +117,14 @@ DATABASES = {
    
 }
 
-DATABASE_ROUTERS = ['Phase1.routers.Phase1DatabaseRouter',
-                    'Phase2.routers.Phase2DatabaseRouter',
-                    'Phase3_P1.routers.Phase3P1DatabaseRouter',
-                    'Phase3_P2.routers.Phase3P1DatabaseRouter',
-                    ]
+DATABASE_ROUTERS = [
+    'Manual_attendance.Phase1.routers.Phase1DatabaseRouter',
+    'Manual_attendance.Phase2.routers.Phase2DatabaseRouter',
+    'Manual_attendance.Phase3_P1.routers.Phase3P1DatabaseRouter',
+    'Manual_attendance.Phase3_P2.routers.Phase3P2DatabaseRouter',  # Correct reference for Phase3_P2
+]
+
+
 
 
 # Password validation

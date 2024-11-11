@@ -1,6 +1,6 @@
 from django.urls import path
 
-from Phase2.views import *
+from Manual_attendance.Phase2.views import *
 
 urlpatterns = [
     path('students2/', Phase2StudentListCreateView.as_view(), name='phase1-student-list-create'),
