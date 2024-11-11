@@ -9,13 +9,13 @@ const AdminPortal = () => {
         <h1 className="text-2xl font-bold uppercase text-transparent bg-clip-text bg-gradient-to-r from-gray-200 via-gray-400 to-gray-500 animate-text mb-6">
           Attendance Portal
         </h1>
-        <img
+        {/* <img
           src=""
           alt="photo"
           className="w-24 h-24 rounded-full border-2 border-gray-500 shadow-lg mx-auto mb-4"
-        />
+        /> */}
         <h2 className="text-lg font-semibold text-white uppercase mb-8">
-          Staff Name
+    
         </h2>
 
         {/* Buttons for Attendance Options */}
@@ -39,6 +39,10 @@ const AdminPortal = () => {
       </div>
     </div>
   );
+};
+
+export default AdminPortal;
+
 };
 
 export default AdminPortal;
