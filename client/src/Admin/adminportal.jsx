@@ -9,11 +9,11 @@ const AdminPortal = () => {
       {/* Sidebar */}
       <aside className="h-screen w-72 bg-gradient-to-br from-black to-gray-900 p-6 shadow-lg">
         <div className="flex flex-col items-center">
-          <a href="/adminportal">
-          <h1 className="text-2xl font-bold uppercase text-transparent bg-clip-text bg-gradient-to-r from-gray-200 via-gray-400 to-gray-500 mt-2 animate-text">
-            Admin Portal
-          </h1>
-          </a>
+          <NavLink to="/adminportal">
+            <h1 className="text-2xl font-bold uppercase text-transparent bg-clip-text bg-gradient-to-r from-gray-200 via-gray-400 to-gray-500 mt-2 animate-text">
+              Admin Portal
+            </h1>
+          </NavLink>
           <img
             src=""
             alt="photo"
@@ -26,18 +26,18 @@ const AdminPortal = () => {
 
         <nav className="mt-8 space-y-4">
           <Tooltip title="Add new batches for the upcoming semester" arrow>
-            <a
-              href="/addnew"
+            <NavLink
+              to="/addnew"
               className="flex items-center px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-500 hover:text-white transform hover:scale-105 transition-all"
             >
               <BarChart className="h-5 w-5" />
               <span className="ml-3 text-sm">Add New Batches</span>
-            </a>
+            </NavLink>
           </Tooltip>
 
           <Tooltip title="Register a new student to the system" arrow>
-            <a
-              href="/newstu"
+            <NavLink
+              to="/newstu"
               className="flex items-center px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-500 hover:text-white transform hover:scale-105 transition-all"
             >
               <svg
@@ -54,37 +54,38 @@ const AdminPortal = () => {
                 <path d="M5.5 21v-2a6.5 6.5 0 0 1 13 0v2" />
               </svg>
               <span className="ml-3 text-sm">Add New Student</span>
-            </a>
+            </NavLink>
           </Tooltip>
 
           <Tooltip title="Add new employees or professors" arrow>
-            <a
-              href="/newemp"
+            <NavLink
+              to="/newemp"
               className="flex items-center px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-500 hover:text-white transform hover:scale-105 transition-all"
             >
               <Newspaper className="h-5 w-5" />
               <span className="ml-3 text-sm">Add New Staff</span>
-            </a>
+            </NavLink>
           </Tooltip>
 
+          {/* Additional navigation links commented out */}
           {/* <Tooltip title="Add new subjects to the curriculum" arrow>
-            <a
-              href="/newsub"
+            <NavLink
+              to="/newsub"
               className="flex items-center px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-500 hover:text-white transform hover:scale-105 transition-all"
             >
               <Book className="h-5 w-5" />
               <span className="ml-3 text-sm">Add New Subjects</span>
-            </a>
+            </NavLink>
           </Tooltip>
 
           <Tooltip title="Create and manage classes or sections" arrow>
-            <a
-              href="/adminportal"
+            <NavLink
+              to="/adminportal"
               className="flex items-center px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-500 hover:text-white transform hover:scale-105 transition-all"
             >
               <Computer className="h-5 w-5" />
               <span className="ml-3 text-sm">Create Class/Sections</span>
-            </a>
+            </NavLink>
           </Tooltip> */}
         </nav>
       </aside>
