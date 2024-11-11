@@ -21,7 +21,7 @@ const AdminPortal = () => {
         {/* Buttons for Attendance Options */}
         <div className="flex flex-col gap-6">
           <Tooltip title="Mark attendance manually" arrow>
-            <a href="/attendence">
+            <a href="/Attendence">
               <button className="w-full px-6 py-3 text-lg font-semibold text-gray-200 bg-gray-700 hover:bg-gray-600 rounded-lg shadow-md transition">
                 Manual Attendance
               </button>
