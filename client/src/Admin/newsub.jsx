@@ -73,17 +73,17 @@ const NewSub = () => {
 
         <nav className="mt-8 space-y-4">
           <Tooltip title="Add new batches for the upcoming semester" arrow>
-            <a
+            <NavLink
               href="/addnew"
               className="flex items-center px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-500 hover:text-white transform hover:scale-105 transition-all"
             >
               <BarChart className="h-5 w-5" />
               <span className="ml-3 text-sm">Add New Batches</span>
-            </a>
+            </NavLink>
           </Tooltip>
 
           <Tooltip title="Register a new student to the system" arrow>
-            <a
+           <NavLink
               href="/newstu"
               className="flex items-center px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-500 hover:text-white transform hover:scale-105 transition-all"
             >
@@ -101,37 +101,37 @@ const NewSub = () => {
                 <path d="M5.5 21v-2a6.5 6.5 0 0 1 13 0v2" />
               </svg>
               <span className="ml-3 text-sm">Add New Student</span>
-            </a>
+            </NavLink>
           </Tooltip>
 
           <Tooltip title="Add new employees or professors" arrow>
-            <a
+            <NavLink
               href="/newemp"
               className="flex items-center px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-500 hover:text-white transform hover:scale-105 transition-all"
             >
               <Newspaper className="h-5 w-5" />
               <span className="ml-3 text-sm">Add New Staff</span>
-            </a>
+            </NavLink>
           </Tooltip>
 
           <Tooltip title="Add new subjects to the curriculum" arrow>
-            <a
+            <NavLink
               href="/newsub"
               className="flex items-center px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-500 hover:text-white transform hover:scale-105 transition-all"
             >
               <Book className="h-5 w-5" />
               <span className="ml-3 text-sm">Add New Subjects</span>
-            </a>
+            </NavLink>
           </Tooltip>
 
           <Tooltip title="Create and manage classes or sections" arrow>
-            <a
+            <NavLink
               href="/adminportal"
               className="flex items-center px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-500 hover:text-white transform hover:scale-105 transition-all"
             >
               <Computer className="h-5 w-5" />
               <span className="ml-3 text-sm">Create Class/Sections</span>
-            </a>
+            </NavLink>
           </Tooltip>
         </nav>
       </aside>
