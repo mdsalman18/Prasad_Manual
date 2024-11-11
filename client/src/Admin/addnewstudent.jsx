@@ -70,11 +70,11 @@ const AddNewStudent = () => {
     <div className="flex min-h-screen">
       <aside className="h-screen w-72 fixed bg-gradient-to-br from-black to-gray-900 p-6 shadow-lg">
         <div className="flex flex-col items-center">
-          <a href="/adminportal">
+          <NavLink to ="/adminportal">
           <h1 className="text-2xl font-bold uppercase text-transparent bg-clip-text bg-gradient-to-r from-gray-200 via-gray-400 to-gray-500 mt-2 animate-text">
             Admin Portal
           </h1>
-          </a>
+          </NavLink>
           <img
             src=""
             alt="photo"
@@ -87,18 +87,17 @@ const AddNewStudent = () => {
 
         <nav className="mt-8 space-y-4">
           <Tooltip title="Add new batches for the upcoming semester" arrow>
-            <a
-              href="/addnew"
+            
+            <NavLink to="/addnew"
               className="flex items-center px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-500 hover:text-white transform hover:scale-105 transition-all"
             >
               <BarChart className="h-5 w-5" />
               <span className="ml-3 text-sm">Add New Batches</span>
-            </a>
+            </NavLink>
           </Tooltip>
 
           <Tooltip title="Register a new student to the system" arrow>
-            <a
-              href="/newstu"
+            <NavLink to ="/newstu"
               className="flex items-center px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-500 hover:text-white transform hover:scale-105 transition-all"
             >
               <svg
@@ -115,17 +114,17 @@ const AddNewStudent = () => {
                 <path d="M5.5 21v-2a6.5 6.5 0 0 1 13 0v2" />
               </svg>
               <span className="ml-3 text-sm">Add New Student</span>
-            </a>
+            </NavLink>
           </Tooltip>
 
           <Tooltip title="Add new employees or professors" arrow>
-            <a
-              href="/newemp"
+            <NavLink
+              to ="/newemp"
               className="flex items-center px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-500 hover:text-white transform hover:scale-105 transition-all"
             >
               <Newspaper className="h-5 w-5" />
               <span className="ml-3 text-sm">Add New Staff</span>
-            </a>
+            </NavLink>
           </Tooltip>
 
           {/* <Tooltip title="Add new subjects to the curriculum" arrow>
@@ -283,12 +282,12 @@ const AddNewStudent = () => {
         OR
       </h2>
       <div className="flex flex-col justify-center items-center gap-2 mt-12">
-             <a href="/newcsv" className="w-24 h-24 outline outline-gray-200 rounded-lg transition-all duration-500 hover:bg-gray-300 flex flex-col justify-center items-center cursor-pointer shadow-md hover:shadow-xl">
+             <NavLink to="/newcsv" className="w-24 h-24 outline outline-gray-200 rounded-lg transition-all duration-500 hover:bg-gray-300 flex flex-col justify-center items-center cursor-pointer shadow-md hover:shadow-xl">
            
               <Upload className="h-10 w-10 text-gray-400" aria-hidden="true" />
              
           
-            </a>
+            </NavLink>
             <p className="text-gray-400 mt-2">Upload CSV file only</p>
           </div>
       </div>
