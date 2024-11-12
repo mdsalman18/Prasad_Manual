@@ -8,7 +8,7 @@ const ServiceAdmin = () => {
     <div className="flex h-screen">
       <aside className="w-64 bg-gradient-to-br from-black to-gray-900 p-6 shadow-lg">
         <div className="flex flex-col items-center">
-          <NavLink to="/service/monthly">
+          <NavLink to="monthly">
             <h1 className="text-2xl font-bold uppercase text-transparent bg-clip-text bg-gradient-to-r from-gray-200 via-gray-400 to-gray-500 mt-2">
               Dean Portal
             </h1>
@@ -26,7 +26,7 @@ const ServiceAdmin = () => {
         <nav className="mt-8 space-y-4">
           <Tooltip title="View attendance records" arrow>
             <NavLink
-              to="/service/viewattendance"
+              to="viewattendance"
               className="flex items-center px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-500 hover:text-white"
             >
               <BarChart className="h-5 w-5" />
@@ -35,7 +35,7 @@ const ServiceAdmin = () => {
           </Tooltip>
           <Tooltip title="Monthly Reports" arrow>
             <NavLink
-              to="/service/monthly"
+              to="monthly"
               className="flex items-center px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-500 hover:text-white"
             >
               <Newspaper className="h-5 w-5" />
