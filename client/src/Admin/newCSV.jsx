@@ -80,7 +80,7 @@ const NewCSV = () => {
     setTimeout(() => {
       setIsVisible(false);
       setIsError(false);
-      window.location.reload(); // Refresh the page
+      // window.location.reload(); // Refresh the page
     }, 5000);
   };
 
