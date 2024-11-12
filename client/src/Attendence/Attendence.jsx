@@ -250,7 +250,7 @@ const handleSubmit = async () => {
 
       {/* this is the start of selection things */}
       <div className='my-5'>
-        <h1 className="font-bold text-center mt-4 my-4 text-xl">Student Attendance</h1>
+        <h1 className="font-bold text-center mt-4 my-4 text-xl">Student Attendance Zoro</h1>
 
         
         <div className="flex flex-wrap lg:flex-nowrap justify-evenly gap-10">
