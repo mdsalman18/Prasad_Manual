@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet , NavLink  , Link} from "react-router-dom";
 import { BarChart, Newspaper, Book, Computer } from "lucide-react";
 import axiosInstance from "../axiosInstance";
 import { toast } from "react-toastify";
@@ -88,7 +88,7 @@ const NewCSV = () => {
     <div className="flex">
       <aside className="h-screen w-72 bg-gradient-to-br from-black to-gray-900 p-6 shadow-lg">
         <div className="flex flex-col items-center">
-          <NavLink href="/adminportal">
+          <NavLink to="/adminportal">
           <h1 className="text-2xl font-bold uppercase text-transparent bg-clip-text bg-gradient-to-r from-gray-200 via-gray-400 to-gray-500 mt-2 animate-text">
             Admin Portal
           </h1>
@@ -106,7 +106,7 @@ const NewCSV = () => {
         <nav className="mt-8 space-y-4">
           <Tooltip title="Add new batches for the upcoming semester" arrow>
             <NavLink
-              href="/addnew"
+              to="/addnew"
               className="flex items-center px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-500 hover:text-white transform hover:scale-105 transition-all"
             >
               <BarChart className="h-5 w-5" />
@@ -116,7 +116,7 @@ const NewCSV = () => {
 
           <Tooltip title="Register a new student to the system" arrow>
             <NavLink
-              href="/newstu"
+              to="/newstu"
               className="flex items-center px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-500 hover:text-white transform hover:scale-105 transition-all"
             >
               <svg
@@ -138,7 +138,7 @@ const NewCSV = () => {
 
           <Tooltip title="Add new employees or professors" arrow>
             <NavLink
-              href="/newemp"
+              to="/newemp"
               className="flex items-center px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-500 hover:text-white transform hover:scale-105 transition-all"
             >
               <Newspaper className="h-5 w-5" />
