@@ -93,38 +93,83 @@ WSGI_APPLICATION = 'Manual_attendance.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / "db.sqlite3",
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'attendance_default',
+        'USER': 'admin',
+        'PASSWORD': 'Salman20031804',
+        'HOST': 'manual-attendance.c3u6s0ggeu6m.eu-north-1.rds.amazonaws.com',
+        'PORT': '3306',
+        'OPTIONS': {
+            'ssl': {
+                'ca': r'D:\MO Internship\eu-north-1-bundle.pem',
+            },
+            'sql_mode': 'STRICT_TRANS_TABLES',  # Enable strict mode
+        },
     },
     'phase1': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / "phase1.sqlite3",  # New database file for Phase1
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'phase1_db',
+        'USER': 'admin',
+        'PASSWORD': 'Salman20031804',
+        'HOST': 'manual-attendance.c3u6s0ggeu6m.eu-north-1.rds.amazonaws.com',
+        'PORT': '3306',
+        'OPTIONS': {
+            'ssl': {
+                'ca': r'D:\MO Internship\eu-north-1-bundle.pem',
+            },
+            'sql_mode': 'STRICT_TRANS_TABLES',  # Enable strict mode
+        },
     },
-
     'phase2': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / "phase2.sqlite3",  # New database file for Phase2
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'phase2_db',
+        'USER': 'admin',
+        'PASSWORD': 'Salman20031804',
+        'HOST': 'manual-attendance.c3u6s0ggeu6m.eu-north-1.rds.amazonaws.com',
+        'PORT': '3306',
+        'OPTIONS': {
+            'ssl': {
+                'ca': r'D:\MO Internship\eu-north-1-bundle.pem',
+            },
+            'sql_mode': 'STRICT_TRANS_TABLES',  # Enable strict mode
+        },
     },
-    
     'phase3_p1': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / "phase3_p1.sqlite3",  # New database file for Phase3_P1
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'phase3_p1_db',
+        'USER': 'admin',
+        'PASSWORD': 'Salman20031804',
+        'HOST': 'manual-attendance.c3u6s0ggeu6m.eu-north-1.rds.amazonaws.com',
+        'PORT': '3306',
+        'OPTIONS': {
+            'ssl': {
+                'ca': r'D:\MO Internship\eu-north-1-bundle.pem',
+            },
+            'sql_mode': 'STRICT_TRANS_TABLES',  # Enable strict mode
+        },
     },
     'phase3_p2': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / "phase3_p2.sqlite3",  # New database file for Phase3_P2
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'phase3_p2_db',
+        'USER': 'admin',
+        'PASSWORD': 'Salman20031804',
+        'HOST': 'manual-attendance.c3u6s0ggeu6m.eu-north-1.rds.amazonaws.com',
+        'PORT': '3306',
+        'OPTIONS': {
+            'ssl': {
+                'ca': r'D:\MO Internship\eu-north-1-bundle.pem',
+            },
+            'sql_mode': 'STRICT_TRANS_TABLES',  # Enable strict mode
+        },
     },
-    
-   
 }
 
 DATABASE_ROUTERS = [
     'Manual_attendance.Phase1.routers.Phase1DatabaseRouter',
     'Manual_attendance.Phase2.routers.Phase2DatabaseRouter',
     'Manual_attendance.Phase3_P1.routers.Phase3P1DatabaseRouter',
-    'Manual_attendance.Phase3_P2.routers.Phase3P2DatabaseRouter',  # Correct reference for Phase3_P2
+    'Manual_attendance.Phase3_P2.routers.Phase3P2DatabaseRouter',
 ]
-
 
 
 
