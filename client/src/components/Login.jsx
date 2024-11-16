@@ -12,7 +12,7 @@ function Login() {
 
     // Check for different user credentials and navigate accordingly
     if (email === 'staff@gmail.com' && password === 'staff123') {
-      navigate('/attchoi');
+      navigate('/attendence');
     } else if (email === 'dean@gmail.com' && password === 'dean123') {
       navigate('/service/monthly');
     } 
