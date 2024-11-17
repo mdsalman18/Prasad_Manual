@@ -13,13 +13,13 @@ const SidebarAdmin = () => {
             Admin Portal
           </h1>
         </div>
-        <NavLink to="/adminportal">
-          <img
-            src=""
-            alt="photo"
-            className="w-16 h-16 rounded-full border-2 border-yellow-500 shadow-lg mx-auto"
-          />
-        </NavLink>
+    <NavLink to="/adminportal">
+        <img
+          src=""
+          alt="photo"
+          className="w-16 h-16 rounded-full border-2 border-yellow-500 shadow-lg mx-auto"
+        />
+    </NavLink>
         <h1 className="mt-4 text-xl font-semibold text-white uppercase">
           Admin Name
         </h1>
@@ -39,7 +39,7 @@ const SidebarAdmin = () => {
               <Tooltip title="Register a new student to the system" arrow>
                 <NavLink
                   className="flex items-center rounded-lg px-3 py-2 text-gray-200 transition duration-300 hover:bg-yellow-500 hover:text-white transform hover:scale-105"
-                  to="/newstu"
+                  to="newstu"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -62,7 +62,7 @@ const SidebarAdmin = () => {
               <Tooltip title="Add new employees or professors" arrow>
                 <NavLink
                   className="flex items-center rounded-lg px-3 py-2 text-gray-200 transition duration-300 hover:bg-yellow-500 hover:text-white transform hover:scale-105"
-                  to="/newemp"
+                  to="newemp"
                 >
                   <Newspaper className="h-5 w-5" aria-hidden="true" />
                   <span className="mx-2 text-sm font-medium">Add New Employees/Staff</span>
@@ -71,7 +71,7 @@ const SidebarAdmin = () => {
               <Tooltip title="Add new subjects to the curriculum" arrow>
                 <NavLink
                   className="flex items-center rounded-lg px-3 py-2 text-gray-200 transition duration-300 hover:bg-yellow-500 hover:text-white transform hover:scale-105"
-                  to="/newsub"
+                  to="newsub"
                 >
                   <Book className="h-5 w-5" aria-hidden="true" />
                   <span className="mx-2 text-sm font-medium">Add New Subjects</span>
@@ -80,7 +80,7 @@ const SidebarAdmin = () => {
               <Tooltip title="Create and manage classes or sections" arrow>
                 <NavLink
                   className="flex items-center rounded-lg px-3 py-2 text-gray-200 transition duration-300 hover:bg-yellow-500 hover:text-white transform hover:scale-105"
-                  to="/newcsv"
+                  to="newcsv"
                 >
                   <Computer className="h-5 w-5" aria-hidden="true" />
                   <span className="mx-2 text-sm font-medium">Upload CSV</span>
@@ -92,7 +92,7 @@ const SidebarAdmin = () => {
       </aside>
 
       {/* Main content */}
-      <main style={{ scrollbarWidth: "none" }} className="ml-64 w-full overflow-y-auto">
+      <main style={{scrollbarWidth: "none"}} className="ml-64 w-full overflow-y-auto">
         <Outlet />
       </main>
     </div>

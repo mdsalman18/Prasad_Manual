@@ -24,3 +24,34 @@
     background-color: green;
     color: aliceblue;
 }
+
+
+
+/* Hide scrollbar for all elements */
+::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge, and Firefox */
+  html {
+    scrollbar-width: none; /* Firefox */
+  }
+  body {
+    -ms-overflow-style: none; /* IE and Edge */
+  }
+
+  
+  /* Hide scrollbar for a specific container */
+.specific-container {
+    overflow: auto; /* Ensure scrolling still works */
+  }
+  
+  .specific-container::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .specific-container {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+  }
+  
