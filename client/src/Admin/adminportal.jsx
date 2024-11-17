@@ -69,7 +69,7 @@ const AdminPortal = () => {
                   <path d="M5.5 21v-2a6.5 6.5 0 0 1 13 0v2" />
                 </svg>
                 <span className="ml-3 text-sm">Add New Student</span>
-              </NavLink>
+             </NavLink>
             </Tooltip>
 
             <Tooltip title="Add new employees or professors" arrow>
