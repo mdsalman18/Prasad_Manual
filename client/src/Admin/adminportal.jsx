@@ -49,8 +49,8 @@ const AdminPortal = () => {
             </Tooltip>
 
             <Tooltip title="Register a new student to the system" arrow>
-              <a
-                href="/newstu"
+              <NavLink
+                to="/newstu"
                 className="flex items-center px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-500 hover:text-white transform hover:scale-105 transition-all"
               >
                 <svg
@@ -67,17 +67,17 @@ const AdminPortal = () => {
                   <path d="M5.5 21v-2a6.5 6.5 0 0 1 13 0v2" />
                 </svg>
                 <span className="ml-3 text-sm">Add New Student</span>
-              </a>
+              </NavLink>
             </Tooltip>
 
             <Tooltip title="Add new employees or professors" arrow>
-              <a
-                href="/newemp"
+              <NavLink
+                to="/newemp"
                 className="flex items-center px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-500 hover:text-white transform hover:scale-105 transition-all"
               >
                 <Newspaper className="h-5 w-5" />
                 <span className="ml-3 text-sm">Add New Staff</span>
-              </a>
+              </NavLink>
             </Tooltip>
           </nav>
         )}
