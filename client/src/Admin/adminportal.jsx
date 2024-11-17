@@ -38,7 +38,7 @@ const AdminPortal = () => {
           <nav className="mt-8 space-y-4">
             <Tooltip title="Add new batches for the upcoming semester" arrow>
               <a
-                href="/addnew"
+                onClick={() => window.location.href = '/addnew'} // Redirecting manually
                 className="flex items-center px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-500 hover:text-white transform hover:scale-105 transition-all"
               >
                 <BarChart className="h-5 w-5" />
