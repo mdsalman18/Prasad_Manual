@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const axiosInstance = axios.create({
   baseURL: 'https://prasad-manual-3.onrender.com', // Replace with your API base URL
-  timeout : 20000,
+  timeout : 40000,
   headers : {
     "Content-Type" : "application/json",
   }
