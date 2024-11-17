@@ -21,10 +21,11 @@ const Navbar = () => {
       footer.scrollIntoView({ behavior: "smooth" });
     }
   };
+  
 
   return (
-    <div className="border-b bg-black border-gray-200 text-white dark:bg-gray-800 dark:border-gray-700">
-      <nav className="w-full bg-black opacity-100 flex flex-wrap items-center justify-between mx-auto p-4">
+    <div className="border-b bg-black border-gray-200 text-white dark:bg-gray-800 dark:border-gray-400">
+      <nav className="w-100% bg-black opacity-100 flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="/" className="flex items-center transform transition-transform duration-300 hover:scale-110">
           <img src="/pimslogo.jpeg" alt="College Logo" className="h-8 mx-8" />
           <span className="self-center text-3xl font-bold whitespace-nowrap dark:text-white">

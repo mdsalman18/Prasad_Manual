@@ -226,6 +226,9 @@ const handleSubmit = async () => {
     })
       
       handleClearAll();
+      setTimeout(() => {
+        window.location.reload();
+      }, 4000); // 2 seconds delay for user experience
     }
  catch (error) {    
     console.error("Error submitting attendance:", error);
@@ -246,153 +249,156 @@ const handleSubmit = async () => {
 
   return (
 
-    <div className=" bg-black mb-6">
+    <div className="specific-container bg-gray">
 
       {/* this is the start of selection things */}
-      <div className='my-5'>
-        <h1 className="font-bold text-center mt-4 my-4 text-xl">Student Attendance</h1>
+      <div className="bg my-5">
+  <h1 className="font-bold text-center mt-4 my-4 text-xl">Student Attendance</h1>
 
-        
-        <div className="flex flex-wrap lg:flex-nowrap justify-evenly gap-10">
+  <div className="flex flex-wrap lg:flex-nowrap justify-evenly gap-10">
+    {/** Common Flex Container */}
+    <div className="flex flex-col items-start w-48 ml-5">
+      <label
+        htmlFor="year-section"
+        className="block mb-2 text-sm font-medium text-gray-500 dark:text-white"
+      >
+        Select Batch <span className="text-red-500">*</span>
+      </label>
+      <select
+        id="class-year"
+        value={year}
+        onChange={(e) => setYear(e.target.value)}
+        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      >
+        <option value="" disabled>Select class</option>
+        <option value="2020">2020</option>
+        <option value="2021 II">2021</option>
+        <option value="2022 III Part I">2022</option>
+        <option value="2023 III Part II">2023</option>
+      </select>
+    </div>
 
-        <div className="flex flex-col items-center justify-center h-full">
-            <label
-              htmlFor="year-section"
-              className="block mb-2 text-sm font-medium text-gray-500 dark:text-white ml-4"
-            >
-              Select Batch <span className="text-red-500">*</span>
-            </label>
-            <select
-              id="class-year"
-              value={year}
-              onChange={(e) => setYear(e.target.value)}
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-44 ml-8"
-            >
-              <option value="" disabled>Select class</option>
-              <option value="2020">2020</option>
-              <option value="2021 II">2021</option>
-              <option value="2022 III Part I">2022</option>
-              <option value="2023 III Part II">2023</option>
-            </select>
-          </div>
+    <div className="flex flex-col items-start w-48">
+      <label
+        htmlFor="class-section"
+        className="block mb-2 text-sm font-medium text-gray-500 dark:text-white"
+      >
+        Select Phase <span className="text-red-500">*</span>
+      </label>
+      <select
+        id="class-section"
+        value={classSection}
+        onChange={(e) => setClassSection(e.target.value)}
+        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      >
+        <option value="" disabled>Select Phase</option>
+        <option value="Phase I">MBBS Phase I</option>
+        <option value="Phase II">MBBS Phase II</option>
+        <option value="Phase III Part I">MBBS Phase III Part I</option>
+        <option value="Phase III Part II">MBBS Phase III Part II</option>
+      </select>
+    </div>
 
-          <div className="flex flex-col items-center justify-center h-full">
-            <label
-              htmlFor="class-section"
-              className="block mb-2 text-sm font-medium text-gray-500 dark:text-white ml-4"
-            >
-              Select Phase <span className="text-red-500">*</span>
-            </label>
-            <select
-              id="class-section"
-              value={classSection}
-              onChange={(e) => setClassSection(e.target.value)}
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-44 ml-8"
-            >
-              <option value="" disabled>Select Phase</option>
-              <option value="Phase I">MBBS Phase I</option>
-              <option value="Phase II">MBBS Phase II</option>
-              <option value="Phase III Part I">MBBS Phase III Part I</option>
-              <option value="Phase III Part II">MBBS Phase III Part II</option>
-            </select>
-          </div>
+    <div className="flex flex-col items-start w-48">
+      <label
+        htmlFor="attendance-date"
+        className="block mb-2 text-sm font-medium text-gray-500 dark:text-white"
+      >
+        Attendance Date <span className="text-red-500">*</span>
+      </label>
+      <input
+        type="date"
+        id="attendance-date"
+        value={attendanceDate}
+        onChange={(e) => setAttendanceDate(e.target.value)}
+        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      />
+    </div>
 
-        <div className="flex flex-col items-center justify-center h-full">
-          <label
-            htmlFor="attendance-date"
-            className="block mb-2 text-sm font-medium text-gray-500 dark:text-white ml-5"
-          >
-            Attendance Date <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="date"
-            id="attendance-date"
-            value={attendanceDate}
-            onChange={(e) => setAttendanceDate(e.target.value)}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ml-8"
-          />
-        </div>
+    <div className="flex flex-col items-start w-48">
+      <label
+        htmlFor="time-slot"
+        className="block mb-2 text-sm font-medium text-gray-500 dark:text-white"
+      >
+        Select Time Slot <span className="text-red-500">*</span>
+      </label>
+      <select
+        id="time-slot"
+        value={timeSlot}
+        onChange={(e) => setTimeSlot(e.target.value)}
+        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      >
+        <option value="" disabled>Select time slot</option>
+        <option value="08:00-09:00">08:00 AM - 09:00 AM</option>
+        <option value="09:00-10:00">09:00 AM - 10:00 AM</option>
+        <option value="10:00-11:00">10:00 AM - 11:00 AM</option>
+        <option value="11:00-12:00">11:00 AM - 12:00 PM</option>
+        <option value="12:00-13:00">12:00 PM - 01:00 PM</option>
+        <option value="13:00-14:00">01:00 PM - 02:00 PM</option>
+        <option value="14:00-15:00">02:00 PM - 04:00 PM</option>
+        <option value="16:00-17:00">04:00 PM - 05:00 PM</option>
+      </select>
+    </div>
 
-        <div className="flex flex-col items-center justify-center h-full">
-          <label
-            htmlFor="time-slot"
-            className="block mb-2 text-sm font-medium text-gray-500 dark:text-white ml-4"
-          >
-            Select Time Slot <span className="text-red-500">*</span>
-          </label>
-          <select
-            id="time-slot"
-            value={timeSlot}
-            onChange={(e) => setTimeSlot(e.target.value)}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          >
-            <option value="" disabled>Select time slot</option>
-            <option value="08:00-09:00">08:00 AM - 09:00 AM</option>
-            <option value="09:00-10:00">09:00 AM - 10:00 AM</option>
-            <option value="10:00-11:00">10:00 AM - 11:00 AM</option>
-            <option value="11:00-12:00">11:00 AM - 12:00 PM</option>
-            <option value="12:00-13:00">12:00 PM - 01:00 PM</option>
-            <option value="13:00-14:00">01:00 PM - 02:00 PM</option>
-            <option value="14:00-15:00">02:00 PM - 04:00 PM</option>
-            <option value="16:00-17:00">04:00 PM - 05:00 PM</option>
-          </select>
-        </div>
+    <div className="flex flex-col items-start w-48">
+      <label
+        htmlFor="subject"
+        className="block mb-2 text-sm font-medium text-gray-500 dark:text-white"
+      >
+        Select Subject <span className="text-red-500">*</span>
+      </label>
+      <select
+        id="subject"
+        value={subject}
+        onChange={(e) => setSubject(e.target.value)}
+        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      >
+        <option value="" disabled>Select subject</option>
+        {availableSubjects.map((subj, index) => (
+          <option key={index} value={subj[1]}>
+            {subj[0]}
+          </option>
+        ))}
+      </select>
+    </div>
 
-        <div className="flex flex-col items-center justify-center h-full">
-            <label
-              htmlFor="subject"
-              className="block mb-2 text-sm font-medium text-gray-500 dark:text-white ml-4"
-            >
-              Select Subject <span className="text-red-500">*</span>
-            </label>
-            <select
-              id="subject"
-              value={subject}
-              onChange={(e) => setSubject(e.target.value)}
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            >
-              <option value="" disabled>Select subject</option>
-              {availableSubjects.map((subj, index) => (
-                <option key = {index} value = {subj[1]}>
-                  {subj[0]}
-                </option>
-              ))}
-            </select>
-          </div>
-        <div className="flex flex-col items-center justify-center h-full">
-          <label
-            htmlFor="subject"
-            className="block mb-2 text-sm font-medium text-gray-500 dark:text-white ml-4"
-          >
-            Select Lecture Type <span className="text-red-500">*</span>
-          </label>
-          <select
-            id="lecture-type"
-            value={lectureType}
-            onChange={(e) => setLectureType(e.target.value)}
-            className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-48 p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          >
-            <option value="" disabled>Select Lecture Type</option>
-            <option value="Lecture">Lecture</option>
-            <option value="Practical">Practical</option>
-            <option value="Morning-Posting">Morning Posting</option>
-            <option value="Family-Adoption-Programme">Family Adoption Programme</option>
-            <option value="Self-Directed-Learning">Self Directed Learning</option>
-            <option value="Small-Gp-Discussion">Small Gp Discussion</option>
-            <option value="AETCOM">AETCOM</option>
-            <option value="Pandemic-Module">Pandemic Module</option>
-            <option value="Sports/Yoga&Extra-Curricular-Acititvies">Sports/ Yoga & Extra Curricular Acititvies</option>
-            <option value="Electives">Electives</option>
- 
-          </select>
-        </div>
-      </div>
+    <div className="flex flex-col items-start w-48 mr-5">
+      <label
+        htmlFor="lecture-type"
+        className="block mb-2 text-sm font-medium text-gray-500 dark:text-white"
+      >
+        Select Lecture Type <span className="text-red-500">*</span>
+      </label>
+      <select
+        id="lecture-type"
+        value={lectureType}
+        onChange={(e) => setLectureType(e.target.value)}
+        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      >
+        <option value="" disabled>Select Lecture Type</option>
+        <option value="Lecture">Lecture</option>
+        <option value="Practical">Practical</option>
+        <option value="Morning-Posting">Morning Posting</option>
+        <option value="Family-Adoption-Programme">Family Adoption Programme</option>
+        <option value="Self-Directed-Learning">Self Directed Learning</option>
+        <option value="Small-Gp-Discussion">Small Gp Discussion</option>
+        <option value="AETCOM">AETCOM</option>
+        <option value="Pandemic-Module">Pandemic Module</option>
+        <option value="Sports/Yoga&Extra-Curricular-Acititvies">
+          Sports/ Yoga & Extra Curricular Activities
+        </option>
+        <option value="Electives">Electives</option>
+      </select>
+    </div>
+  </div>
 
-      <div className="w-1/2 m-auto mt-5">
+
+
+      {/* <div className="w-1/2 m-auto mt-5">
         <button className=" px-4 py-2 bg-blue-600  text-black rounded border-2">
           Search
         </button>
-      </div>
+      </div> */}
       </div>
       {/* this is the end of selection things */}
 

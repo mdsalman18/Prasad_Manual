@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { Outlet , NavLink , Link } from "react-router-dom";
-import { BarChart, Newspaper, Book, Computer } from "lucide-react";
+import { Outlet } from "react-router-dom";
+import { BarChart, Newspaper, Book, Computer, Menu } from "lucide-react";
 import { Tooltip } from "@mui/material";
 
 
-
 const NewEmp = () => {
+
+  const [isSidebarVisible, setSidebarVisible] = useState(true);
+
   const [formData, setFormData] = useState({
     empname: "",
     jdate: "",
@@ -61,89 +63,86 @@ const NewEmp = () => {
 
   return (
     <div className="flex">
-      <aside className="h-screen fixed w-72 bg-gradient-to-br from-black to-gray-900 p-6 shadow-lg">
-        <div className="flex flex-col items-center">
-          <NavLink to="/adminportal">
-          <h1 className="text-2xl font-bold uppercase text-transparent bg-clip-text bg-gradient-to-r from-gray-200 via-gray-400 to-gray-500 mt-2 animate-text">
-            Admin Portal
-          </h1>
-          </NavLink>
-          <img
+      <aside
+        className={`transition-all duration-300 ${
+          isSidebarVisible ? "w-72" : "w-0"
+        } h-screen bg-gradient-to-br from-black to-gray-900 overflow-hidden shadow-lg`}
+      >
+        <div
+          className={`transition-opacity duration-300 ${
+            isSidebarVisible ? "opacity-100" : "opacity-0"
+          } flex flex-col items-center`}
+        >
+          <a href="/adminportal">
+            <h1 className="text-2xl font-bold uppercase text-transparent bg-clip-text bg-gradient-to-r from-gray-200 via-gray-400 to-gray-500 mt-2">
+              Admin Portal
+            </h1>
+          </a>
+          {/* <img
             src=""
             alt="photo"
             className="w-20 h-20 rounded-full border-2 border-gray-500 shadow-lg mt-4"
           />
           <h1 className="mt-4 text-lg font-semibold text-white uppercase">
             Admin Name
-          </h1>
+          </h1> */}
         </div>
 
-        <nav className="mt-8 space-y-4">
-          <Tooltip title="Add new batches for the upcoming semester" arrow>
-            <NavLink
-              to="/addnew"
-              className="flex items-center px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-500 hover:text-white transform hover:scale-105 transition-all"
-            >
-              <BarChart className="h-5 w-5" />
-              <span className="ml-3 text-sm">Add New Batches</span>
-            </NavLink>
-          </Tooltip>
-
-          <Tooltip title="Register a new student to the system" arrow>
-            <NavLink
-              to="/newstu"
-              className="flex items-center px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-500 hover:text-white transform hover:scale-105 transition-all"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+        {isSidebarVisible && (
+          <nav className="mt-8 space-y-4">
+            <Tooltip title="Add new batches for the upcoming semester" arrow>
+              <a
+                href="/addnew"
+                className="flex items-center px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-500 hover:text-white transform hover:scale-105 transition-all"
               >
-                <circle cx="12" cy="7" r="4" />
-                <path d="M5.5 21v-2a6.5 6.5 0 0 1 13 0v2" />
-              </svg>
-              <span className="ml-3 text-sm">Add New Student</span>
-            </NavLink>
-          </Tooltip>
+                <BarChart className="h-5 w-5" />
+                <span className="ml-3 text-sm">Add New Batches</span>
+              </a>
+            </Tooltip>
 
-          <Tooltip title="Add new employees or professors" arrow>
-            <NavLink
-              to="/newemp"
-              className="flex items-center px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-500 hover:text-white transform hover:scale-105 transition-all"
-            >
-              <Newspaper className="h-5 w-5" />
-              <span className="ml-3 text-sm">Add New Staff</span>
-            </NavLink>
-          </Tooltip>
+            <Tooltip title="Register a new student to the system" arrow>
+              <a
+                href="/newstu"
+                className="flex items-center px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-500 hover:text-white transform hover:scale-105 transition-all"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <circle cx="12" cy="7" r="4" />
+                  <path d="M5.5 21v-2a6.5 6.5 0 0 1 13 0v2" />
+                </svg>
+                <span className="ml-3 text-sm">Add New Student</span>
+              </a>
+            </Tooltip>
 
-          {/* <Tooltip title="Add new subjects to the curriculum" arrow>
-            <a
-              href="/newsub"
-              className="flex items-center px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-500 hover:text-white transform hover:scale-105 transition-all"
-            >
-              <Book className="h-5 w-5" />
-              <span className="ml-3 text-sm">Add New Subjects</span>
-            </a>
-          </Tooltip>
-
-          <Tooltip title="Create and manage classes or sections" arrow>
-            <a
-              href="/adminportal"
-              className="flex items-center px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-500 hover:text-white transform hover:scale-105 transition-all"
-            >
-              <Computer className="h-5 w-5" />
-              <span className="ml-3 text-sm">Create Class/Sections</span>
-            </a>
-          </Tooltip> */}
-        </nav>
+            <Tooltip title="Add new employees or professors" arrow>
+              <a
+                href="/newemp"
+                className="flex items-center px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-500 hover:text-white transform hover:scale-105 transition-all"
+              >
+                <Newspaper className="h-5 w-5" />
+                <span className="ml-3 text-sm">Add New Staff</span>
+              </a>
+            </Tooltip>
+          </nav>
+        )}
       </aside>
 
-      <div className="flex-1 ml-72 p-10 bg-gradient-to-br from-black to-gray-900 shadow-inner rounded-lg text-white">
+      <div className={`flex-1 transition-all duration-300 ${isSidebarVisible ? "pl-62" : "pl-0"} p-8 bg-gradient-to-br from-black to-gray-900 text-white`}>
+      <button
+          className="text-white bg-gray-700 px-4 py-2 rounded-full"
+          onClick={() => setSidebarVisible(!isSidebarVisible)}
+        >
+          <Menu className=""/>
+          {/* {isSidebarVisible ? "Hide Sidebar" : "Show Sidebar"} */}
+        </button>
         <Outlet />
         <div>
         <h2 className="mb-3 text-6xl font-bold leading-none tracking-tight text-center bg-clip-text text-transparent bg-gradient-to-r from-gray-500 via-gray-400 to-gray-300 animate-text">
