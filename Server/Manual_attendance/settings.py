@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-qkm@_9j@q+0_ln3s9(#(40xkq-tbm9!bi$o^_#u*puojo&9hs&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['prasad-manual-4.onrender.com','localhost','prasad-manual-3.onrender.com']
+ALLOWED_HOSTS = ['prasad-manual-4.onrender.com','localhost','prasad-manual-3.onrender.com','127.0.0.1']
 
 # Application definition
 
@@ -93,37 +93,15 @@ WSGI_APPLICATION = 'Manual_attendance.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / "db.sqlite3",
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'attendance_db_lxfo',  
+        'USER': 'attendance_db_lxfo_user',  
+        'PASSWORD': 'BsMg3QVqLp7TypVDfF6xE3Klk5E5JHWD',  
+        'HOST': 'dpg-cssatpjtq21c739uha1g-a.oregon-postgres.render.com',
+        'PORT': '5432',  
     },
-    'phase1': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / "phase1.sqlite3",  # New database file for Phase1
-    },
-
-    'phase2': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / "phase2.sqlite3",  # New database file for Phase2
-    },
-    
-    'phase3_p1': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / "phase3_p1.sqlite3",  # New database file for Phase3_P1
-    },
-    'phase3_p2': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / "phase3_p2.sqlite3",  # New database file for Phase3_P2
-    },
-    
-   
 }
 
-DATABASE_ROUTERS = [
-    'Manual_attendance.Phase1.routers.Phase1DatabaseRouter',
-    'Manual_attendance.Phase2.routers.Phase2DatabaseRouter',
-    'Manual_attendance.Phase3_P1.routers.Phase3P1DatabaseRouter',
-    'Manual_attendance.Phase3_P2.routers.Phase3P2DatabaseRouter',  # Correct reference for Phase3_P2
-]
 
 
 
