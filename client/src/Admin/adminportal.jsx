@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, NavLink } from "react-router-dom";
 import { BarChart, Newspaper, Book, Computer, Menu } from "lucide-react";
 import { Tooltip } from "@mui/material";
 import { useNavigate } from 'react-router-dom';
@@ -39,13 +39,13 @@ const AdminPortal = () => {
         {isSidebarVisible && (
           <nav className="mt-8 space-y-4">
             <Tooltip title="Add new batches for the upcoming semester" arrow>
-              <a
-                onClick={() => navigate('/addnew')} // Redirecting manually
+              <NavLink
+                to="/addnew"
                 className="flex items-center px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-500 hover:text-white transform hover:scale-105 transition-all"
               >
                 <BarChart className="h-5 w-5" />
                 <span className="ml-3 text-sm">Add New Batches</span>
-              </a>
+              </NavLink>
             </Tooltip>
 
             <Tooltip title="Register a new student to the system" arrow>
