@@ -708,6 +708,6 @@ class LoginView(APIView):
         if serializer.is_valid():
             user = serializer.validated_data
             # You can generate tokens or use Django's built-in token authentication here
-            return Response({"success": "Logged in successfully!","username": user.username }, status=status.HTTP_200_OK)
+            return Response({"success": "Logged in successfully!","username": user.username , "fullname" : f"{user.first_name} {user.last_name}" }, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     

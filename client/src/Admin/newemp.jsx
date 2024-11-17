@@ -2,6 +2,9 @@ import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import { BarChart, Newspaper, Book, Computer, Menu } from "lucide-react";
 import { Tooltip } from "@mui/material";
+import { toast as toastify} from 'react-toastify';
+
+import axiosInstance from "../axiosInstance";
 
 
 const NewEmp = () => {
@@ -9,11 +12,12 @@ const NewEmp = () => {
   const [isSidebarVisible, setSidebarVisible] = useState(true);
 
   const [formData, setFormData] = useState({
-    empname: "",
-    jdate: "",
+    first_name: "",
+    last_name: "",
     username: "",
-    emailid: "",
-    cpassword:"",
+    email: "",
+    password:"",
+    confirm_password:"",
   });
 
   const [successMessage, setSuccessMessage] = useState("");
@@ -27,22 +31,27 @@ const NewEmp = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
+    await axiosInstance.post('/signup/',{ first_name : formData.first_name , last_name : formData.last_name , username: formData.username , email : formData.email , password : formData.password , confirm_password : formData.confirm_password  })
+    .then(res => {
     // Set the success message
     setSuccessMessage("Entry has been recorded!");
-
-    // Optionally, you could log the form data
-    console.log("Form Data Submitted:", formData);
-
+    toastify.success('User Created Successfully')
+  })
+    .catch(e=>{
+      console.log(e);
+      toastify.error('An Error Occured')
+    })
     // Clear the form fields (optional)
     setFormData({
-      empname: "",
-    jdate: "",
-    username: "",
-    emailid: "",
-    cpassword:"",
+      first_name: "",
+      last_name: "",
+      username: "",
+      email: "",
+      password:"",
+      confirm_password:"",
     });
 
     // Show the success message
@@ -159,33 +168,36 @@ const NewEmp = () => {
                   className="block text-gray-700 text-sm font-bold mb-2"
                   htmlFor="text"
                 >
-                  Employee Name
+                  First Name
                 </label>
                 <input
                   type="text"
-                  name="empname"
-                  value={formData.empname}
+                  name="first_name"
+                  value={formData.first_name}
                   onChange={handleChange}
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  placeholder="Enter employee Name"
+                  placeholder="Enter employee First Name"
                 />
               </div>
 
-              <div className="mb-6">
+              <div className="mb-4">
                 <label
                   className="block text-gray-700 text-sm font-bold mb-2"
-                  htmlFor="date"
+                  htmlFor="text"
                 >
-                  Date of Joining
+                  Last Name
                 </label>
                 <input
-                  type="date"
-                  name="jdate"
-                  value={formData.jdate}
+                  type="text"
+                  name="last_name"
+                  value={formData.last_name}
                   onChange={handleChange}
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  placeholder="Enter employee Last Name"
                 />
               </div>
+
+              
 
               <div className="mb-6">
                 <label
@@ -200,6 +212,7 @@ const NewEmp = () => {
                   value={formData.username}
                   onChange={handleChange}
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  placeholder="Unique username"
                 />
                   
               </div>
@@ -212,10 +225,11 @@ const NewEmp = () => {
                 </label>
                 <input
                 type="email"
-                  name="emailid"
-                  value={formData.emailid}
+                  name="email"
+                  value={formData.email}
                   onChange={handleChange}
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  placeholder="Employee Email"
                 />
                   
               </div>
@@ -229,13 +243,31 @@ const NewEmp = () => {
                 </label>
                 <input
                 type="password"
-                  name="cpassword"
-                  value={formData.cpassword}
+                  name="password"
+                  value={formData.password}
                   onChange={handleChange}
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  placeholder="****"
                 />
-                  
               </div>
+
+              <div className="mb-6">
+                <label
+                  className="block text-gray-700 text-sm font-bold mb-2"
+                  htmlFor="password"
+                >
+                  Confirm Password
+                </label>
+                <input
+                type="password"
+                  name="confirm_password"
+                  value={formData.confirm_password}
+                  onChange={handleChange}
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  placeholder="****"
+                />
+              </div>
+
 
               <div className="flex items-center justify-between">
                 <button

@@ -68,14 +68,14 @@ class ECASerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username', 'email')
+        fields = ('id', 'username', 'email' , 'first_name' , 'last_name')
 
 class SignupSerializer(serializers.ModelSerializer):
     confirm_password = serializers.CharField(write_only=True)
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'password', 'confirm_password')
+        fields = ('username', 'email', 'password', 'confirm_password' , 'first_name' , 'last_name')
 
     def create(self, validated_data):
         if validated_data['password'] != validated_data.pop('confirm_password'):
