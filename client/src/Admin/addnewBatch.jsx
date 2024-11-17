@@ -76,11 +76,11 @@ const AddNewBatch2 = () => {
         >
           <NavLink 
             to="/adminportal"
-            >
+            ></NavLink>
             <h1 className="text-2xl font-bold uppercase text-transparent bg-clip-text bg-gradient-to-r from-gray-200 via-gray-400 to-gray-500 mt-2">
               Admin Portal
             </h1>
-         </NavLink>
+        </NavLink>
           {/* <img
             src=""
             alt="photo"
