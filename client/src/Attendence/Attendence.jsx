@@ -228,7 +228,7 @@ const handleSubmit = async () => {
       handleClearAll();
       setTimeout(() => {
         window.location.reload();
-      }, 4000); // 2 seconds delay for user experience
+      }, 20000); // 2 seconds delay for user experience
     }
  catch (error) {    
     console.error("Error submitting attendance:", error);
