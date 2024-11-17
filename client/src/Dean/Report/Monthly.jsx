@@ -3,8 +3,8 @@ import axiosInstance from "../../axiosInstance";
 import { saveAs } from 'file-saver';
 
 const Monthly = () => {
-  const [startMonth, setStartMonth] = useState("Jan-24");
-  const [endMonth, setEndMonth] = useState("Jan-24");
+  const [startDate, setStartDate] = useState("");
+const [endDate, setEndDate] = useState("");
   const [frequency, setFrequency] = useState("Monthly");
   const [selectedQuarter, setSelectedQuarter] = useState("");
   const [selectedHalf, setSelectedHalf] = useState("");
@@ -75,20 +75,20 @@ const Monthly = () => {
   }, [classSection]);
   
   
-  const monthLabels = [
-    "Jan-24",
-    "Feb-24",
-    "Mar-24",
-    "Apr-24",
-    "May-24",
-    "June-24",
-    "July-24",
-    "Aug-24",
-    "Sept-24",
-    "Oct-24",
-    "Nov-24",
-    "Dec-24",
-  ];
+  // const monthLabels = [
+  //   "Jan-24",
+  //   "Feb-24",
+  //   "Mar-24",
+  //   "Apr-24",
+  //   "May-24",
+  //   "June-24",
+  //   "July-24",
+  //   "Aug-24",
+  //   "Sept-24",
+  //   "Oct-24",
+  //   "Nov-24",
+  //   "Dec-24",
+  // ];
   const monthMapping = {
     "Jan-24": "2024-01", "Feb-24": "2024-02", "Mar-24": "2024-03",
     "Apr-24": "2024-04", "May-24": "2024-05", "June-24": "2024-06",
@@ -144,104 +144,93 @@ const Monthly = () => {
   
 
 
-  const getMonthIndex = (month) => monthLabels.indexOf(month);
+  // const getMonthIndex = (month) => monthLabels.indexOf(month);
 
-  const handleStartMonthChange = (e) => {
-    const selectedMonth = e.target.value;
-    setStartMonth(selectedMonth);
-    if (getMonthIndex(selectedMonth) > getMonthIndex(endMonth)) {
-      setEndMonth(selectedMonth);
-    }
-  };
+  // const handleStartMonthChange = (e) => {
+  //   const selectedMonth = e.target.value;
+  //   setStartMonth(selectedMonth);
+  //   if (getMonthIndex(selectedMonth) > getMonthIndex(endMonth)) {
+  //     setEndMonth(selectedMonth);
+  //   }
+  // };
 
-  const handleEndMonthChange = (e) => {
-    setEndMonth(e.target.value);
+  // const handleEndMonthChange = (e) => {
+  //   setEndMonth(e.target.value);
 
-  }
+  // }
 
   const handleFrequencyChange = (e) => {
     setFrequency(e.target.value);
     setSelectedQuarter("");
     setSelectedHalf("");
-    setEndMonth(startMonth);
+    // setEndMonth(startMonth);
   };
 
   const handleQuarterChange = (e) => {
     setSelectedQuarter(e.target.value);
-    setEndMonth(startMonth);
+    // setEndMonth(startMonth);
   };
 
   const handleHalfChange = (e) => {
     setSelectedHalf(e.target.value);
-    setEndMonth(startMonth);
+    // setEndMonth(startMonth);
   };
 
 
-  const visibleMonths = () => {
-    const startIndex = getMonthIndex(startMonth);
-    const endIndex = getMonthIndex(endMonth);
-    let monthsToDisplay = [];
-
-    if (frequency === "Monthly") {
-      return monthLabels.slice(startIndex, endIndex + 1);
-    } else if (frequency === "Quarterly" && selectedQuarter) {
-      const quarterStartMonths = {
-        1: [0, 1, 2], // Jan, Feb, Mar
-        2: [3, 4, 5], // Apr, May, Jun
-        3: [6, 7, 8], // Jul, Aug, Sept
-        4: [9, 10, 11], // Oct, Nov, Dec
-      };
-      quarterStartMonths[selectedQuarter].forEach((monthIndex) => {
-        if (monthIndex >= startIndex) {
-          monthsToDisplay.push(monthLabels[monthIndex]);
-        }
-      });
-    } else if (frequency === "Half-Yearly" && selectedHalf) {
-      const halfStartMonths = {
-        1: [0, 1, 2, 3, 4, 5], // First Half: Jan to Jun
-        2: [6, 7, 8, 9, 10, 11], // Second Half: Jul to Dec
-      };
-      halfStartMonths[selectedHalf].forEach((monthIndex) => {
-        if (monthIndex >= startIndex) {
-          monthsToDisplay.push(monthLabels[monthIndex]);
-        }
-      });
-    } else if (frequency === "Yearly") {
-      monthsToDisplay = monthLabels.slice(0, 12); // Display all 12 months
+  const visibleDates = () => {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+  
+    if (!startDate || !endDate) {
+      return [];
     }
-
-    return monthsToDisplay;
+  
+    return students.length > 0
+      ? Array.from(
+          new Set(
+            students.flatMap((student) =>
+              student.dates.filter((date) => {
+                const current = new Date(date);
+                return current >= start && current <= end;
+              })
+            )
+          )
+        ).sort((a, b) => new Date(a) - new Date(b))
+      : [];
   };
+  
 
 
   
   const calculateAttendanceForPeriod = (student) => {
-    const months = visibleMonths();
+    const dates = visibleDates();
     let totalPresent = 0;
     let totalClasses = 0;
-
-    months.forEach(month => {
-      const monthKey = monthMapping[month];
-      if (student.monthlyAttendance[monthKey]) {
-        totalPresent += student.monthlyAttendance[monthKey].present;
-        totalClasses += student.monthlyAttendance[monthKey].total;
+  
+    dates.forEach(date => {
+      const index = student.dates.indexOf(date);
+      if (index !== -1) {
+        const status = student.statuses[index];
+        if (status === "P") totalPresent++;
+        totalClasses++;
       }
     });
-
+  
     const attendancePercentage = totalClasses > 0
       ? ((totalPresent / totalClasses) * 100).toFixed(2)
       : 0;
-
+  
     return {
       totalPresent,
       totalClasses,
       attendancePercentage
     };
   };
+  
 
   const downloadCSV = () => {
     // Headers for CSV
-    const headers = ['Roll No', 'Name', "Father's Name", ...visibleMonths(), 'Total Classes', 'Total Presence', 'Population %'];
+    const headers = ['Roll No', 'Name', "Father's Name", ...visibleDates(), 'Total Classes', 'Total Presence', 'Population %'];
     
     // Rows for CSV
     const rows = students.map((student) => {
@@ -250,7 +239,7 @@ const Monthly = () => {
       const { totalPresent, totalClasses, attendancePercentage } = calculateAttendanceForPeriod(student);
   
       // Gather attendance data for each visible month
-      const attendanceData = visibleMonths().map(month => {
+      const attendanceData = visibleDates().map(month => {
         const monthKey = monthMapping[month];
         return student.monthlyAttendance[monthKey] ? student.monthlyAttendance[monthKey].present : 0;
       });
@@ -399,48 +388,37 @@ const Monthly = () => {
           {frequency === "Monthly" && (
             <>
               <div className="flex flex-col items-center justify-center h-full">
-                <label
-                  htmlFor="start-month"
-                  className="block mb-2 text-sm font-medium text-white ml-5"
-                >
-                  Starting Month <span className="text-red-500">*</span>
-                </label>
-                <select
-                  id="start-month"
-                  value={startMonth}
-                  onChange={handleStartMonthChange}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 ml-8"
-                >
-                  <option value="">Select Starting Month</option>
-                  {monthLabels.map((month, index) => (
-                    <option key={index} value={month}>
-                      {month}
-                    </option>
-                  ))}
-                </select>
-              </div>
+  <label
+    htmlFor="start-date"
+    className="block mb-2 text-sm font-medium text-white ml-5"
+  >
+    Starting Date <span className="text-red-500">*</span>
+  </label>
+  <input
+    type="date"
+    id="start-date"
+    value={startDate}
+    onChange={(e) => setStartDate(e.target.value)}
+    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 ml-8"
+  />
+</div>
 
-              <div className="flex flex-col items-center justify-center h-full">
-                <label
-                  htmlFor="end-month"
-                  className="block mb-2 text-sm font-medium text-white ml-5"
-                >
-                  Ending Month <span className="text-red-500">*</span>
-                </label>
-                <select
-                  id="end-month"
-                  value={endMonth}
-                  onChange={handleEndMonthChange}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 ml-8"
-                >
-                  <option value="">Select Ending Month</option>
-                  {monthLabels.map((month, index) => (
-                    <option key={index} value={month}>
-                      {month}
-                    </option>
-                  ))}
-                </select>
-              </div>
+<div className="flex flex-col items-center justify-center h-full">
+  <label
+    htmlFor="end-date"
+    className="block mb-2 text-sm font-medium text-white ml-5"
+  >
+    Ending Date <span className="text-red-500">*</span>
+  </label>
+  <input
+    type="date"
+    id="end-date"
+    value={endDate}
+    onChange={(e) => setEndDate(e.target.value)}
+    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 ml-8"
+  />
+</div>
+
             </>
           )}
         </div>
@@ -448,61 +426,62 @@ const Monthly = () => {
         <div className="ml-[4%]  flex justify-evenly overflow-x-auto border border-white mt-5">
           <div className="w-[1100px] ">
             <table className="min-w-full border-collapse border border-gray-400  mx-auto overflow-scroll">
-              <thead>
-                <tr className="bg-gray-700">
-                  <th className="border border-gray-300 text-left p-4 text-white">
-                    Roll No
-                  </th>
-                  <th className="border border-gray-300 text-left p-4 text-white">
-                    Student Name
-                  </th>
-                  <th className="border border-gray-300 text-left p-4 text-white">
-                    Father's Name
-                  </th>
-                  {visibleMonths().map((month, index) => (
-                    <th
-                      key={index}
-                      className="border border-gray-300 text-left p-4 text-white"
-                    >
-                      {month}
-                    </th>
-                  ))}
-                  <th className="border border-gray-300 text-left p-4 text-white">
-                    Total Classes
-                  </th>
-                  <th className="border border-gray-300 text-left p-4 text-white">
-                    Total Presence
-                  </th>
-                  <th className="border border-gray-300 text-left p-4 text-white">
-                    Population %
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {students.map((student, index) => {
-                  const { totalPresent, totalClasses, attendancePercentage } = calculateAttendanceForPeriod(student);
-                  
-                  return (
-                    <tr key={index} className={index % 2 === 0 ? "bg-gray-800" : "bg-gray-700"}>
-                      <td className="border border-gray-300 p-4 text-white">{student.roll_number}</td>
-                      <td className="border border-gray-300 p-4 text-white">{student.student_name}</td>
-                      <td className="border border-gray-300 p-4 text-white">{student.fathers_name}</td>
-                      {visibleMonths().map((month, monthIndex) => {
-                        const monthKey = monthMapping[month];
-                        const monthData = student.monthlyAttendance[monthKey];
-                        return (
-                          <td key={monthIndex} className="border border-gray-300 p-4 text-white">
-                            {monthData ? monthData.present : 0}
-                          </td>
-                        );
-                      })}
-                      <td className="border border-gray-300 p-4 text-white">{totalClasses}</td>
-                      <td className="border border-gray-300 p-4 text-white">{totalPresent}</td>
-                      <td className="border border-gray-300 p-4 text-white">{attendancePercentage}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
+            <thead>
+  <tr className="bg-gray-700">
+    <th className="border border-gray-300 text-left p-4 text-white">
+      Roll No
+    </th>
+    <th className="border border-gray-300 text-left p-4 text-white">
+      Student Name
+    </th>
+    <th className="border border-gray-300 text-left p-4 text-white">
+      Father's Name
+    </th>
+    {visibleDates().map((date, index) => (
+      <th
+        key={index}
+        className="border border-gray-300 text-left p-4 text-white"
+      >
+        {date}
+      </th>
+    ))}
+    <th className="border border-gray-300 text-left p-4 text-white">
+      Total Classes
+    </th>
+    <th className="border border-gray-300 text-left p-4 text-white">
+      Total Presence
+    </th>
+    <th className="border border-gray-300 text-left p-4 text-white">
+      Attendance %
+    </th>
+  </tr>
+</thead>
+<tbody>
+  {students.map((student, index) => {
+    const { totalPresent, totalClasses, attendancePercentage } = calculateAttendanceForPeriod(student);
+
+    return (
+      <tr key={index} className={index % 2 === 0 ? "bg-gray-800" : "bg-gray-700"}>
+        <td className="border border-gray-300 p-4 text-white">{student.roll_number}</td>
+        <td className="border border-gray-300 p-4 text-white">{student.student_name}</td>
+        <td className="border border-gray-300 p-4 text-white">{student.fathers_name}</td>
+        {visibleDates().map((date, dateIndex) => {
+          const index = student.dates.indexOf(date);
+          const status = index !== -1 ? student.statuses[index] : "0";
+          return (
+            <td key={dateIndex} className="border border-gray-300 p-4 text-white">
+              {status === "P" ? 1 : 0}
+            </td>
+          );
+        })}
+        <td className="border border-gray-300 p-4 text-white">{totalClasses}</td>
+        <td className="border border-gray-300 p-4 text-white">{totalPresent}</td>
+        <td className="border border-gray-300 p-4 text-white">{attendancePercentage}</td>
+      </tr>
+    );
+  })}
+</tbody>
+
             </table>
           </div>
         </div>
