@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, NavLink  } from "react-router-dom";
 import { Tooltip } from "@mui/material";
 import { BarChart, Newspaper, Menu } from "lucide-react";
 
@@ -18,11 +18,11 @@ const ServiceAdmin = () => {
             isSidebarVisible ? "opacity-100" : "opacity-0"
           } flex flex-col items-center`}
         >
-          <a href="/service/monthly">
+          <NavLink to="/service/monthly">
             <h1 className="text-2xl font-bold uppercase text-transparent bg-clip-text bg-gradient-to-r from-gray-200 via-gray-400 to-gray-500 mt-2">
               Dean Portal
             </h1>
-          </a>
+          </NavLink>
           {/* <img
             src=""
             alt="photo"
@@ -35,22 +35,22 @@ const ServiceAdmin = () => {
 
         <nav className="mt-8 space-y-4">
           <Tooltip title="View attendance records" arrow>
-            <a
-              href="/service/viewattendance"
+            <NavLink
+              to="/service/viewattendance"
               className="flex items-center px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-500 hover:text-white"
             >
               <BarChart className="h-5 w-5" />
               <span className="ml-3 text-sm">View Attendance</span>
-            </a>
+            </NavLink>
           </Tooltip>
           <Tooltip title="Monthly Reports" arrow>
-            <a
-              href="/service/monthly"
+            <NavLink
+              to="/service/monthly"
               className="flex items-center px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-500 hover:text-white"
             >
               <Newspaper className="h-5 w-5" />
               <span className="ml-3 text-sm">Monthly Report</span>
-            </a>
+            </NavLink>
           </Tooltip>
         </nav>
       </aside>

@@ -1,5 +1,5 @@
 import {useState} from "react";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, NavLink } from "react-router-dom";
 import { BarChart, Newspaper, Book, Computer, Menu } from "lucide-react";
 import { Tooltip } from "@mui/material";
 
