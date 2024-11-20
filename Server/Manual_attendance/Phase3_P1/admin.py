@@ -2,6 +2,7 @@ from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 from .models import *
 from django.contrib import admin
+from Manual_attendance.Phase1.admin import AttendanceBaseAdmin
 
 class Phase3_P1StudentResource(resources.ModelResource):
     class Meta:
@@ -16,88 +17,44 @@ class Phase3_P1StudentAdmin(ImportExportModelAdmin):
     search_fields = ('roll_no', 'name', 'email')
 
 
-
-# CommunityMedicine Admin Code
-
+# Registering other models with the optimized BaseModelAdmin
 @admin.register(CommunityMedicine)
-class CommunityMedicineAdmin(admin.ModelAdmin):
-    list_display = ('roll_number', 'student_name', 'date', 'status')
-    list_filter = ('roll_number','student_name', 'date', 'status')
-
-
-# Forensic Med & TC Admin Code
+class CommunityMedicineAdmin(AttendanceBaseAdmin):
+    pass
 
 @admin.register(ForensicMedAndTC)
-class ForensicMedAndTCAdmin(admin.ModelAdmin):
-    list_display = ('roll_number', 'student_name', 'date', 'status')
-    list_filter = ('roll_number','student_name', 'date', 'status')
-
-
-# Medicine Admin Code
+class ForensicMedAndTCAdmin(AttendanceBaseAdmin):
+    pass
 
 @admin.register(Medicine)
-class MedicineAdmin(admin.ModelAdmin):
-    list_display = ('roll_number', 'student_name', 'date', 'status')
-    list_filter = ('roll_number','student_name', 'date', 'status')
-
-
-
-# Surgery Admin Code
+class MedicineAdmin(AttendanceBaseAdmin):
+    pass
 
 @admin.register(Surgery)
-class SurgeryAdmin(admin.ModelAdmin):
-    list_display = ('roll_number', 'student_name', 'date', 'status')
-    list_filter = ('roll_number','student_name', 'date', 'status')
-
-
-# Paediatrics Admin Code
+class SurgeryAdmin(AttendanceBaseAdmin):
+    pass
 
 @admin.register(Paediatrics)
-class PaediatricsAdmin(admin.ModelAdmin):
-    list_display = ('roll_number', 'student_name', 'date', 'status')
-    list_filter = ('roll_number','student_name', 'date', 'status')
-
-
-# Orthopaedics Admin Code
+class PaediatricsAdmin(AttendanceBaseAdmin):
+    pass
 
 @admin.register(Orthopaedics)
-class OrthopaedicsAdmin(admin.ModelAdmin):
-    list_display = ('roll_number', 'student_name', 'date', 'status')
-    list_filter = ('roll_number','student_name', 'date', 'status')
-
-
-
-# Ophthalmology Admin Code
+class OrthopaedicsAdmin(AttendanceBaseAdmin):
+    pass
 
 @admin.register(Ophthalmology)
-class OphthalmologyAdmin(admin.ModelAdmin):
-    list_display = ('roll_number', 'student_name', 'date', 'status')
-    list_filter = ('roll_number','student_name', 'date', 'status')
-
-
-
-# ENT Admin Code
+class OphthalmologyAdmin(AttendanceBaseAdmin):
+    pass
 
 @admin.register(ENT)
-class ENTAdmin(admin.ModelAdmin):
-    list_display = ('roll_number', 'student_name', 'date', 'status')
-    list_filter = ('roll_number','student_name', 'date', 'status')
-
-
-
-
-# Obs & Gyn Admin Code
+class ENTAdmin(AttendanceBaseAdmin):
+    pass
 
 @admin.register(ObsAndGyn)
-class ObsAndGynAdmin(admin.ModelAdmin):
-    list_display = ('roll_number', 'student_name', 'date', 'status')
-    list_filter = ('roll_number','student_name', 'date', 'status')        
-
-
-
-# ECA Admin Code
+class ObsAndGynAdmin(AttendanceBaseAdmin):
+    pass
 
 @admin.register(ECA)
-class ECAAdmin(admin.ModelAdmin):
-    list_display = ('roll_number', 'student_name', 'date', 'status')
-    list_filter = ('roll_number','student_name', 'date', 'status')  
+class ECAAdmin(AttendanceBaseAdmin):
+    pass
+

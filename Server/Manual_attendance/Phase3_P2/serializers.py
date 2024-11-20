@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import *
+from Manual_attendance.Phase1.serializers import AttendanceBaseSerializer
 
 class Phase3_P2StudentSerializer(serializers.ModelSerializer):
     class Meta:
@@ -9,99 +10,67 @@ class Phase3_P2StudentSerializer(serializers.ModelSerializer):
 
 
 
-
-# Medicine  Serializer Code
-
-class MedicineSerializer(serializers.ModelSerializer):
-    class Meta:
+# Medicine Serializer Code
+class MedicineSerializer(AttendanceBaseSerializer):
+    class Meta(AttendanceBaseSerializer.Meta):
         model = Medicine
-        fields = ['roll_number', 'student_name', 'date', 'status']
 
 
-
-# Surgery  Serializer Code
-
-class SurgerySerializer(serializers.ModelSerializer):
-    class Meta:
+# Surgery Serializer Code
+class SurgerySerializer(AttendanceBaseSerializer):
+    class Meta(AttendanceBaseSerializer.Meta):
         model = Surgery
-        fields = ['roll_number', 'student_name', 'date', 'status']
-
 
 
 # Obs And Gyn Serializer Code
-
-class ObsAndGynSerializer(serializers.ModelSerializer):
-    class Meta:
+class ObsAndGynSerializer(AttendanceBaseSerializer):
+    class Meta(AttendanceBaseSerializer.Meta):
         model = ObsAndGyn
-        fields = ['roll_number', 'student_name', 'date', 'status']
 
 
 # Psychiatry Serializer Code
-class PsychiatrySerializer(serializers.ModelSerializer):
-    class Meta:
+class PsychiatrySerializer(AttendanceBaseSerializer):
+    class Meta(AttendanceBaseSerializer.Meta):
         model = Psychiatry
-        fields = ['roll_number', 'student_name', 'date', 'status']
-
 
 
 # Dermatology Serializer Code
-
-class DermatologySerializer(serializers.ModelSerializer):
-    class Meta:
+class DermatologySerializer(AttendanceBaseSerializer):
+    class Meta(AttendanceBaseSerializer.Meta):
         model = Dermatology
-        fields = ['roll_number', 'student_name', 'date', 'status']
-
 
 
 # Radiology Serializer Code
-
-class RadiologySerializer(serializers.ModelSerializer):
-    class Meta:
+class RadiologySerializer(AttendanceBaseSerializer):
+    class Meta(AttendanceBaseSerializer.Meta):
         model = Radiology
-        fields = ['roll_number', 'student_name', 'date', 'status']
-
 
 
 # Paediatrics Serializer Code
-
-class PaediatricsSerializer(serializers.ModelSerializer):
-    class Meta:
+class PaediatricsSerializer(AttendanceBaseSerializer):
+    class Meta(AttendanceBaseSerializer.Meta):
         model = Paediatrics
-        fields = ['roll_number', 'student_name', 'date', 'status']
-
 
 
 # Orthopaedics Serializer Code
-
-class OrthopaedicsSerializer(serializers.ModelSerializer):
-    class Meta:
+class OrthopaedicsSerializer(AttendanceBaseSerializer):
+    class Meta(AttendanceBaseSerializer.Meta):
         model = Orthopaedics
-        fields = ['roll_number', 'student_name', 'date', 'status']
-
 
 
 # ENT Serializer Code
-
-class ENTSerializer(serializers.ModelSerializer):
-    class Meta:
+class ENTSerializer(AttendanceBaseSerializer):
+    class Meta(AttendanceBaseSerializer.Meta):
         model = ENT
-        fields = ['roll_number', 'student_name', 'date', 'status']
 
 
 # Anaesthsiology Serializer Code
-
-class AnaesthsiologySerializer(serializers.ModelSerializer):
-    class Meta:
+class AnaesthsiologySerializer(AttendanceBaseSerializer):
+    class Meta(AttendanceBaseSerializer.Meta):
         model = Anaesthsiology
-        fields = ['roll_number', 'student_name', 'date', 'status']
 
 
-# Pharmacology Serializer Code
-
-class OphthalmologySerializer(serializers.ModelSerializer):
-    class Meta:
+# Ophthalmology Serializer Code
+class OphthalmologySerializer(AttendanceBaseSerializer):
+    class Meta(AttendanceBaseSerializer.Meta):
         model = Ophthalmology
-        fields = ['roll_number', 'student_name', 'date', 'status']
-
-
-

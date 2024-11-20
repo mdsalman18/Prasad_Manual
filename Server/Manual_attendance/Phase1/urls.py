@@ -14,4 +14,6 @@ urlpatterns = [
     path('ecaI/', ECAListCreateView.as_view(), name='ECA-list-create'),
     path('signup/', SignupView.as_view(), name='signup'),
     path('login/', LoginView.as_view(), name='login'),
+    path('attendance/', AttendanceListCreateView.as_view(), name='attendance-list-create'),
+    path('studentsall/', StudentRegistrationListCreateView.as_view(), name='student-registration-list-create')
 ]

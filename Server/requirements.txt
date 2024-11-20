@@ -93,5 +93,3 @@ xgboost==2.1.1
 zope.event==5.0
 zope.interface==7.0.3
 whitenoise==6.2.0
-psycopg2==2.9.10
-psycopg2-binary==2.9.10

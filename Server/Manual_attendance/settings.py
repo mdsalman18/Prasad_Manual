@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-qkm@_9j@q+0_ln3s9(#(40xkq-tbm9!bi$o^_#u*puojo&9hs&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['prasad-manual-4.onrender.com','localhost','prasad-manual-3.onrender.com']
+ALLOWED_HOSTS = ['prasad-manual-4.onrender.com','localhost','prasad-manual-3.onrender.com','127.0.0.1']
 
 # Application definition
 
@@ -91,7 +91,7 @@ WSGI_APPLICATION = 'Manual_attendance.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
+"""DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'attendance_db_lxfo',  
@@ -102,8 +102,13 @@ DATABASES = {
     },
 }
 
-
-
+"""
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',  # The database engine
+        'NAME': BASE_DIR / 'db.sqlite3',  # The path to the database file
+    }
+}
 
 
 # Password validation
