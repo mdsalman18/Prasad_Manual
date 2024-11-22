@@ -188,7 +188,7 @@ const NewCSV = () => {
               required
             >
               <option value="">-- Select Phase --</option>
-              <option value="Phase1">Phase I</option>
+              <option value="uploadCsv">Phase I</option>
               <option value="Phase2">Phase II</option>
               <option value="Phase3-P1">Phase III part I</option>
               <option value="Phase3-P2">Phase III part II</option>

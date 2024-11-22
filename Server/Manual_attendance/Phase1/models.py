@@ -15,8 +15,8 @@ class StudentRegistration(models.Model):
 
     def __str__(self):
         return f'{self.phase} - {self.name}'
-
-
+    
+        
 class Attendance(models.Model):
     DATE_CHOICES = [
         ('P', 'Present'),
@@ -32,7 +32,7 @@ class Attendance(models.Model):
     status = models.CharField(max_length=1, choices=DATE_CHOICES)
     
     class Meta:
-        unique_together = ('date', 'phase', 'roll_no', 'subject_name')
+        unique_together = ('date', 'phase', 'roll_no','time_slot')
 
     def save(self, *args, **kwargs):
         # Check if the student exists in StudentRegistration

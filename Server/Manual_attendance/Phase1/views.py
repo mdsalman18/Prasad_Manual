@@ -34,7 +34,7 @@ class AttendanceListCreateView(generics.GenericAPIView):
 
             try:
                 attendance_data = request.data.get('attendance_list', [])
-                
+
                 if not isinstance(attendance_data, list):
                     raise ParseError("Invalid format: 'attendance_list' must be an array.")
 
@@ -61,7 +61,7 @@ class AttendanceListCreateView(generics.GenericAPIView):
                 "status": status_value,
                 "subject_name": subject_name
             }]
-        
+
         if not attendance_data or not any(attendance_data[0].values()):
             return Response({"error": "No attendance data provided."}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -73,10 +73,8 @@ class AttendanceListCreateView(generics.GenericAPIView):
             phase = data.get('phase')
             date = data.get('date')
             time_slot = data.get('time_slot')
-            status_value = data.get('status')
-            subject_name = data.get('subject_name')
 
-            if not roll_number or not phase or not date or not time_slot or not status_value or not subject_name:
+            if not roll_number or not phase or not date or not time_slot or not subject_name:
                 response_data.append({
                     "error": "Missing required fields (roll_no, phase, date, time_slot, status, or subject_name)"
                 })
@@ -90,24 +88,65 @@ class AttendanceListCreateView(generics.GenericAPIView):
                 })
                 continue
 
-            existing_record = Attendance.objects.filter(roll_no=roll_number, phase=phase, date=date, subject_name=subject_name).first()
+            # Check if the combination of roll_no, phase, date, subject_name, and time_slot already exists
+            existing_record = Attendance.objects.filter(
+                roll_no=roll_number, 
+                phase=phase, 
+                date=date, 
+                time_slot=time_slot
+            ).first()
 
             if existing_record:
-                serializer = AttendanceSerializer(existing_record, data=data, partial=True)
+             # If the status is different, update it
+                if existing_record.status != status_value:
+                    existing_record.status = status_value
+                    existing_record.save()
+                    response_data.append({
+                        "roll_no": roll_number,
+                        "status": "updated",
+                        "data": {
+                            "roll_no": roll_number,
+                            "phase": phase,
+                            "date": date,
+                            "time_slot": time_slot,
+                            "status": status_value,
+                            "subject_name": subject_name
+                        }
+                    })
+                    success = True
+                else:
+                    # If the status is the same, raise an error for no change
+                    response_data.append({
+                        "error": f"Attendance record with the same time slot already exists for roll number {roll_number}, phase {phase}, date {date}, and subject {subject_name}."
+                    })
+                    continue
+                       
+            # Check if an attendance record already exists for the same combination excluding time_slot
+            existing_record_without_time_slot = Attendance.objects.filter(
+                roll_no=roll_number, 
+                phase=phase, 
+                date=date, 
+                subject_name=subject_name
+            ).first()
+
+            if existing_record_without_time_slot:
+                # If time_slot has changed, create a new entry instead of updating
+                serializer = AttendanceSerializer(data=data)
                 if serializer.is_valid():
                     try:
                         serializer.save()
                         response_data.append({
                             "roll_no": roll_number,
-                            "status": "updated",
+                            "status": "created",
                             "data": serializer.data
                         })
                         success = True
                     except IntegrityError:
-                        response_data.append({"error": "Failed to update attendance."})
+                        response_data.append({"error": "Attendance record could not be created."})
                 else:
                     response_data.append({"error": serializer.errors})
             else:
+                # If no existing record found, create a new one
                 serializer = AttendanceSerializer(data=data)
                 if serializer.is_valid():
                     try:
@@ -126,7 +165,7 @@ class AttendanceListCreateView(generics.GenericAPIView):
         return Response(
             response_data,
             status=status.HTTP_201_CREATED if success else status.HTTP_400_BAD_REQUEST
-        )
+    )
     def get(self, request, *args, **kwargs):
 
         students = StudentRegistration.objects.all()
@@ -172,6 +211,7 @@ class AttendanceListCreateView(generics.GenericAPIView):
                     "attendance_percentage": round(attendance_percentage, 2),
                     "dates": dates,
                     "statuses": statuses,
+                    "time_slots":time_slots,
                     "subject_names": subject_names,
                 })
 
