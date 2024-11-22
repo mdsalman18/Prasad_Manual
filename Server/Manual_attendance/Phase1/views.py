@@ -23,18 +23,13 @@ class AttendanceListCreateView(generics.GenericAPIView):
     queryset = Attendance.objects.all()
     serializer_class = AttendanceSerializer
 
-    def get_object(self, roll_number, phase, date):
-        try:
-            return Attendance.objects.get(roll_no=roll_number, phase=phase, date=date)
-        except Attendance.DoesNotExist:
-            return None
-
     def post(self, request, *args, **kwargs):
         if request.content_type == 'application/json':
-
             try:
+                # Extract the attendance list from the request data
                 attendance_data = request.data.get('attendance_list', [])
 
+                # Ensure attendance_data is a list
                 if not isinstance(attendance_data, list):
                     raise ParseError("Invalid format: 'attendance_list' must be an array.")
 
@@ -46,6 +41,7 @@ class AttendanceListCreateView(generics.GenericAPIView):
             except Exception as e:
                 return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
         else:
+            # Handle non-JSON requests here if necessary (as in the original code)
             roll_number = request.POST.get('roll_no')
             phase = request.POST.get('phase')
             date = request.POST.get('date')
@@ -62,24 +58,29 @@ class AttendanceListCreateView(generics.GenericAPIView):
                 "subject_name": subject_name
             }]
 
+        # Check if attendance data exists and contains the necessary fields
         if not attendance_data or not any(attendance_data[0].values()):
             return Response({"error": "No attendance data provided."}, status=status.HTTP_400_BAD_REQUEST)
 
         response_data = []
         success = False
 
+        # Iterate over each attendance record
         for data in attendance_data:
             roll_number = data.get('roll_no')
             phase = data.get('phase')
             date = data.get('date')
             time_slot = data.get('time_slot')
+            status_value = data.get('status')
+            subject_name = data.get('subject_name')
 
-            if not roll_number or not phase or not date or not time_slot or not subject_name:
+            if not roll_number or not phase or not date or not time_slot or not status_value or not subject_name:
                 response_data.append({
                     "error": "Missing required fields (roll_no, phase, date, time_slot, status, or subject_name)"
                 })
                 continue
 
+            # Check if student exists
             try:
                 student = StudentRegistration.objects.get(roll_no=roll_number, phase=phase)
             except StudentRegistration.DoesNotExist:
@@ -88,7 +89,7 @@ class AttendanceListCreateView(generics.GenericAPIView):
                 })
                 continue
 
-            # Check if the combination of roll_no, phase, date, subject_name, and time_slot already exists
+            # Check if the combination of roll_no, phase, date, time_slot already exists
             existing_record = Attendance.objects.filter(
                 roll_no=roll_number, 
                 phase=phase, 
@@ -97,21 +98,14 @@ class AttendanceListCreateView(generics.GenericAPIView):
             ).first()
 
             if existing_record:
-             # If the status is different, update it
+                # If the status is different, update it
                 if existing_record.status != status_value:
                     existing_record.status = status_value
                     existing_record.save()
                     response_data.append({
                         "roll_no": roll_number,
                         "status": "updated",
-                        "data": {
-                            "roll_no": roll_number,
-                            "phase": phase,
-                            "date": date,
-                            "time_slot": time_slot,
-                            "status": status_value,
-                            "subject_name": subject_name
-                        }
+                        "data": data
                     })
                     success = True
                 else:
@@ -120,7 +114,7 @@ class AttendanceListCreateView(generics.GenericAPIView):
                         "error": f"Attendance record with the same time slot already exists for roll number {roll_number}, phase {phase}, date {date}, and subject {subject_name}."
                     })
                     continue
-                       
+
             # Check if an attendance record already exists for the same combination excluding time_slot
             existing_record_without_time_slot = Attendance.objects.filter(
                 roll_no=roll_number, 
@@ -165,7 +159,7 @@ class AttendanceListCreateView(generics.GenericAPIView):
         return Response(
             response_data,
             status=status.HTTP_201_CREATED if success else status.HTTP_400_BAD_REQUEST
-    )
+        )
     def get(self, request, *args, **kwargs):
 
         students = StudentRegistration.objects.all()
