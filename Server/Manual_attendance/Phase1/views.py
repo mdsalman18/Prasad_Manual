@@ -10,7 +10,8 @@ from rest_framework.permissions import AllowAny
 from django.db import IntegrityError,transaction
 from rest_framework.exceptions import ParseError
 import re
-
+from datetime import datetime
+from rest_framework.exceptions import NotFound, ValidationError
 
 # Single student Registration code
 class StudentRegistrationListCreateView(generics.ListCreateAPIView):
@@ -18,7 +19,11 @@ class StudentRegistrationListCreateView(generics.ListCreateAPIView):
     serializer_class = StudentRegistrationSerializer
 
 
-# Code for marking the Attendance of the student 
+def convert_to_datetime(time_str):
+    return datetime.strptime(time_str, "%I:%M %p")
+
+# Attendance marking code
+
 class AttendanceListCreateView(generics.GenericAPIView):
     queryset = Attendance.objects.all()
     serializer_class = AttendanceSerializer
@@ -89,58 +94,35 @@ class AttendanceListCreateView(generics.GenericAPIView):
                 })
                 continue
 
-            # Check if the combination of roll_no, phase, date, time_slot already exists
-            existing_record = Attendance.objects.filter(
-                roll_no=roll_number, 
-                phase=phase, 
-                date=date, 
-                time_slot=time_slot
-            ).first()
+            # Convert the time_slot into a datetime object for easier comparison
+            try:
+                time_slot_start = convert_to_datetime(time_slot.split(" - ")[0])  # Assuming time slots are in "HH:mm AM - HH:mm AM" format
+                time_slot_end = convert_to_datetime(time_slot.split(" - ")[1])
+            except Exception as e:
+                response_data.append({
+                    "error": f"Invalid time slot format: {time_slot}. Expected format: 'HH:mm AM - HH:mm AM'."
+                })
+                continue
 
-            if existing_record:
-                # If the status is different, update it
-                if existing_record.status != status_value:
-                    existing_record.status = status_value
-                    existing_record.save()
+           
+            overlapping_record = Attendance.objects.filter(
+                roll_no=roll_number,
+                phase=phase,
+                date=date,
+            )
+
+            for record in overlapping_record:
+                existing_start = convert_to_datetime(record.time_slot.split(" - ")[0])
+                existing_end = convert_to_datetime(record.time_slot.split(" - ")[1])
+
+                # Check if the new time slot overlaps with the existing one
+                if not (time_slot_end <= existing_start or time_slot_start >= existing_end):
                     response_data.append({
-                        "roll_no": roll_number,
-                        "status": "updated",
-                        "data": data
+                        "error": f"Time slot {time_slot} overlaps with an existing record for roll number {roll_number}, phase {phase}, date {date}, and subject {subject_name}."
                     })
-                    success = True
-                else:
-                    # If the status is the same, raise an error for no change
-                    response_data.append({
-                        "error": f"Attendance record with the same time slot already exists for roll number {roll_number}, phase {phase}, date {date}, and subject {subject_name}."
-                    })
-                    continue
-
-            # Check if an attendance record already exists for the same combination excluding time_slot
-            existing_record_without_time_slot = Attendance.objects.filter(
-                roll_no=roll_number, 
-                phase=phase, 
-                date=date, 
-                subject_name=subject_name
-            ).first()
-
-            if existing_record_without_time_slot:
-                # If time_slot has changed, create a new entry instead of updating
-                serializer = AttendanceSerializer(data=data)
-                if serializer.is_valid():
-                    try:
-                        serializer.save()
-                        response_data.append({
-                            "roll_no": roll_number,
-                            "status": "created",
-                            "data": serializer.data
-                        })
-                        success = True
-                    except IntegrityError:
-                        response_data.append({"error": "Attendance record could not be created."})
-                else:
-                    response_data.append({"error": serializer.errors})
+                    break
             else:
-                # If no existing record found, create a new one
+                # If no overlap is found, create a new entry or update if necessary
                 serializer = AttendanceSerializer(data=data)
                 if serializer.is_valid():
                     try:
@@ -160,6 +142,8 @@ class AttendanceListCreateView(generics.GenericAPIView):
             response_data,
             status=status.HTTP_201_CREATED if success else status.HTTP_400_BAD_REQUEST
         )
+    
+
     def get(self, request, *args, **kwargs):
 
         students = StudentRegistration.objects.all()
@@ -199,6 +183,7 @@ class AttendanceListCreateView(generics.GenericAPIView):
                     "phase": student.phase,
                     "student_name": student.name,
                     "fathers_name": student.fathers_name,
+                    "father_mobile": student.father_mobile,
                     "present_count": present_count,
                     "absent_count": absent_count,
                     "total_classes": total_classes,
@@ -227,10 +212,9 @@ class UploadStudentRegistrationView(APIView):
         if file is None:
             return Response({"error": "No file was uploaded."}, status=status.HTTP_400_BAD_REQUEST)
 
-       
         if file.name.endswith('.csv'):
             try:
-               
+        
                 decoded_file = file.read().decode('utf-8')
                 io_string = io.StringIO(decoded_file)
                 df = pd.read_csv(io_string)
@@ -276,6 +260,75 @@ class UploadStudentRegistrationView(APIView):
         else:
             return Response({"error": "Invalid file format. Please upload a CSV file."}, status=status.HTTP_400_BAD_REQUEST)
 
+
+
+
+# Code for Performating CURD Opertion in On single student
+class StudentDetailView(APIView):
+    
+    def post(self, request):
+
+        phase = request.data.get('phase')
+        roll_no = request.data.get('roll_no')
+
+        if StudentRegistration.objects.filter(phase=phase, roll_no=roll_no).exists():
+            raise ValidationError("A student with this phase and roll number already exists.")
+        
+        # If not, create the new student
+        serializer = StudentRegistrationSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+   
+    def get(self, request, phase=None, roll_no=None):
+        if phase is None or roll_no is None:
+            # Fetch all students if no phase and roll_no are provided
+            students = StudentRegistration.objects.all()
+            serializer = StudentRegistrationSerializer(students, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        
+        try:
+            # If phase and roll_no are provided, fetch a specific student
+            student = StudentRegistration.objects.get(phase=phase, roll_no=roll_no)
+            serializer = StudentRegistrationSerializer(student)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except StudentRegistration.DoesNotExist:
+            return Response({"error": "Student not found"}, status=status.HTTP_404_NOT_FOUND)
+    
+    def put(self, request, phase, roll_no):
+        try:
+           
+            student = StudentRegistration.objects.get(phase=phase, roll_no=roll_no)
+
+            if 'phase' in request.data or 'roll_no' in request.data:
+                return Response({"error": "You cannot update phase or roll number."}, status=status.HTTP_400_BAD_REQUEST)
+
+            # Serialize the current student data with the incoming update data
+            serializer = StudentRegistrationSerializer(student, data=request.data, partial=True)  # partial=True allows partial updates
+
+            # Check if the serializer is valid
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+
+            # If validation fails, return the errors
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        except StudentRegistration.DoesNotExist:
+            # If student does not exist, return a 404 error
+            raise NotFound("Student not found")
+        
+
+    def delete(self, request, phase, roll_no):
+        try:
+            student = StudentRegistration.objects.get(phase=phase, roll_no=roll_no)
+            student.delete()
+            return Response({"message": "Student deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+        
+        except StudentRegistration.DoesNotExist:
+            return Response({"error": "Student not found"}, status=status.HTTP_404_NOT_FOUND)
 
 
 # Code for Staff Signup and login 
